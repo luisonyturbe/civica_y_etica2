@@ -1,0 +1,186 @@
+import React, { useState } from 'react';
+import { 
+  BookOpen, 
+  ShieldCheck, 
+  Users, 
+  Flag, 
+  ChevronRight,
+  GraduationCap
+} from 'lucide-react';
+
+const studyData = [
+  {
+    id: 'identidad',
+    title: 'Construyo mi identidad',
+    icon: <BookOpen className="w-5 h-5" />,
+    summary: [
+      "La identidad personal es el conjunto de rasgos que nos conforman como individuos y nos diferencian de los demás. Esta no se da de forma aislada, sino que se construye y reafirma a lo largo de la vida (especialmente en la adolescencia) dentro de un entorno social y en la convivencia con los demás.",
+      "Nuestra identidad se ve profundamente influenciada por nuestro género y los roles asociados a este, así como por los grupos a los que pertenecemos (familia, amigos, tribus urbanas). Además, las tradiciones, costumbres y símbolos de nuestra comunidad nos brindan un sentido de pertenencia y conexión con nuestra historia y cultura."
+    ],
+    keywords: [
+      { term: "Identidad personal", definition: "Conjunto de rasgos o características que nos conforman como individuos, nos hacen únicos y nos diferencian de los demás. Se reafirma en la convivencia." },
+      { term: "Género", definition: "Características sociales, culturales y psicológicas asociadas a las diferencias entre hombres y mujeres en una sociedad (es una construcción social y cultural)." },
+      { term: "Roles de género", definition: "Expectativas sociales y culturales sobre cómo deben comportarse las personas en función de su género. Históricamente han limitado potencialidades, pero se han ido modificando." },
+      { term: "Grupos de pertenencia", definition: "Grupos con los que nos identificamos y compartimos gustos, valores, creencias o estilos de vida (pueden ser elegidos o no, como la familia o grupos urbanos)." },
+      { term: "Tradiciones", definition: "Prácticas culturales que se heredan de una generación a otra, constituyendo una forma de vinculación familiar, comunitaria y social." },
+      { term: "Costumbres", definition: "Prácticas que por su repetición se consolidan como hábitos en una persona o grupo, regulando la vida comunitaria." },
+      { term: "Símbolos", definition: "Expresiones de las ideas de un pueblo (imágenes, objetos, rituales) que evocan valores, sentimientos y creencias, dando identidad y sentido." }
+    ]
+  },
+  {
+    id: 'salud',
+    title: 'Cuido y ejerzo mi derecho a la salud',
+    icon: <ShieldCheck className="w-5 h-5" />,
+    summary: [
+      "La adolescencia es una etapa de aprendizaje integral. Un desarrollo pleno implica poner en práctica valores y habilidades como la autoestima, el autocuidado, la asertividad y la autorregulación para hacer frente a situaciones que ponen en riesgo tu integridad, como el consumo de drogas.",
+      "El Estado y los adultos tienen la obligación de proteger y garantizar tu derecho a la salud integral (bienestar físico, mental y social). Fortalecer la autovaloración es clave, ya que la baja autoestima puede colocarte en situaciones de riesgo (manipulación, violencia o adicciones) al buscar aceptación social."
+    ],
+    keywords: [
+      { term: "Salud integral", definition: "Según la OMS, comprende el bienestar físico, mental y social de los individuos e implica condiciones adecuadas para vivir y desarrollarse, no solo la ausencia de enfermedad." },
+      { term: "Autoestima", definition: "Valoración de nuestras propias capacidades, potencialidades y de nosotros mismos. Se gesta en la familia y juega un papel importante en la salud integral." },
+      { term: "Autocuidado", definition: "Manifestación directa de la autoestima; implica valorarse lo suficiente como para cuidarse a uno mismo y buscar apoyo cuando se está incómodo o en riesgo." },
+      { term: "Asertividad", definition: "Habilidad para expresar pensamientos, emociones y defender ideas y derechos de forma honesta, sin ser agresivos, respetando a los otros y a uno mismo." },
+      { term: "Autorregulación", definition: "Capacidad que permite darnos cuenta de obstáculos y evitar acciones que posiblemente desemboquen en problemas, aunque sintamos un gran deseo de realizarlas." },
+      { term: "Adicción", definition: "Dependencia física, psicológica y emocional hacia una sustancia (como drogas, alcohol, tabaco), actividad o relación. Afecta física, moral y socialmente." },
+      { term: "Drogas (Duras y Blandas)", definition: "Sustancias legales o ilegales cuyo consumo constante genera dependencia. Las duras incluyen mariguana y hongos; las blandas cocaína, morfina y heroína." }
+    ]
+  },
+  {
+    id: 'comunidades',
+    title: 'Comunidades vulnerables',
+    icon: <Users className="w-5 h-5" />,
+    summary: [
+      "La dignidad humana es la condición fundamental que iguala a todas las personas y exige un trato justo y respetuoso para todos, garantizando autonomía, integridad e igualdad. Es el principio rector de los derechos humanos.",
+      "Lamentablemente, las estructuras sociales y económicas a menudo producen marginación y vulnerabilidad. Hay grupos de personas que, por su edad, género, situación económica o etnia, son excluidos y no tienen las mismas oportunidades, lo que impide el disfrute pleno de sus derechos y su desarrollo en la sociedad."
+    ],
+    keywords: [
+      { term: "Dignidad humana", definition: "Condición inherente e inalienable que sostiene que cada individuo, por ser humano, posee un valor que debe ser respetado, exigiendo un trato justo e igualitario." },
+      { term: "Marginación", definition: "Exclusión o relegación de personas o grupos a un estatus social, económico o político inferior, limitando su acceso a educación, salud, empleo y participación." },
+      { term: "Vulnerabilidad infantil", definition: "Condición de riesgo de niños, niñas y adolescentes debido a su dependencia de los adultos y su poca capacidad de autonomía para defender sus derechos." },
+      { term: "Vulnerabilidad de género", definition: "Situación que enfrentan las mujeres y personas de género diverso debido a desigualdades y discriminación que las exponen a violencia." },
+      { term: "Vulnerabilidad económica", definition: "Condición de personas en situación de pobreza o bajos ingresos que no tienen acceso a servicios básicos (salud, educación de calidad, vivienda adecuada)." },
+      { term: "Autonomía", definition: "Capacidad de cada persona de tomar decisiones libres y autónomas sobre su propia vida (libertad de pensamiento, conciencia y expresión)." },
+      { term: "Integridad", definition: "Derecho a que se respete el estado físico y psicológico de cada individuo, prohibiendo tratos inhumanos, degradantes y la tortura." }
+    ]
+  },
+  {
+    id: 'movimientos',
+    title: 'Movimientos sociales',
+    icon: <Flag className="w-5 h-5" />,
+    summary: [
+      "Los derechos humanos son reconocimientos inherentes a todas las personas, garantizados por el Estado. Cuando estos derechos son violentados (ya sea por acción, omisión o aquiescencia de las autoridades), o cuando la justicia social no se respeta, la sociedad reacciona.",
+      "A lo largo de la historia, especialmente en América Latina y México frente a gobiernos autoritarios, los ciudadanos se han organizado en movimientos sociales y políticos. Estos buscan visibilizar injusticias, exigir derechos, mejorar las condiciones de vida colectivas y lograr una mayor participación democrática."
+    ],
+    keywords: [
+      { term: "Derechos humanos", definition: "Reconocimientos jurídicos, éticos y morales inherentes a toda persona por existir. Son universales, indivisibles, inalienables y el Estado debe garantizarlos." },
+      { term: "Violación por acción", definition: "Ataque a la dignidad humana generado directamente por agentes del Estado (detenciones arbitrarias, desapariciones forzadas, tortura)." },
+      { term: "Violación por omisión", definition: "Ocurre cuando los poderes de gobierno muestran indiferencia y no actúan ante situaciones que vulneran la dignidad y derechos de las personas." },
+      { term: "Violación por aquiescencia", definition: "Sucede cuando el Estado da su consentimiento o permite agresiones y abusos por parte de terceros (como grupos paramilitares)." },
+      { term: "Movimientos sociales", definition: "Acciones colectivas de participación ciudadana que expresan inconformidad ante un gobierno y se movilizan para exigir el fin de injusticias y mejoras para la sociedad." },
+      { term: "Movimientos políticos", definition: "Grupos con afinidad de intereses que se constituyen con el fin primordial de alcanzar el poder político y tener mayor participación en la toma de decisiones." },
+      { term: "Gobiernos autoritarios", definition: "Regímenes que reprimen y sancionan a los opositores, evitan sus expresiones en público y concentran el poder sin respeto a las libertades civiles." }
+    ]
+  }
+];
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState(studyData[0].id);
+
+  const activeContent = studyData.find(item => item.id === activeTab);
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
+      {/* Navbar Superior */}
+      <header className="bg-indigo-700 text-white shadow-md sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-3">
+          <GraduationCap className="w-8 h-8 text-indigo-200" />
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight">
+            Guía de Estudio: Formación Cívica y Ética 2°
+          </h1>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+        
+        {/* Sidebar de Navegación */}
+        <aside className="w-full md:w-80 flex-shrink-0">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden sticky top-24">
+            <div className="p-4 bg-slate-100 border-b border-slate-200 font-semibold text-slate-600 uppercase text-sm tracking-wider">
+              Temario
+            </div>
+            <nav className="flex flex-col">
+              {studyData.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center justify-between w-full text-left px-5 py-4 transition-colors duration-200 border-b border-slate-100 last:border-b-0
+                    ${activeTab === tab.id 
+                      ? 'bg-indigo-50 text-indigo-700 border-l-4 border-l-indigo-600 font-medium' 
+                      : 'hover:bg-slate-50 text-slate-600 hover:text-indigo-600 border-l-4 border-l-transparent'
+                    }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`${activeTab === tab.id ? 'text-indigo-600' : 'text-slate-400'}`}>
+                      {tab.icon}
+                    </span>
+                    <span>{tab.title}</span>
+                  </div>
+                  {activeTab === tab.id && <ChevronRight className="w-4 h-4 text-indigo-600" />}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </aside>
+
+        {/* Contenido Principal */}
+        <main className="flex-1 min-w-0">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+              <div className="p-3 bg-indigo-100 text-indigo-700 rounded-lg">
+                {activeContent.icon}
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
+                {activeContent.title}
+              </h2>
+            </div>
+
+            {/* Sección: Resumen */}
+            <section className="mb-10">
+              <h3 className="text-lg font-semibold text-indigo-700 mb-4 flex items-center gap-2">
+                Información más importante
+              </h3>
+              <div className="bg-indigo-50/50 rounded-lg p-5 border border-indigo-100 text-slate-700 space-y-4 leading-relaxed">
+                {activeContent.summary.map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
+                ))}
+              </div>
+            </section>
+
+            {/* Sección: Conceptos Clave */}
+            <section>
+              <h3 className="text-lg font-semibold text-indigo-700 mb-4 flex items-center gap-2">
+                Conceptos y Palabras Clave
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {activeContent.keywords.map((kw, idx) => (
+                  <div 
+                    key={idx} 
+                    className="bg-white border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200 rounded-lg p-5"
+                  >
+                    <h4 className="font-bold text-slate-800 mb-2 border-b border-slate-100 pb-2">
+                      {kw.term}
+                    </h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      {kw.definition}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+            
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
