@@ -3,216 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía de Estudio 2° Grado</title>
+    <title>Plataforma de Estudio 2° Grado</title>
     
-    <!-- Tailwind CSS para los estilos -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- React y ReactDOM -->
+    <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     
-    <!-- Babel para compilar JSX en el navegador -->
+    <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        h1, h2, h3, h4, .font-poppins { font-family: 'Poppins', sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
 
-        // --- Íconos SVG (Reemplazando a lucide-react para que funcione sin dependencias) ---
-        const BookOpenIcon = ({ className }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-        );
-        const ShieldCheckIcon = ({ className }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 7 2a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
-        );
-        const UsersIcon = ({ className }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-        );
-        const FlagIcon = ({ className }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" x2="4" y1="22" y2="15"></line></svg>
-        );
-        const ChevronRightIcon = ({ className }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
-        );
-        const GraduationCapIcon = ({ className }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.42 10.922a2 2 0 0 0-.019-3.838L12.83 4.326a2 2 0 0 0-1.66 0L2.6 7.084a2 2 0 0 0 0 3.832l8.57 2.758a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
-        );
+        // --- Íconos SVG ---
+        const IconUser = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
+        const IconHeart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
+        const IconGlobe = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>;
+        const IconFlag = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>;
+        const IconHome = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
+        const IconCheck = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
+        const IconX = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
 
-        // --- Datos de Estudio ---
+        // --- Datos de Estudio y Quizzes ---
         const studyData = [
           {
             id: 'identidad',
             title: 'Construyo mi identidad',
-            icon: <BookOpenIcon className="w-5 h-5" />,
-            summary: [
-              "La identidad personal es el conjunto de rasgos que nos conforman como individuos y nos diferencian de los demás. Esta no se da de forma aislada, sino que se construye y reafirma a lo largo de la vida (especialmente en la adolescencia) dentro de un entorno social y en la convivencia con los demás.",
-              "Nuestra identidad se ve profundamente influenciada por nuestro género y los roles asociados a este, así como por los grupos a los que pertenecemos (familia, amigos, tribus urbanas). Además, las tradiciones, costumbres y símbolos de nuestra comunidad nos brindan un sentido de pertenencia y conexión con nuestra historia y cultura."
-            ],
-            keywords: [
-              { term: "Identidad personal", definition: "Conjunto de rasgos o características que nos conforman como individuos, nos hacen únicos y nos diferencian de los demás. Se reafirma en la convivencia." },
-              { term: "Género", definition: "Características sociales, culturales y psicológicas asociadas a las diferencias entre hombres y mujeres en una sociedad (es una construcción social y cultural)." },
-              { term: "Roles de género", definition: "Expectativas sociales y culturales sobre cómo deben comportarse las personas en función de su género. Históricamente han limitado potencialidades, pero se han ido modificando." },
-              { term: "Grupos de pertenencia", definition: "Grupos con los que nos identificamos y compartimos gustos, valores, creencias o estilos de vida (pueden ser elegidos o no, como la familia o grupos urbanos)." },
-              { term: "Tradiciones", definition: "Prácticas culturales que se heredan de una generación a otra, constituyendo una forma de vinculación familiar, comunitaria y social." },
-              { term: "Costumbres", definition: "Prácticas que por su repetición se consolidan como hábitos en una persona o grupo, regulando la vida comunitaria." },
-              { term: "Símbolos", definition: "Expresiones de las ideas de un pueblo (imágenes, objetos, rituales) que evocan valores, sentimientos y creencias, dando identidad y sentido." }
+            desc: 'Análisis de la identidad, género, roles sociales y tradiciones culturales.',
+            icon: <IconUser />,
+            color: 'blue',
+            content: {
+              summary: [
+                "La identidad personal es el conjunto de rasgos que nos diferencian. Según Martin Buber, es relativamente estable pero se construye en un entorno social y se reafirma mediante la convivencia (alteridad).",
+                "Nuestra identidad se ve influenciada por nuestro género (construcción sociocultural) y los roles asociados. Además, los grupos de pertenencia (familia, amigos, tribus urbanas) y las tradiciones heredadas forjan nuestro sentido de pertenencia."
+              ],
+              keywords: [
+                { term: "Identidad personal", def: "Conjunto de características que nos hacen únicos. Se reafirma en la convivencia." },
+                { term: "Género vs Sexo", def: "Sexo es biológico; género es una construcción sociocultural que asocia roles a lo masculino/femenino." },
+                { term: "Tradiciones y Costumbres", def: "Tradiciones se heredan (generan sincretismo). Costumbres son hábitos que regulan la comunidad; incumplirlas genera censura moral." },
+                { term: "Símbolos", def: "Expresiones, objetos o imágenes que evocan valores de un pueblo o grupo, brindando identidad compartida." }
+              ]
+            },
+            quiz: [
+              { q: "Según Martin Buber, ¿cuál de estas características NO pertenece a la identidad personal?", options: ["Se construye en un entorno social.", "Es relativamente estable a lo largo de la vida.", "Es inmutable y se define genéticamente al nacer.", "Se reafirma en la convivencia con los demás."], correct: 2 },
+              { q: "¿Cuál es la diferencia fundamental entre sexo y género según el texto?", options: ["El género es biológico y el sexo cultural.", "El sexo es una construcción social, el género es psicológico.", "Ambos términos significan exactamente lo mismo.", "El sexo son diferencias biológicas, el género es una construcción social y cultural."], correct: 3 },
+              { q: "Al estereotipo ideal de mujer u hombre que sirve como guía social en una época se le denomina:", options: ["Estereotipo marginal", "Estereotipo subalterno", "Estereotipo hegemónico", "Estereotipo transicional"], correct: 2 },
+              { q: "¿Qué nombre reciben las agrupaciones juveniles que expresan rebeldía y cuyos valores desafían los gustos convencionales?", options: ["Cofradías", "Contraculturales o tribus urbanas", "Grupos hegemónicos", "Sindicatos juveniles"], correct: 1 },
+              { q: "La combinación de antiguas tradiciones prehispánicas con creencias de la religión católica es un ejemplo de:", options: ["Dogmatismo", "Etnocentrismo", "Segregación", "Sincretismo"], correct: 3 },
+              { q: "A diferencia de una ley, cuando se incumple una costumbre arraigada, la consecuencia suele ser:", options: ["Multa económica", "Prisión preventiva", "Repercusiones morales y sociales como censura", "Exilio legal del país"], correct: 2 },
+              { q: "¿Qué elemento cultural evoca valores, sentimientos y creencias mediante objetos, imágenes o rituales?", options: ["Costumbres", "Símbolos", "Leyes", "Normas"], correct: 1 },
+              { q: "¿Qué provocó que las mujeres ingresaran a espacios que antes se consideraban exclusivos para hombres?", options: ["La biología evolutiva.", "Mayor participación en la vida social, política y económica, y necesidades sociales.", "Prohibiciones legales hacia los hombres.", "El declive de las tribus urbanas."], correct: 1 },
+              { q: "En la DSI (Doctrina Social), la visión sobre el género sostiene que:", options: ["Debe separarse totalmente de la biología.", "Es una realidad integral arraigada en lo biológico, promoviendo la complementariedad.", "Hombres y mujeres son competidores naturales.", "Los roles deben ser estrictamente rígidos y no modificables."], correct: 1 },
+              { q: "¿Qué característica define a los grupos de pertenencia que elegimos (como amigos o tribus urbanas)?", options: ["Están definidos desde el nacimiento.", "Comparten genéticas similares.", "Comparten gustos, estilos de vida, valores o creencias.", "Son impuestos por el Estado."], correct: 2 }
             ]
           },
           {
             id: 'salud',
-            title: 'Cuido y ejerzo mi derecho a la salud',
-            icon: <ShieldCheckIcon className="w-5 h-5" />,
-            summary: [
-              "La adolescencia es una etapa de aprendizaje integral. Un desarrollo pleno implica poner en práctica valores y habilidades como la autoestima, el autocuidado, la asertividad y la autorregulación para hacer frente a situaciones que ponen en riesgo tu integridad, como el consumo de drogas.",
-              "El Estado y los adultos tienen la obligación de proteger y garantizar tu derecho a la salud integral (bienestar físico, mental y social). Fortalecer la autovaloración es clave, ya que la baja autoestima puede colocarte en situaciones de riesgo (manipulación, violencia o adicciones) al buscar aceptación social."
-            ],
-            keywords: [
-              { term: "Salud integral", definition: "Según la OMS, comprende el bienestar físico, mental y social de los individuos e implica condiciones adecuadas para vivir y desarrollarse, no solo la ausencia de enfermedad." },
-              { term: "Autoestima", definition: "Valoración de nuestras propias capacidades, potencialidades y de nosotros mismos. Se gesta en la familia y juega un papel importante en la salud integral." },
-              { term: "Autocuidado", definition: "Manifestación directa de la autoestima; implica valorarse lo suficiente como para cuidarse a uno mismo y buscar apoyo cuando se está incómodo o en riesgo." },
-              { term: "Asertividad", definition: "Habilidad para expresar pensamientos, emociones y defender ideas y derechos de forma honesta, sin ser agresivos, respetando a los otros y a uno mismo." },
-              { term: "Autorregulación", definition: "Capacidad que permite darnos cuenta de obstáculos y evitar acciones que posiblemente desemboquen en problemas, aunque sintamos un gran deseo de realizarlas." },
-              { term: "Adicción", definition: "Dependencia física, psicológica y emocional hacia una sustancia (como drogas, alcohol, tabaco), actividad o relación. Afecta física, moral y socialmente." },
-              { term: "Drogas (Duras y Blandas)", definition: "Sustancias legales o ilegales cuyo consumo constante genera dependencia. Las duras incluyen mariguana y hongos; las blandas cocaína, morfina y heroína." }
+            title: 'Derecho a la salud',
+            desc: 'Autoestima, asertividad, autorregulación y prevención de adicciones.',
+            icon: <IconHeart />,
+            color: 'rose',
+            content: {
+              summary: [
+                "El Estado tiene la obligación constitucional (Art. 4) de garantizar la salud integral. Sin embargo, el primer anillo de seguridad es individual: el autocuidado, que es la manifestación directa de la autoestima.",
+                "Las adicciones son dependencias psicofísicas crónicas. La asertividad (saber decir no con respeto) y la autorregulación (evitar acciones riesgosas aunque se deseen) son habilidades críticas para resistir la presión de pares en la adolescencia."
+              ],
+              keywords: [
+                { term: "Salud integral (OMS)", def: "Bienestar físico, mental y social. No solo la ausencia de afecciones o enfermedades." },
+                { term: "Autocuidado", def: "Manifestación práctica de la autoestima. Significa valorarse lo suficiente como para protegerse." },
+                { term: "Autorregulación", def: "Capacidad de frenar impulsos y evitar acciones que desemboquen en problemas irreversibles." },
+                { term: "Adicción", def: "Dependencia constante y crónica (psicofísica) hacia sustancias o conductas. Consumo ocasional NO es adicción." }
+              ]
+            },
+            quiz: [
+              { q: "Según la OMS, la salud integral se define como:", options: ["Únicamente la ausencia de dolor físico.", "El bienestar físico, mental y social.", "Tener acceso a hospitales de alta especialidad.", "Poseer un alto rendimiento deportivo."], correct: 1 },
+              { q: "¿Qué ley en México, en su artículo 50, obliga a prevenir, atender y rehabilitar problemas por adicciones?", options: ["Constitución Política", "Ley General de Educación", "Ley General de los Derechos de Niñas, Niños y Adolescentes", "Ley General de Salud Pública"], correct: 2 },
+              { q: "¿Qué habilidad social te permite exponer tus verdaderos deseos, decir 'no' y defender tus derechos sin ser agresivo?", options: ["Autoestima", "Autorregulación", "Asertividad", "Simpatía"], correct: 2 },
+              { q: "El autocuidado es considerado una manifestación directa de:", options: ["El Estado", "La asertividad", "La autorregulación", "La autoestima"], correct: 3 },
+              { q: "Médicamente y según el texto, ¿qué diferencia a un consumidor ocasional de un adicto?", options: ["El adicto consume drogas legales, el ocasional ilegales.", "El adicto presenta dependencia psicofísica constante y crónica.", "No hay diferencia, probar una vez te hace adicto.", "El consumidor ocasional tiene peor salud mental."], correct: 1 },
+              { q: "En la clasificación del texto, ¿qué par de drogas son consideradas 'Blandas'?", options: ["Mariguana y Hongos", "Cocaína y Morfina", "Fentanilo y Crack", "Alcohol y Tabaco"], correct: 1 },
+              { q: "Según la Encodat, ¿cuál es la causa principal por la que los adolescentes inician el consumo de sustancias?", options: ["Problemas genéticos", "Deseo de pertenecer a un grupo y ser aceptados", "Desconocimiento absoluto de sus efectos", "Falta de recursos económicos"], correct: 1 },
+              { q: "Identifica un ejemplo de adicción conductual o emocional:", options: ["Heroína", "Tabaquismo", "Relaciones de codependencia destructivas", "Inhalantes"], correct: 2 },
+              { q: "La capacidad para identificar obstáculos y evitar acciones que ponen en riesgo tu integridad, aunque sientas gran deseo de realizarlas, se llama:", options: ["Catarsis", "Abstinencia", "Asertividad", "Autorregulación"], correct: 3 },
+              { q: "¿Qué efecto a largo plazo suele provocar el uso de drogas como 'vía de escape' para el estrés?", options: ["Inmunidad a la ansiedad", "Aumento de la inteligencia cognitiva", "Exacerbación de problemas y provocación de depresión/trastornos mentales", "Mejora de la asertividad"], correct: 2 }
             ]
           },
           {
-            id: 'comunidades',
+            id: 'vulnerables',
             title: 'Comunidades vulnerables',
-            icon: <UsersIcon className="w-5 h-5" />,
-            summary: [
-              "La dignidad humana es la condición fundamental que iguala a todas las personas y exige un trato justo y respetuoso para todos, garantizando autonomía, integridad e igualdad. Es el principio rector de los derechos humanos.",
-              "Lamentablemente, las estructuras sociales y económicas a menudo producen marginación y vulnerabilidad. Hay grupos de personas que, por su edad, género, situación económica o etnia, son excluidos y no tienen las mismas oportunidades, lo que impide el disfrute pleno de sus derechos y su desarrollo en la sociedad."
-            ],
-            keywords: [
-              { term: "Dignidad humana", definition: "Condición inherente e inalienable que sostiene que cada individuo, por ser humano, posee un valor que debe ser respetado, exigiendo un trato justo e igualitario." },
-              { term: "Marginación", definition: "Exclusión o relegación de personas o grupos a un estatus social, económico o político inferior, limitando su acceso a educación, salud, empleo y participación." },
-              { term: "Vulnerabilidad infantil", definition: "Condición de riesgo de niños, niñas y adolescentes debido a su dependencia de los adultos y su poca capacidad de autonomía para defender sus derechos." },
-              { term: "Vulnerabilidad de género", definition: "Situación que enfrentan las mujeres y personas de género diverso debido a desigualdades y discriminación que las exponen a violencia." },
-              { term: "Vulnerabilidad económica", definition: "Condición de personas en situación de pobreza o bajos ingresos que no tienen acceso a servicios básicos (salud, educación de calidad, vivienda adecuada)." },
-              { term: "Autonomía", definition: "Capacidad de cada persona de tomar decisiones libres y autónomas sobre su propia vida (libertad de pensamiento, conciencia y expresión)." },
-              { term: "Integridad", definition: "Derecho a que se respete el estado físico y psicológico de cada individuo, prohibiendo tratos inhumanos, degradantes y la tortura." }
+            desc: 'Dignidad humana, marginación, desigualdad estructural y factores de riesgo.',
+            icon: <IconGlobe />,
+            color: 'emerald',
+            content: {
+              summary: [
+                "La dignidad humana es el pilar de los derechos humanos (Art. 1 DUDH). Implica Igualdad, Autonomía, Integridad y Trato Digno para todo ser humano sin importar su origen.",
+                "La marginación ocurre por factores estructurales (discriminación, falta de servicios, desigualdad) que vulneran a ciertos grupos. La vulnerabilidad infantil, por ejemplo, nace de la falta de autonomía y dependencia de los adultos."
+              ],
+              keywords: [
+                { term: "Dignidad Humana", def: "Valor inherente e inalienable. Todos merecen trato justo e igualitario." },
+                { term: "Marginación", def: "Exclusión a un estatus inferior. Impide acceso a educación, salud y oportunidades." },
+                { term: "Barreras Estructurales", def: "Fallas institucionales (como segregación de vivienda o servicios) que perpetúan la pobreza." },
+                { term: "Vulnerabilidad Infantil", def: "Riesgo originado por la dependencia de adultos y falta de capacidad para defender derechos propios." }
+              ]
+            },
+            quiz: [
+              { q: "¿Qué concepto afirma que cada individuo posee un valor inherente e inalienable que exige trato justo?", options: ["Empatía social", "Dignidad humana", "Soberanía estatal", "Tolerancia cultural"], correct: 1 },
+              { q: "Según el texto, ¿qué provoca directamente la desigualdad en la distribución de la riqueza en ciertas comunidades?", options: ["Menos acceso al empleo, educación y atención médica (Marginación).", "Aumento de la autonomía infantil.", "Erradicación de la estigmatización.", "Mejora de la integridad psicológica."], correct: 0 },
+              { q: "El Artículo 1° de la Declaración Universal de los Derechos Humanos menciona que todos los seres humanos nacen:", options: ["Libres y diferentes en derechos.", "Sujetos a las barreras estructurales de su país.", "Libres e iguales en dignidad y derechos.", "Con vulnerabilidad económica inherente."], correct: 2 },
+              { q: "¿Por qué los niños, niñas y adolescentes son un grupo especialmente vulnerable?", options: ["Por falta de educación.", "Debido a su dependencia de los adultos y poca capacidad de autonomía.", "Porque no tienen derechos humanos asignados aún.", "Por barreras estructurales exclusivas de las escuelas."], correct: 1 },
+              { q: "La prohibición de la tortura y los tratos inhumanos es una exigencia del aspecto de la dignidad conocido como:", options: ["Integridad", "Autonomía", "Igualdad", "Libertad de expresión"], correct: 0 },
+              { q: "La falta de servicios básicos como agua potable o internet en zonas limítrofes es un ejemplo de:", options: ["Discriminación explícita", "Vulnerabilidad de género", "Estigmatización social", "Barreras institucionales/estructurales"], correct: 3 },
+              { q: "¿Qué componente de la dignidad exige que cada persona tenga capacidad de tomar decisiones libres sobre su propia vida?", options: ["Trato digno", "Autonomía", "Integridad", "Asertividad"], correct: 1 },
+              { q: "¿Qué implica socialmente erradicar la marginación social?", options: ["Eliminar fronteras nacionales.", "Establecer políticas antidiscriminación e igualdad de oportunidades.", "Privatizar la atención médica.", "Forzar la asimilación cultural de etnias."], correct: 1 },
+              { q: "Aislar a personas o grupos al percibirlos como 'diferentes' (ej. orientación sexual distinta) contribuye a la marginación mediante:", options: ["Estigmatización social", "Vulnerabilidad económica", "Barrera estructural", "Desigualdad de riqueza"], correct: 0 },
+              { q: "La vulnerabilidad de género expone principalmente a las mujeres y personas de género diverso a:", options: ["Alta carga tributaria.", "Violencia y otras formas de discriminación.", "Pérdida de nacionalidad.", "Sobreprotección estatal."], correct: 1 }
             ]
           },
           {
             id: 'movimientos',
             title: 'Movimientos sociales',
-            icon: <FlagIcon className="w-5 h-5" />,
-            summary: [
-              "Los derechos humanos son reconocimientos inherentes a todas las personas, garantizados por el Estado. Cuando estos derechos son violentados (ya sea por acción, omisión o aquiescencia de las autoridades), o cuando la justicia social no se respeta, la sociedad reacciona.",
-              "A lo largo de la historia, especialmente en América Latina y México frente a gobiernos autoritarios, los ciudadanos se han organizado en movimientos sociales y políticos. Estos buscan visibilizar injusticias, exigir derechos, mejorar las condiciones de vida colectivas y lograr una mayor participación democrática."
-            ],
-            keywords: [
-              { term: "Derechos humanos", definition: "Reconocimientos jurídicos, éticos y morales inherentes a toda persona por existir. Son universales, indivisibles, inalienables y el Estado debe garantizarlos." },
-              { term: "Violación por acción", definition: "Ataque a la dignidad humana generado directamente por agentes del Estado (detenciones arbitrarias, desapariciones forzadas, tortura)." },
-              { term: "Violación por omisión", definition: "Ocurre cuando los poderes de gobierno muestran indiferencia y no actúan ante situaciones que vulneran la dignidad y derechos de las personas." },
-              { term: "Violación por aquiescencia", definition: "Sucede cuando el Estado da su consentimiento o permite agresiones y abusos por parte de terceros (como grupos paramilitares)." },
-              { term: "Movimientos sociales", definition: "Acciones colectivas de participación ciudadana que expresan inconformidad ante un gobierno y se movilizan para exigir el fin de injusticias y mejoras para la sociedad." },
-              { term: "Movimientos políticos", definition: "Grupos con afinidad de intereses que se constituyen con el fin primordial de alcanzar el poder político y tener mayor participación en la toma de decisiones." },
-              { term: "Gobiernos autoritarios", definition: "Regímenes que reprimen y sancionan a los opositores, evitan sus expresiones en público y concentran el poder sin respeto a las libertades civiles." }
+            desc: 'Derechos humanos, formas de violación y participación sociopolítica.',
+            icon: <IconFlag />,
+            color: 'violet',
+            content: {
+              summary: [
+                "Los derechos humanos son inherentes e imprescriptibles. Constitucionalmente, solo pueden ser violados por agentes del Estado mediante tres vías: Acción, Omisión o Aquiescencia.",
+                "Frente a abusos de poder y regímenes autoritarios o totalitarios, las sociedades crean movimientos sociales (para reivindicar derechos y exigir justicia civil) o movimientos políticos (que buscan alcanzar el poder político)."
+              ],
+              keywords: [
+                { term: "Violación por Omisión", def: "El Estado muestra indiferencia ante situaciones que vulneran la dignidad humana." },
+                { term: "Violación por Aquiescencia", def: "El Estado o autoridades dan el consentimiento/permiso tácito para que terceros cometan agresiones." },
+                { term: "Gobierno Autoritario vs Totalitario", def: "Autoritario reprime opositores. Totalitario busca eliminar pensamiento opuesto adoctrinando a la población." },
+                { term: "Generaciones de DDHH", def: "1ra: Civiles/Políticos. 2da: Económicos/Sociales (Salud, Trabajo). 3ra: Solidaridad (Paz, Ambiente)." }
+              ]
+            },
+            quiz: [
+              { q: "Según la ACNUDH, ¿quiénes son los únicos que pueden violentar los derechos humanos de forma oficial?", options: ["Los delincuentes comunes.", "Los agentes del Estado (autoridades, militares, policías).", "Los grupos opositores políticos.", "Cualquier ciudadano en propiedad privada."], correct: 1 },
+              { q: "Si el gobierno muestra indiferencia y no interviene ante una situación que vulnera la dignidad ciudadana, comete una violación por:", options: ["Acción", "Corrupción", "Omisión", "Aquiescencia"], correct: 2 },
+              { q: "Si las autoridades dan consentimiento directo a un grupo paramilitar para secuestrar, es una violación de derechos por:", options: ["Acción", "Omisión", "Inmunidad", "Aquiescencia"], correct: 3 },
+              { q: "¿A qué generación de Derechos Humanos pertenece el 'Derecho a la salud y a la educación'?", options: ["Primera generación", "Segunda generación", "Tercera generación", "Cuarta generación"], correct: 1 },
+              { q: "¿Qué derecho es representativo de la Primera Generación (Derechos civiles y políticos)?", options: ["Derecho al medio ambiente", "Libertad de expresión y derecho a la vida", "Derecho a la vivienda digna", "Derecho al patrimonio de la humanidad"], correct: 1 },
+              { q: "¿Cuál es el fin primordial de un 'Movimiento Político' a diferencia de uno social?", options: ["Evidenciar injusticias ecológicas.", "Visibilizar derechos de minorías.", "Alcanzar el poder político y gobernar.", "Crear arte urbano contracultural."], correct: 2 },
+              { q: "Un gobierno que no solo reprime, sino que busca eliminar formas de pensamiento opuestas mediante adoctrinamiento y propaganda es un gobierno:", options: ["Democrático", "Autoritario", "Totalitario", "Hegemónico"], correct: 2 },
+              { q: "Según el informe Freedom House 2022, México está clasificado políticamente como un país:", options: ["Totalmente libre", "Parcialmente libre", "No libre", "Autoritario"], correct: 1 },
+              { q: "En México, la etapa de represión brutal, desapariciones y torturas entre los años 50s y 70s se conoce como:", options: ["Guerra Cristera", "Revolución de Ayutla", "Guerra Sucia", "El Maximato"], correct: 2 },
+              { q: "Los Derechos Humanos se consideran 'imprescriptibles' porque:", options: ["No se pueden vender ni transferir.", "Se reconocen por el hecho de existir.", "No se pueden dividir ni jerarquizar.", "No pierden vigencia ni caducan con el paso del tiempo."], correct: 3 }
             ]
           }
         ];
 
-        // --- Componente Principal ---
-        function App() {
-          const [activeTab, setActiveTab] = useState(studyData[0].id);
-          const activeContent = studyData.find(item => item.id === activeTab);
+        // --- Componente: Landing Page ---
+        const Landing = ({ onSelect }) => (
+          <div className="max-w-6xl mx-auto px-4 py-12 fade-in">
+            <div className="text-center mb-16">
+              <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4 font-poppins">
+                Formación Cívica y Ética <span className="text-blue-600">2° Grado</span>
+              </h1>
+              <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+                Plataforma interactiva para dominar los temas clave. Repasa la teoría y ponte a prueba con nuestro simulador de examen de alta dificultad.
+              </p>
+            </div>
 
-          return (
-            <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
-              <header className="bg-indigo-700 text-white shadow-md sticky top-0 z-10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-3">
-                  <GraduationCapIcon className="w-8 h-8 text-indigo-200" />
-                  <h1 className="text-xl md:text-2xl font-bold tracking-tight">
-                    Guía de Estudio: Formación Cívica y Ética 2°
-                  </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              {studyData.map((module) => (
+                <div 
+                  key={module.id}
+                  onClick={() => onSelect(module.id)}
+                  className={`bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 hover:shadow-xl hover:border-${module.color}-300 transition-all duration-300 cursor-pointer group flex flex-col items-center text-center`}
+                >
+                  <div className={`w-16 h-16 rounded-2xl bg-${module.color}-50 text-${module.color}-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    {module.icon}
+                  </div>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors font-poppins">
+                    {module.title}
+                  </h2>
+                  <p className="text-slate-500 mb-6 flex-grow">{module.desc}</p>
+                  <div className={`text-${module.color}-600 font-semibold flex items-center gap-2 uppercase tracking-wide text-sm`}>
+                    Estudiar y Evaluar &rarr;
+                  </div>
                 </div>
-              </header>
+              ))}
+            </div>
+          </div>
+        );
 
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+        // --- Componente: Quiz Interactivo ---
+        const QuizSystem = ({ questions, color }) => {
+          const [currentQ, setCurrentQ] = useState(0);
+          const [score, setScore] = useState(0);
+          const [showResults, setShowResults] = useState(false);
+          const [answers, setAnswers] = useState([]);
+          const [selectedOption, setSelectedOption] = useState(null);
+
+          const handleAnswer = () => {
+            if (selectedOption === null) return;
+            
+            const isCorrect = selectedOption === questions[currentQ].correct;
+            setAnswers([...answers, { qIndex: currentQ, selected: selectedOption, isCorrect }]);
+            
+            if (isCorrect) setScore(score + 1);
+            
+            if (currentQ < questions.length - 1) {
+              setCurrentQ(currentQ + 1);
+              setSelectedOption(null);
+            } else {
+              setShowResults(true);
+            }
+          };
+
+          const resetQuiz = () => {
+            setCurrentQ(0);
+            setScore(0);
+            setShowResults(false);
+            setAnswers([]);
+            setSelectedOption(null);
+          };
+
+          if (showResults) {
+            const passed = score >= 7;
+            return (
+              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 fade-in">
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold text-slate-800 mb-2 font-poppins">Resultados del Test</h3>
+                  <div className={`inline-block px-6 py-3 rounded-full text-2xl font-bold mb-4 ${passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    {score} / 10
+                  </div>
+                  <p className="text-slate-600 font-medium">
+                    {passed ? '¡Excelente trabajo! Tienes un dominio avanzado del tema.' : 'Te sugerimos repasar la sección teórica para reforzar los conceptos.'}
+                  </p>
+                </div>
                 
-                <aside className="w-full md:w-80 flex-shrink-0">
-                  <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden sticky top-24">
-                    <div className="p-4 bg-slate-100 border-b border-slate-200 font-semibold text-slate-600 uppercase text-sm tracking-wider">
-                      Temario
-                    </div>
-                    <nav className="flex flex-col">
-                      {studyData.map((tab) => (
-                        <button
-                          key={tab.id}
-                          onClick={() => setActiveTab(tab.id)}
-                          className={`flex items-center justify-between w-full text-left px-5 py-4 transition-colors duration-200 border-b border-slate-100 last:border-b-0
-                            ${activeTab === tab.id 
-                              ? 'bg-indigo-50 text-indigo-700 border-l-4 border-l-indigo-600 font-medium' 
-                              : 'hover:bg-slate-50 text-slate-600 hover:text-indigo-600 border-l-4 border-l-transparent'
-                            }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className={`${activeTab === tab.id ? 'text-indigo-600' : 'text-slate-400'}`}>
-                              {tab.icon}
-                            </span>
-                            <span>{tab.title}</span>
+                <div className="space-y-6">
+                  {questions.map((q, idx) => {
+                    const ans = answers.find(a => a.qIndex === idx);
+                    return (
+                      <div key={idx} className={`p-5 rounded-xl border ${ans.isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                        <p className="font-semibold text-slate-800 mb-3">{idx + 1}. {q.q}</p>
+                        <div className="text-sm space-y-2">
+                          {!ans.isCorrect && (
+                            <div className="flex items-start gap-2 text-red-700">
+                              <IconX /> <span className="line-through opacity-80">{q.options[ans.selected]}</span>
+                            </div>
+                          )}
+                          <div className="flex items-start gap-2 text-green-700 font-medium">
+                            <IconCheck /> <span>{q.options[q.correct]}</span>
                           </div>
-                          {activeTab === tab.id && <ChevronRightIcon className="w-4 h-4 text-indigo-600" />}
-                        </button>
-                      ))}
-                    </nav>
-                  </div>
-                </aside>
-
-                <main className="flex-1 min-w-0">
-                  <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
-                    <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-                      <div className="p-3 bg-indigo-100 text-indigo-700 rounded-lg">
-                        {activeContent.icon}
+                        </div>
                       </div>
-                      <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
-                        {activeContent.title}
-                      </h2>
-                    </div>
-
-                    <section className="mb-10">
-                      <h3 className="text-lg font-semibold text-indigo-700 mb-4 flex items-center gap-2">
-                        Información más importante
-                      </h3>
-                      <div className="bg-indigo-50/50 rounded-lg p-5 border border-indigo-100 text-slate-700 space-y-4 leading-relaxed">
-                        {activeContent.summary.map((paragraph, idx) => (
-                          <p key={idx}>{paragraph}</p>
-                        ))}
-                      </div>
-                    </section>
-
-                    <section>
-                      <h3 className="text-lg font-semibold text-indigo-700 mb-4 flex items-center gap-2">
-                        Conceptos y Palabras Clave
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {activeContent.keywords.map((kw, idx) => (
-                          <div 
-                            key={idx} 
-                            className="bg-white border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200 rounded-lg p-5"
-                          >
-                            <h4 className="font-bold text-slate-800 mb-2 border-b border-slate-100 pb-2">
-                              {kw.term}
-                            </h4>
-                            <p className="text-slate-600 text-sm leading-relaxed">
-                              {kw.definition}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-                    
-                  </div>
-                </main>
+                    );
+                  })}
+                </div>
+                <button onClick={resetQuiz} className={`mt-8 w-full py-4 rounded-xl text-white font-bold bg-${color}-600 hover:bg-${color}-700 transition-colors`}>
+                  Reintentar Quiz
+                </button>
               </div>
+            );
+          }
+
+          const q = questions[currentQ];
+          return (
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 fade-in">
+              <div className="flex justify-between items-center mb-6">
+                <span className={`text-${color}-600 font-bold uppercase tracking-wider text-sm`}>Pregunta {currentQ + 1} de 10</span>
+                <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold">Nivel Avanzado</span>
+              </div>
+              
+              <h3 className="text-xl md:text-2xl font-semibold text-slate-800 mb-8">{q.q}</h3>
+              
+              <div className="space-y-3 mb-8">
+                {q.options.map((opt, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedOption(idx)}
+                    className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center ${
+                      selectedOption === idx 
+                        ? `border-${color}-500 bg-${color}-50` 
+                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span className={`inline-flex shrink-0 w-8 h-8 rounded-full items-center justify-center font-bold mr-3 ${
+                      selectedOption === idx ? `bg-${color}-500 text-white` : 'bg-slate-200 text-slate-600'
+                    }`}>
+                      {String.fromCharCode(65 + idx)}
+                    </span>
+                    <span className="font-medium text-slate-700 leading-tight">{opt}</span>
+                  </button>
+                ))}
+              </div>
+
+              <button 
+                onClick={handleAnswer}
+                disabled={selectedOption === null}
+                className={`w-full py-4 rounded-xl text-white font-bold text-lg transition-colors ${
+                  selectedOption === null 
+                    ? 'bg-slate-300 cursor-not-allowed' 
+                    : `bg-${color}-600 hover:bg-${color}-700 shadow-md`
+                }`}
+              >
+                {currentQ === 9 ? 'Finalizar Examen' : 'Siguiente Pregunta'}
+              </button>
             </div>
           );
-        }
+        };
+
+        // --- Componente: Vista de Sección (Teoría + Quiz) ---
+        const SectionView = ({ sectionId, onBack }) => {
+          const module = studyData.find(s => s.id === sectionId);
+          const [viewMode, setViewMode] = useState('theory');
+
+          useEffect(() => { window.scrollTo(0, 0); }, [viewMode]);
+
+          return (
+            <div className="max-w-5xl mx-auto px-4 py-8 fade-in">
+              {/* Navegación Superior */}
+              <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium mb-8 transition-colors">
+                <IconHome /> Volver al Inicio
+              </button>
+
+              {/* Cabecera */}
+              <div className={`bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 mb-8 text-white shadow-xl flex items-center gap-6`}>
+                <div className={`p-4 bg-white/10 rounded-2xl hidden md:block text-${module.color}-400`}>
+                  {module.icon}
+                </div>
+                <div>
+                  <h1 className="text-3xl md:text-5xl font-bold mb-4 font-poppins">{module.title}</h1>
+                  <p className="text-slate-300 text-lg max-w-2xl">{module.desc}</p>
+                </div>
+              </div>
+
+              {/* Pestañas de Navegación */}
+              <div className="flex space-x-2 mb-8 bg-slate-200 p-1 rounded-xl">
+                <button 
+                  onClick={() => setViewMode('theory')}
+                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'theory' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                >
+                  Documento de Estudio
+                </button>
+                <button 
+                  onClick={() => setViewMode('quiz')}
+                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'quiz' ? `bg-${module.color}-600 text-white shadow-sm` : 'text-slate-500 hover:text-slate-700'}`}
+                >
+                  Evaluar Conocimiento (Quiz)
+                </button>
+              </div>
+
+              {/* Contenido Dinámico */}
+              {viewMode === 'theory' ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
+                  <div className="md:col-span-2 space-y-6">
+                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                      <h3 className={`text-2xl font-bold text-${module.color}-600 mb-6 border-b border-slate-100 pb-4 font-poppins`}>
+                        Resumen Estratégico
+                      </h3>
+                      <div className="space-y-4 text-slate-700 text-lg leading-relaxed">
+                        {module.content.summary.map((p, i) => <p key={i}>{p}</p>)}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-slate-800 text-xl mb-4 px-2 font-poppins">Conceptos Clave</h3>
+                    {module.content.keywords.map((kw, i) => (
+                      <div key={i} className={`bg-white p-5 rounded-xl shadow-sm border-l-4 border-${module.color}-500 hover:shadow-md transition-shadow`}>
+                        <h4 className="font-bold text-slate-800 mb-2">{kw.term}</h4>
+                        <p className="text-sm text-slate-600 leading-relaxed">{kw.def}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <QuizSystem questions={module.quiz} color={module.color} />
+              )}
+            </div>
+          );
+        };
+
+        // --- App Main Component ---
+        const App = () => {
+          const [currentView, setCurrentView] = useState('landing');
+          const [activeSection, setActiveSection] = useState(null);
+
+          const navigateToSection = (id) => {
+            setActiveSection(id);
+            setCurrentView('section');
+            window.scrollTo(0,0);
+          };
+
+          return (
+            <div>
+              {currentView === 'landing' 
+                ? <Landing onSelect={navigateToSection} /> 
+                : <SectionView sectionId={activeSection} onBack={() => setCurrentView('landing')} />
+              }
+            </div>
+          );
+        };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
