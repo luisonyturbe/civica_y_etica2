@@ -18,6 +18,21 @@
         .animate-fade-slide {
             animation: fadeSlideIn 0.5s ease-out forwards;
         }
+        
+        /* Estilos personalizados para las tablas */
+        .custom-table th, .custom-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+        }
+        .custom-table thead th {
+            background-color: #dbeafe; /* blue-100 */
+            color: #1e3a8a; /* blue-900 */
+            font-weight: 600;
+            text-align: center;
+        }
+        .custom-table tbody tr:nth-child(even) {
+            background-color: #f8fafc; /* slate-50 */
+        }
     </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 min-h-screen">
@@ -30,7 +45,7 @@
                     <i data-lucide="menu"></i>
                 </button>
                 <i data-lucide="book-open" class="w-7 h-7"></i>
-                <h1 class="text-xl font-bold tracking-tight">Guía de Estudio: Temario 2° Grado</h1>
+                <h1 class="text-xl font-bold tracking-tight">Guía de Estudio para Examen</h1>
             </div>
         </div>
     </header>
@@ -52,7 +67,7 @@
 
         <!-- Área de Contenido Principal -->
         <main class="flex-1 p-4 md:p-8 min-h-[calc(100vh-4rem)]">
-            <div id="mainContent" class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-slide">
+            <div id="mainContent" class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-slide pb-10">
                 <!-- El contenido de los temas se inyecta aquí -->
             </div>
         </main>
@@ -60,113 +75,362 @@
 
     <!-- Funcionalidad y Lógica de la página -->
     <script>
-        // Base de datos de los temas
         const topicsData = [
             {
                 id: 1,
                 title: "Movimientos Sociales",
                 icon: "users",
                 driveLink: "https://drive.google.com/file/d/1Tj-9gX8DnEAYHj7OYez8o_LmV7HQjDoB/view?usp=drive_open",
-                summary: "Los movimientos sociales son acciones colectivas organizadas por grupos de personas que buscan generar un cambio en la sociedad, defender sus derechos, visibilizar injusticias o proponer nuevas formas de convivencia. Surgen cuando una parte de la población siente que sus necesidades no son atendidas por el Estado.",
+                summary: "Los movimientos sociales son acciones colectivas organizadas por grupos de personas que buscan generar un cambio en la sociedad, defender sus derechos, visibilizar injusticias o proponer nuevas formas de convivencia.",
                 keywords: [
                     { term: "Movimiento social", definition: "Grupo de personas organizado y estructurado que busca un cambio sociopolítico específico." },
-                    { term: "Acción colectiva", definition: "Acciones realizadas por un grupo de personas en conjunto para alcanzar un objetivo común." },
-                    { term: "Participación ciudadana", definition: "Involucramiento activo de los ciudadanos en los procesos de toma de decisiones públicas." }
+                    { term: "Acción colectiva", definition: "Acciones realizadas por un grupo de personas en conjunto para alcanzar un objetivo común." }
                 ],
                 articles: [
-                    { article: "Artículo 9° Constitucional", description: "Garantiza el derecho a la libre asociación y reunión pacífica con cualquier objeto lícito. Es la base legal que permite la existencia de marchas y movimientos." }
-                ]
+                    { article: "Artículo 9° Constitucional", description: "Garantiza el derecho a la libre asociación y reunión pacífica con cualquier objeto lícito." }
+                ],
+                extraHtml: `
+                    <section class="mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">📊 Movimientos Sociales y Políticos de México (Siglo XX a XXI)</h3>
+                        <div class="overflow-x-auto rounded-lg shadow">
+                            <table class="w-full text-sm custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Movimiento</th>
+                                        <th>Tipo de movimiento</th>
+                                        <th>Periodo</th>
+                                        <th>Demandas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td class="font-semibold">Ejército Cristero</td><td class="text-center">Social</td><td class="text-center">1926-1929</td><td>Respeto a los derechos a la profesión religiosa.</td></tr>
+                                    <tr><td class="font-semibold">Movimiento de médicos y enfermeras</td><td class="text-center">Social</td><td class="text-center">1964-1965</td><td>Mejores condiciones laborales.</td></tr>
+                                    <tr><td class="font-semibold">Huelga de ferrocarrileros</td><td class="text-center">Social</td><td class="text-center">1959</td><td>Mejores condiciones laborales.</td></tr>
+                                    <tr><td class="font-semibold">Movimiento estudiantil de 1968</td><td class="text-center">Social</td><td class="text-center">1968</td><td>Democratización del país.</td></tr>
+                                    <tr><td class="font-semibold">Partido de los Pobres</td><td class="text-center">Político</td><td class="text-center">1967-1974</td><td>Contra asesinatos de campesinos en Guerrero.</td></tr>
+                                    <tr><td class="font-semibold">Liga Comunista 23 de Septiembre</td><td class="text-center">Político</td><td class="text-center">1973-1983</td><td>Construcción de un gobierno socialista.</td></tr>
+                                    <tr><td class="font-semibold">Movimiento de Acción Revolucionaria</td><td class="text-center">Político</td><td class="text-center">1969-1979</td><td>Democratización del país.</td></tr>
+                                    <tr><td class="font-semibold">Ejército Zapatista de Liberación Nacional</td><td class="text-center">Político</td><td class="text-center">1994</td><td>Derechos de los pueblos indígenas.</td></tr>
+                                    <tr><td class="font-semibold">Consejo General de Huelga, UNAM</td><td class="text-center">Social</td><td class="text-center">1999-2000</td><td>Defensa de la educación pública y gratuita.</td></tr>
+                                    <tr><td class="font-semibold">#YoSoy132</td><td class="text-center">Social</td><td class="text-center">2012</td><td>Contra violaciones de derechos humanos.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                `
             },
             {
                 id: 2,
                 title: "Interculturalidad y Paz",
                 icon: "heart-handshake",
                 driveLink: "https://drive.google.com/file/d/136zVAO9RHRpBaL3RDTDR94Ma3a1Zm1KS/view?usp=drive_open",
-                summary: "La interculturalidad es el proceso de comunicación e interacción entre personas o grupos con identidades culturales específicas, donde no se permite que las ideas y acciones de una persona o grupo cultural estén por encima del otro. Es fundamental para construir la paz, ya que promueve la empatía y la integración armónica.",
+                summary: "La interculturalidad es el proceso de comunicación e interacción entre personas o grupos con identidades culturales específicas, respetando siempre la diversidad para promover la paz.",
                 keywords: [
                     { term: "Interculturalidad", definition: "Relación equitativa, de diálogo y respeto mutuo entre diferentes culturas." },
-                    { term: "Pluriculturalidad", definition: "Coexistencia de diferentes culturas en un mismo espacio geográfico." },
-                    { term: "Empatía", definition: "Capacidad de percibir, compartir y comprender lo que otro ser puede sentir." }
+                    { term: "Pluriculturalidad", definition: "Coexistencia de diferentes culturas en un mismo espacio geográfico." }
                 ],
                 articles: [
-                    { article: "Artículo 2° Constitucional", description: "Reconoce que la Nación Mexicana tiene una composición pluricultural sustentada originalmente en sus pueblos indígenas, garantizando su derecho a la libre determinación." }
-                ]
+                    { article: "Artículo 2° Constitucional", description: "Reconoce que la Nación Mexicana tiene una composición pluricultural sustentada originalmente en sus pueblos indígenas." }
+                ],
+                extraHtml: ""
             },
             {
                 id: 3,
                 title: "Normas y Leyes",
                 icon: "scale",
                 driveLink: "https://drive.google.com/file/d/19kWBMUsFiWc2DE4GuZYR0p0y-Wzs4x3o/view?usp=drive_open",
-                summary: "Para vivir en sociedad es necesario establecer acuerdos y reglas. Las normas son pautas de comportamiento que nos ayudan a convivir. Cuando estas normas se formalizan y son respaldadas por el Estado para garantizar el orden y la justicia, se convierten en leyes, las cuales son obligatorias para todos.",
+                summary: "Las normas son pautas de comportamiento para convivir. Cuando estas normas son respaldadas por el Estado para garantizar justicia, se convierten en leyes obligatorias.",
                 keywords: [
-                    { term: "Norma", definition: "Regla de conducta dictada o promulgada por un poder legítimo para regular la conducta humana." },
-                    { term: "Ley", definition: "Norma jurídica dictada por el legislador, es decir, un precepto establecido por la autoridad competente, en que se manda o prohíbe algo." },
-                    { term: "Estado de Derecho", definition: "Principio de gobernanza en el que todas las personas e instituciones están sometidas a leyes que se promulgan públicamente." }
+                    { term: "Norma", definition: "Regla de conducta dictada para regular la conducta humana." },
+                    { term: "Ley", definition: "Norma jurídica dictada por el legislador obligatoria para todos." }
                 ],
                 articles: [
-                    { article: "Artículo 1° Constitucional", description: "Establece que en México todas las personas gozarán de los derechos humanos reconocidos en la Constitución y prohíbe todo tipo de discriminación." }
-                ]
+                    { article: "Artículo 1º", description: "En los Estados Unidos Mexicanos todas las personas gozarán de los derechos humanos reconocidos en esta Constitución y en los tratados internacionales de los que el Estado mexicano sea parte, así como de las garantías para su protección." },
+                    { article: "Artículo 4º", description: "La mujer y el hombre son iguales ante la ley." },
+                    { article: "Artículo 13", description: "Nadie puede ser juzgado por leyes privativas ni por tribunales especiales." }
+                ],
+                extraHtml: `
+                    <!-- Diagrama de Normas -->
+                    <section class="mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">📌 Tipos de Normas</h3>
+                        <div class="bg-slate-100 p-6 rounded-xl text-center">
+                            <div class="inline-block bg-white font-bold text-lg px-8 py-2 border-2 border-slate-800 rounded mb-4">NORMAS</div>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white border border-slate-400 px-4 py-2 w-full font-semibold mb-2">Morales</div>
+                                    <i data-lucide="arrow-down" class="text-slate-500 mb-2"></i>
+                                    <div class="bg-blue-600 text-white text-sm p-3 rounded h-full shadow-md w-full">Defienden principios éticos y pautas de conducta en la comunidad.</div>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white border border-slate-400 px-4 py-2 w-full font-semibold mb-2">Sociales</div>
+                                    <i data-lucide="arrow-down" class="text-slate-500 mb-2"></i>
+                                    <div class="bg-blue-600 text-white text-sm p-3 rounded h-full shadow-md w-full">Establecen expectativas sobre el comportamiento social aceptable en una comunidad.</div>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white border border-slate-400 px-4 py-2 w-full font-semibold mb-2">Religiosas</div>
+                                    <i data-lucide="arrow-down" class="text-slate-500 mb-2"></i>
+                                    <div class="bg-blue-600 text-white text-sm p-3 rounded h-full shadow-md w-full">Establecen mandatos dictados por una deidad o por una institución eclesial.</div>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white border border-slate-400 px-4 py-2 w-full font-semibold mb-2">Jurídicas (leyes)</div>
+                                    <i data-lucide="arrow-down" class="text-slate-500 mb-2"></i>
+                                    <div class="bg-blue-600 text-white text-sm p-3 rounded h-full shadow-md w-full">Establecen las pautas de comportamiento legal, cívico y ciudadano que deben seguir los integrantes de un Estado.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Principio de Legalidad -->
+                    <section class="mt-10">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">⚖️ Principio de Legalidad</h3>
+                        <div class="bg-slate-50 border border-slate-200 p-6 rounded-xl">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white border-t-4 border-blue-500 p-4 shadow rounded text-sm text-center flex items-center justify-center">
+                                    Las leyes no pueden ser escritas con la intención de afectar positiva o negativamente a una persona, sino que deben ser aplicables y dar trato igual para todas y todos.
+                                </div>
+                                <div class="bg-white border-t-4 border-blue-500 p-4 shadow rounded text-sm text-center flex items-center justify-center">
+                                    La ley no se puede aplicar para modificar o afectar los hechos pasados.
+                                </div>
+                                <div class="bg-white border-t-4 border-blue-500 p-4 shadow rounded text-sm text-center flex items-center justify-center">
+                                    El Estado, a través de sus instituciones, únicamente puede hacer aquello para lo que esté facultado por la ley.
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Estado de Derecho Diagrama -->
+                    <section class="mt-10">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">🏛️ Estado de Derecho</h3>
+                        <div class="bg-slate-100 p-6 rounded-xl text-center">
+                            <div class="inline-block bg-white font-bold px-6 py-2 border-2 border-slate-800 mb-4">ESTADO DE DERECHO</div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
+                                <!-- Individuos -->
+                                <div class="flex flex-col items-center border border-slate-300 p-4 bg-white rounded">
+                                    <div class="font-bold border border-slate-800 px-8 py-1 mb-4">Individuos</div>
+                                    <div class="grid grid-cols-2 gap-2 w-full">
+                                        <div class="bg-blue-500 text-white text-sm p-2 text-center rounded">
+                                            Derechos y libertades
+                                            <div class="mt-2 bg-blue-300 text-blue-900 text-xs p-1 rounded">Derechos humanos</div>
+                                        </div>
+                                        <div class="bg-blue-600 text-white text-sm p-2 text-center rounded flex items-center justify-center">Obligaciones</div>
+                                    </div>
+                                </div>
+                                <!-- Gobierno -->
+                                <div class="flex flex-col items-center border border-slate-300 p-4 bg-white rounded">
+                                    <div class="font-bold border border-slate-800 px-8 py-1 mb-4">Gobierno</div>
+                                    <div class="grid grid-cols-2 gap-2 w-full">
+                                        <div class="bg-blue-600 text-white text-sm p-2 text-center rounded flex items-center justify-center">Límites</div>
+                                        <div class="bg-blue-600 text-white text-sm p-2 text-center rounded flex items-center justify-center">Obligaciones</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Generaciones DDHH -->
+                    <section class="mt-10">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">📜 Generaciones de los Derechos Humanos</h3>
+                        <div class="overflow-x-auto rounded-lg shadow">
+                            <table class="w-full text-xs md:text-sm custom-table">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/3">Primera generación<br><span class="font-normal block mt-1 text-xs">Derechos civiles y políticos</span></th>
+                                        <th class="w-1/3">Segunda generación<br><span class="font-normal block mt-1 text-xs">Derechos económicos, sociales y culturales</span></th>
+                                        <th class="w-1/3">Tercera generación<br><span class="font-normal block mt-1 text-xs">Derechos de solidaridad</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Derecho a la vida</td><td>Derecho al trabajo y a la libre elección del empleo</td><td>Derecho a la autodeterminación</td></tr>
+                                    <tr><td>Derecho a la igualdad</td><td>Derecho a condiciones laborales equitativas</td><td>Derecho a la independencia económica y política</td></tr>
+                                    <tr><td>Derecho a la libertad</td><td>Libertad sindical y derecho de huelga</td><td>Derecho a la identidad nacional y cultural</td></tr>
+                                    <tr><td>Derecho a la nacionalidad</td><td>Derecho a un nivel de vida adecuado</td><td>Derecho a la paz</td></tr>
+                                    <tr><td>Derecho a la privacidad</td><td>Derecho a una vivienda digna</td><td>Derecho a la coexistencia pacífica</td></tr>
+                                    <tr><td>Libertad de expresión</td><td>Derecho a la salud</td><td>Derecho a la cooperación internacional y regional</td></tr>
+                                    <tr><td>Derecho a un juicio justo</td><td>Derecho a la educación</td><td>Derecho a la justicia internacional</td></tr>
+                                    <tr><td>Derecho al sufragio</td><td>Derecho a la vida cultural</td><td>Derecho al uso de los avances científicos y tecnológicos</td></tr>
+                                    <tr><td>Libertad religiosa</td><td>Derecho a la ciencia y la tecnología</td><td>Derecho al ambiente</td></tr>
+                                    <tr><td></td><td>Derecho al ambiente</td><td>Derecho al patrimonio común de la humanidad</td></tr>
+                                    <tr><td></td><td></td><td>Derecho al desarrollo digno</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Violaciones DDHH -->
+                    <section class="mt-10">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">⚠️ Formas en que se violentan los derechos humanos</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-red-50 border border-red-200 p-5 rounded-xl">
+                                <h4 class="font-bold text-red-800 mb-2 border-b border-red-200 pb-1">Por acción</h4>
+                                <p class="text-sm text-slate-700">Se generan cuando se ataca la dignidad humana, como detenciones arbitrarias, desapariciones forzadas, ejecuciones extrajudiciales, maltrato físico y moral o tortura.</p>
+                            </div>
+                            <div class="bg-orange-50 border border-orange-200 p-5 rounded-xl">
+                                <h4 class="font-bold text-orange-800 mb-2 border-b border-orange-200 pb-1">Por omisión</h4>
+                                <p class="text-sm text-slate-700">Ocurren cuando los poderes de gobierno muestran indiferencia ante situaciones que vulneran la dignidad y los derechos humanos.</p>
+                            </div>
+                            <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-xl">
+                                <h4 class="font-bold text-yellow-800 mb-2 border-b border-yellow-200 pb-1">Por aquiescencia</h4>
+                                <p class="text-sm text-slate-700">Suceden cuando un Estado, y las autoridades que lo representan, da el consentimiento directo de permitir secuestros, agresiones físicas, psicológicas, morales y sexuales o asesinatos por parte de guardias o grupos paramilitares.</p>
+                            </div>
+                        </div>
+                    </section>
+                `
             },
             {
                 id: 4,
                 title: "Quiénes hacen las leyes",
                 icon: "gavel",
                 driveLink: "https://drive.google.com/file/d/1iJWdZCCxtK9t3zmg7AvAcvFJZd5CUSgg/view?usp=drive_open",
-                summary: "En un sistema democrático como el de México, la creación y modificación de las leyes recae principalmente en el Poder Legislativo. Este poder representa la voluntad del pueblo y está encargado de debatir, redactar y aprobar las normas que rigen al país.",
+                summary: "La creación de leyes recae en el Poder Legislativo. Este poder representa la voluntad del pueblo y debate, redacta y aprueba normas.",
                 keywords: [
-                    { term: "Poder Legislativo", definition: "Poder del Estado encargado de elaborar, modificar y derogar las leyes." },
-                    { term: "Congreso de la Unión", definition: "Órgano bicameral depositario del Poder Legislativo a nivel federal en México, integrado por Diputados y Senadores." },
-                    { term: "Iniciativa de Ley", definition: "Propuesta formal para crear una nueva ley o modificar una existente." }
+                    { term: "Poder Legislativo", definition: "Poder del Estado encargado de elaborar, modificar y derogar las leyes." }
                 ],
                 articles: [
-                    { article: "Artículo 50° Constitucional", description: "Establece que el Poder Legislativo de los Estados Unidos Mexicanos se deposita en un Congreso General, dividido en dos Cámaras: Diputados y Senadores." },
-                    { article: "Artículo 71° Constitucional", description: "Señala quiénes tienen el derecho de iniciar leyes (El Presidente, los Diputados y Senadores, las Legislaturas de los Estados y los ciudadanos en un número equivalente al 0.13% de la lista nominal)." }
-                ]
+                    { article: "Artículo 50° Constitucional", description: "Establece que el Poder Legislativo se deposita en un Congreso General." }
+                ],
+                extraHtml: `
+                    <!-- Tipos de Gobierno Diagrama -->
+                    <section class="mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">🏛️ Tipos de Gobierno</h3>
+                        <div class="bg-slate-100 p-6 rounded-xl text-center">
+                            <div class="inline-block bg-white font-bold text-lg px-8 py-2 border-b-2 border-slate-800 mb-6 uppercase tracking-wider">Tipos de Gobierno</div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- Democráticos -->
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white border border-slate-400 px-6 py-2 w-full font-bold mb-3">Democráticos</div>
+                                    <i data-lucide="arrow-down" class="text-slate-500 mb-3 w-5 h-5"></i>
+                                    <div class="bg-blue-600 text-white text-sm p-4 rounded-lg shadow-md h-full flex items-center justify-center">
+                                        Aquellos en los que la ciudadanía participa en la toma de decisiones y ejerce sus derechos y libertades.
+                                    </div>
+                                </div>
+                                <!-- Autoritarios -->
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white border border-slate-400 px-6 py-2 w-full font-bold mb-3">Autoritarios</div>
+                                    <i data-lucide="arrow-down" class="text-slate-500 mb-3 w-5 h-5"></i>
+                                    <div class="bg-blue-600 text-white text-sm p-4 rounded-lg shadow-md h-full flex items-center justify-center">
+                                        Reprimen y sancionan a los opositores y evitan sus expresiones en público.
+                                    </div>
+                                </div>
+                                <!-- Totalitarios -->
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-white border border-slate-400 px-6 py-2 w-full font-bold mb-3">Totalitarios</div>
+                                    <i data-lucide="arrow-down" class="text-slate-500 mb-3 w-5 h-5"></i>
+                                    <div class="bg-blue-600 text-white text-sm p-4 rounded-lg shadow-md h-full flex items-center justify-center">
+                                        Buscan eliminar las formas de pensamiento opuestas, mediante el adoctrinamiento y el uso de propaganda para cambiar las formas de pensar de la población.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `
             },
             {
                 id: 5,
                 title: "La desigualdad",
                 icon: "shield-alert",
                 driveLink: "https://drive.google.com/file/d/1qT1LnAQ0FQQAHMXGlpnIt7Lc7ZDNuV7L/view?usp=drive_open",
-                summary: "La desigualdad es un fenómeno social donde las personas no tienen las mismas oportunidades, derechos o acceso a recursos (económicos, educativos, de salud). Combartir la desigualdad es uno de los mayores retos para alcanzar una sociedad justa y equitativa.",
+                summary: "La desigualdad social ocurre cuando las personas no tienen las mismas oportunidades, derechos o acceso a recursos.",
                 keywords: [
-                    { term: "Desigualdad Social", definition: "Situación socioeconómica en la que un grupo o minoría recibe un trato diferente respecto al resto." },
-                    { term: "Equidad", definition: "Cualidad que consiste en dar a cada uno lo que se merece en función de sus méritos o condiciones, buscando nivelar desventajas." },
-                    { term: "Discriminación", definition: "Trato diferente y perjudicial que se da a una persona por motivos de raza, sexo, ideas políticas, religión, etc." }
+                    { term: "Desigualdad Social", definition: "Situación socioeconómica donde un grupo recibe un trato diferente." },
+                    { term: "Equidad", definition: "Dar a cada uno lo que merece buscando nivelar desventajas." }
                 ],
-                articles: [
-                    { article: "Artículo 4° Constitucional", description: "Establece la igualdad ante la ley del hombre y la mujer. Además, garantiza el derecho a la protección de la salud y a un medio ambiente sano, bases para combatir la desigualdad." }
-                ]
+                articles: [],
+                extraHtml: `
+                    <!-- Tabla de Desigualdad -->
+                    <section class="mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">📈 Causas y Consecuencias de la Desigualdad Social</h3>
+                        <div class="overflow-x-auto rounded-lg shadow">
+                            <table class="w-full text-sm custom-table">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/3">Causas</th>
+                                        <th>Consecuencias</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td class="font-semibold text-slate-700">Corrupción</td><td>No saber el manejo y la inversión que el gobierno destina a las obras públicas y los programas sociales.</td></tr>
+                                    <tr><td class="font-semibold text-slate-700">Sistemas fiscales inequitativos</td><td>Exención de pagos de impuestos a quienes más tienen.</td></tr>
+                                    <tr><td class="font-semibold text-slate-700">Privatización de servicios públicos</td><td>Vender recursos públicos a sectores privados, que eliminan subsidios, es decir, la ayuda económica que una persona o una entidad recibe de un organismo oficial para satisfacer una necesidad determinada.</td></tr>
+                                    <tr><td class="font-semibold text-slate-700">Distribución injusta de la inversión y el gasto público</td><td>Acaparar los recursos públicos útiles a toda la ciudadanía.</td></tr>
+                                    <tr><td class="font-semibold text-slate-700">Acceso desigual al conocimiento</td><td>Elitizar la educación de un país, es decir, enfocarse sólo en una minoría selecta o rectora.</td></tr>
+                                    <tr><td class="font-semibold text-slate-700">Marginación de espacios públicos de incidencia</td><td>Las instituciones se conducen con un número mínimo de personas.</td></tr>
+                                    <tr><td class="font-semibold text-slate-700">Guerras y conflictos armados</td><td>Luchas entre gobernantes por intereses particulares, afectando a toda la población.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                `
             },
             {
                 id: 6,
                 title: "Cultura de paz en la vida diaria",
                 icon: "book-open",
                 driveLink: "https://drive.google.com/file/d/1rS6q_X-G4r_BsbF5VlgkXgZ1dwCX9kwp/view?usp=drive_open",
-                summary: "La cultura de paz consiste en una serie de valores, actitudes y comportamientos que rechazan la violencia y previenen los conflictos. Se aplica en la vida diaria mediante el diálogo, la tolerancia y el respeto, comenzando en el hogar, la escuela y la comunidad.",
+                summary: "La cultura de paz consiste en valores, actitudes y comportamientos que rechazan la violencia y previenen conflictos.",
                 keywords: [
-                    { term: "Cultura de Paz", definition: "Conjunto de valores, actitudes y comportamientos que reflejan el respeto a la vida y la dignidad humana." },
-                    { term: "Diálogo", definition: "Conversación entre dos o más personas que exponen sus ideas de forma alternativa para buscar entendimiento." },
-                    { term: "Tolerancia", definition: "Respeto hacia las ideas, creencias o prácticas cuando son diferentes o contrarias a las propias." }
+                    { term: "Cultura de Paz", definition: "Conjunto de valores y actitudes que reflejan el respeto a la vida." },
+                    { term: "Diálogo", definition: "Conversación para buscar entendimiento." }
                 ],
                 articles: [
-                    { article: "Artículo 3° Constitucional", description: "Señala que la educación impartida por el Estado fomentará el amor a la Patria, el respeto a todos los derechos, las libertades y la cultura de la paz." }
-                ]
+                    { article: "Artículo 3° Constitucional", description: "Señala que la educación fomentará el respeto y la cultura de la paz." }
+                ],
+                extraHtml: `
+                    <!-- Tabla Conceptos de Paz -->
+                    <section class="mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">🕊️ Conceptos de Paz</h3>
+                        <div class="overflow-x-auto rounded-lg shadow">
+                            <table class="w-full text-sm custom-table">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/2">Paz negativa</th>
+                                        <th class="w-1/2">Paz positiva</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white">
+                                        <td class="align-top">Ausencia de violencia personal, física, sistemática, organizada y directa.</td>
+                                        <td class="align-top">Se refiere a las acciones institucionales, grupales y personales que se realizan permanentemente para lograr un estado que favorezca la convivencia, respetando la diversidad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-center font-bold text-blue-900 bg-blue-100 uppercase tracking-wide">Características</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <td class="align-top">
+                                            <ul class="list-disc pl-5 space-y-2 text-slate-700">
+                                                <li>Se cree que la paz es la ausencia del conflicto.</li>
+                                                <li>Se ejecutan acciones para evitar los conflictos.</li>
+                                                <li>Cuando la paz es impuesta, se genera un estado de tensión y de mayor conflicto.</li>
+                                            </ul>
+                                        </td>
+                                        <td class="align-top">
+                                            <ul class="list-disc pl-5 space-y-2 text-slate-700">
+                                                <li>Se crean programas escolares de convivencia basados en los principios y valores de la cultura de paz.</li>
+                                                <li>Se generan programas institucionales que favorecen actitudes pacíficas.</li>
+                                                <li>Se promueven mecanismos democráticos y alternativos para solucionar los conflictos.</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                `
             },
             {
                 id: 7,
                 title: "Mecanismos para resolver conflictos",
                 icon: "handshake",
                 driveLink: "https://drive.google.com/file/d/1YxMKGTV_3HxtioFTTpsM2kF8vz1ufncN/view?usp=drive_open",
-                summary: "El conflicto es natural en las relaciones humanas. Los mecanismos de resolución pacífica son herramientas que permiten solucionar desacuerdos sin recurrir a la violencia o a juicios largos, promoviendo soluciones donde todas las partes ganan (ganar-ganar).",
+                summary: "Los mecanismos pacíficos permiten solucionar desacuerdos sin violencia, buscando el beneficio de ambas partes.",
                 keywords: [
-                    { term: "Negociación", definition: "Proceso de comunicación directa entre las partes en conflicto para llegar a un acuerdo aceptable." },
-                    { term: "Mediación", definition: "Intervención de un tercero imparcial (mediador) que facilita la comunicación entre las partes para que ellas mismas encuentren la solución." },
-                    { term: "Conciliación", definition: "Proceso similar a la mediación, pero donde el tercero (conciliador) puede proponer soluciones al conflicto." }
+                    { term: "Negociación", definition: "Comunicación directa entre las partes para un acuerdo." },
+                    { term: "Mediación", definition: "Intervención de un tercero imparcial que facilita la comunicación." }
                 ],
                 articles: [
-                    { article: "Artículo 17° Constitucional", description: "Garantiza el derecho de acceso a la justicia y establece que las leyes preverán mecanismos alternativos de solución de controversias (como la mediación y conciliación)." }
-                ]
+                    { article: "Artículo 17° Constitucional", description: "Establece que las leyes preverán mecanismos alternativos de solución de controversias." }
+                ],
+                extraHtml: ""
             }
         ];
 
@@ -211,49 +475,52 @@
                     <div class="${activeTopicId === topic.id ? 'text-blue-600' : 'text-slate-400'}">
                         <i data-lucide="${topic.icon}" class="w-5 h-5"></i>
                     </div>
-                    <span class="flex-1 text-sm">${topic.title}</span>
+                    <span class="flex-1 text-sm leading-tight">${topic.title}</span>
                     ${activeTopicId === topic.id ? '<i data-lucide="chevron-right" class="w-4 h-4 text-blue-600"></i>' : ''}
                 </button>
             `).join('');
             
-            lucide.createIcons(); // Renderiza los iconos de la lista
+            lucide.createIcons();
         }
 
-        // Selecciona un nuevo tema y actualiza pantalla
+        // Cambia de tema
         function selectTopic(id) {
             activeTopicId = id;
             renderSidebar();
             renderContent(id);
+            // Hacer scroll hacia arriba al cambiar de tema
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            // Cerrar menú en móviles
             if(window.innerWidth < 768 && isSidebarOpen) {
-                toggleSidebar(); // Cierra el menú en móviles después de seleccionar
+                toggleSidebar();
             }
         }
 
-        // Renderiza la información del tema seleccionado
+        // Renderiza el contenido completo del tema seleccionado
         function renderContent(id) {
             const topic = topicsData.find(t => t.id === id);
             const main = document.getElementById('mainContent');
 
-            // Pequeño truco para reiniciar la animación CSS
+            // Reinicia animación
             main.classList.remove('animate-fade-slide');
             void main.offsetWidth; 
             main.classList.add('animate-fade-slide');
 
             // HTML de Palabras clave
             let keywordsHtml = topic.keywords.map(kw => `
-                <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl hover:shadow-md transition-shadow">
+                <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl shadow-sm">
                     <h4 class="font-bold text-blue-700 mb-2">${kw.term}</h4>
-                    <p class="text-sm text-slate-600">${kw.definition}</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">${kw.definition}</p>
                 </div>
             `).join('');
 
-            // HTML de Artículos (si existen)
+            // HTML de Artículos 
             let articlesHtml = '';
             if(topic.articles && topic.articles.length > 0) {
                 articlesHtml = `
-                    <section>
+                    <section class="mt-8">
                       <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
-                        ⚖️ Artículos y Leyes de Referencia
+                        ⚖️ Artículos Constitucionales
                       </h3>
                       <div class="space-y-4">
                         ${topic.articles.map(art => `
@@ -263,7 +530,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-slate-800 mb-1">${art.article}</h4>
-                                    <p class="text-slate-600 text-sm">${art.description}</p>
+                                    <p class="text-slate-600 text-sm leading-relaxed">${art.description}</p>
                                 </div>
                             </div>
                         `).join('')}
@@ -272,27 +539,29 @@
                 `;
             }
 
-            // Unir y renderizar el panel principal
+            // Unir toda la vista
             main.innerHTML = `
-                <div class="bg-gradient-to-r from-blue-700 to-blue-900 p-8 text-white">
-                  <div class="flex items-center gap-3 mb-4 text-blue-200">
+                <div class="bg-gradient-to-r from-blue-700 to-blue-900 p-6 md:p-8 text-white relative overflow-hidden">
+                  <div class="flex items-center gap-3 mb-4 text-blue-200 relative z-10">
                     <i data-lucide="${topic.icon}" class="w-5 h-5"></i>
                     <span class="text-sm font-semibold uppercase tracking-wider">Tema ${topic.id}</span>
                   </div>
-                  <h2 class="text-3xl font-bold mb-4">${topic.title}</h2>
-                  <a href="${topic.driveLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-blue-800 px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-blue-50 transition-colors shadow-sm">
+                  <h2 class="text-3xl md:text-4xl font-bold mb-6 relative z-10 leading-tight">${topic.title}</h2>
+                  <a href="${topic.driveLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-blue-800 px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors shadow-sm relative z-10">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
-                    Abrir Lectura Original
+                    Abrir Lectura en Drive
                   </a>
+                  <i data-lucide="${topic.icon}" class="absolute -right-4 -bottom-4 w-48 h-48 text-white opacity-10 rotate-12"></i>
                 </div>
 
-                <div class="p-8 space-y-10">
+                <div class="px-6 py-8 md:px-8 space-y-10">
                   <section>
                     <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
-                      📌 Información Principal
+                      📌 Resumen Principal
                     </h3>
                     <p class="text-slate-600 leading-relaxed text-lg">${topic.summary}</p>
                   </section>
+                  
                   <section>
                     <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
                       🧠 Conceptos Clave
@@ -301,14 +570,18 @@
                       ${keywordsHtml}
                     </div>
                   </section>
+                  
                   ${articlesHtml}
+                  
+                  <!-- HTML Extra (Tablas y Diagramas inyectados aquí) -->
+                  ${topic.extraHtml}
                 </div>
             `;
             
-            lucide.createIcons(); // Renderiza los iconos del panel principal
+            lucide.createIcons();
         }
 
-        // Ejecutar cuando se carga la página
+        // Correr inicialización al cargar la página
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
