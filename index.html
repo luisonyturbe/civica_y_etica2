@@ -22,11 +22,15 @@
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Estilos personalizados para las tablas de estudio */
-        .study-table { w-full border-collapse border border-slate-200 rounded-lg overflow-hidden my-4 }
-        .study-table th { background-color: #f1f5f9; padding: 12px; text-align: left; font-weight: 600; color: #1e293b; border: 1px solid #e2e8f0; }
-        .study-table td { padding: 12px; border: 1px solid #e2e8f0; vertical-align: top; }
+        /* Estilos para las tablas */
+        .study-table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1.5rem; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .study-table th { background-color: #e2e8f0; padding: 12px; text-align: left; font-weight: 700; color: #1e293b; border: 1px solid #cbd5e1; }
+        .study-table td { padding: 12px; border: 1px solid #cbd5e1; vertical-align: top; font-size: 0.9rem; }
         .study-table tr:nth-child(even) { background-color: #f8fafc; }
+        
+        /* Ocultar barra de scroll en diagramas anchos */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
@@ -35,22 +39,195 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Íconos SVG ---
-        const IconUser = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
-        const IconHeart = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
-        const IconGlobe = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>;
-        const IconFlag = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>;
-        const IconHome = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
-        const IconCheck = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
-        const IconX = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
-        const IconBook = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>;
+        // --- Íconos Generales ---
+        const IconUser = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
+        const IconHeart = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
+        const IconGlobe = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>;
+        const IconFlag = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>;
+        const IconHome = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
+        const IconCheck = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>;
+        const IconX = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+        const IconBook = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>;
+        const ArrowDown = () => <svg className="w-5 h-5 mx-auto text-blue-500 my-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>;
+        const ArrowUp = () => <svg className="w-5 h-5 mx-auto text-blue-500 my-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>;
 
-        // --- Datos de Estudio y Quizzes ---
+        // ==========================================
+        // COMPONENTES DE DIAGRAMAS RECREADOS
+        // ==========================================
+
+        const DiagramaGenero = () => (
+          <div className="w-full overflow-x-auto hide-scrollbar my-6">
+            <div className="min-w-[600px] flex flex-col items-center bg-slate-50 py-8 rounded-xl border border-slate-200">
+              <div className="font-bold text-lg border-t-[3px] border-slate-800 pt-1 px-4 mb-0 uppercase tracking-wide">GÉNERO</div>
+              <div className="w-px h-6 bg-blue-600"></div>
+              <div className="w-3/4 h-px bg-blue-600 relative">
+                 <div className="absolute left-0 top-0 w-px h-6 bg-blue-600"></div>
+                 <div className="absolute right-0 top-0 w-px h-6 bg-blue-600"></div>
+              </div>
+              <div className="w-3/4 flex justify-between pt-6">
+                 {/* Femenino */}
+                 <div className="flex flex-col items-center w-1/2">
+                   <div className="border border-blue-500 px-8 py-2 bg-white text-blue-900 font-semibold shadow-sm">Femenino</div>
+                   <div className="w-px h-6 bg-blue-600"></div>
+                   <div className="w-3/4 h-px bg-blue-600 relative">
+                       <div className="absolute left-0 top-0 w-px h-6 bg-blue-600"></div>
+                       <div className="absolute right-0 top-0 w-px h-6 bg-blue-600"></div>
+                   </div>
+                   <div className="w-3/4 flex justify-between pt-6">
+                       <div className="bg-blue-600 text-white px-4 py-2 text-sm shadow">Hegemónica</div>
+                       <div className="flex flex-col items-center">
+                           <div className="bg-blue-600 text-white px-4 py-2 text-sm shadow">Subalterna</div>
+                           <div className="w-px h-6 bg-blue-600"></div>
+                           <div className="bg-blue-400 text-blue-900 px-4 py-2 text-sm font-semibold shadow">Marginada</div>
+                       </div>
+                   </div>
+                 </div>
+                 {/* Masculino */}
+                 <div className="flex flex-col items-center w-1/2">
+                   <div className="border border-blue-500 px-8 py-2 bg-white text-blue-900 font-semibold shadow-sm">Masculino</div>
+                   <div className="w-px h-6 bg-blue-600"></div>
+                   <div className="w-3/4 h-px bg-blue-600 relative">
+                       <div className="absolute left-0 top-0 w-px h-6 bg-blue-600"></div>
+                       <div className="absolute right-0 top-0 w-px h-6 bg-blue-600"></div>
+                   </div>
+                   <div className="w-3/4 flex justify-between pt-6">
+                       <div className="bg-blue-600 text-white px-4 py-2 text-sm shadow">Hegemónica</div>
+                       <div className="flex flex-col items-center">
+                           <div className="bg-blue-600 text-white px-4 py-2 text-sm shadow">Subalterna</div>
+                           <div className="w-px h-6 bg-blue-600"></div>
+                           <div className="bg-blue-400 text-blue-900 px-4 py-2 text-sm font-semibold shadow">Marginada</div>
+                       </div>
+                   </div>
+                 </div>
+              </div>
+            </div>
+            <p className="text-center text-xs text-slate-500 mt-2">Imagen 1.3: Estereotipos de género.</p>
+          </div>
+        );
+
+        const DiagramaCicloCuidado = () => (
+          <div className="my-8 bg-blue-50/50 p-6 rounded-xl border border-blue-100 flex flex-col items-center w-full">
+            <h4 className="font-bold text-blue-900 mb-6 font-poppins text-lg">El Ciclo del Autocuidado</h4>
+            <div className="w-full max-w-3xl flex flex-col items-center relative">
+               
+               <div className="border-2 border-blue-500 bg-white px-6 py-2 shadow-sm font-semibold text-blue-900 z-10 relative">Cuidar tu cuerpo</div>
+               
+               <div className="flex flex-col md:flex-row justify-between w-full my-4 relative">
+                  {/* Flecha conectora móvil */}
+                  <div className="block md:hidden text-center"><ArrowDown/></div>
+
+                  {/* Columna Izquierda (Flujo hacia arriba en el ciclo) */}
+                  <div className="flex flex-col gap-2 w-full md:w-5/12 order-2 md:order-1">
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Impedir que te traten mal o que abusen de otras personas</div>
+                     <div className="hidden md:block"><ArrowUp/></div>
+                     <div className="block md:hidden"><ArrowDown/></div>
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Valorar tus capacidades y las de tus amigos y compañeros</div>
+                     <div className="hidden md:block"><ArrowUp/></div>
+                     <div className="block md:hidden"><ArrowDown/></div>
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Defender tus opiniones ante los demás</div>
+                     <div className="hidden md:block"><ArrowUp/></div>
+                     <div className="block md:hidden"><ArrowDown/></div>
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Enfrentar los problemas</div>
+                  </div>
+
+                  {/* Flecha conectora móvil */}
+                  <div className="block md:hidden text-center order-3"><ArrowDown/></div>
+
+                  {/* Columna Derecha (Flujo hacia abajo en el ciclo) */}
+                  <div className="flex flex-col gap-2 w-full md:w-5/12 order-1 md:order-2">
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Valorar tu salud</div>
+                     <ArrowDown/>
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Reforzar tus aciertos</div>
+                     <ArrowDown/>
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Conocer tus cualidades y defectos</div>
+                     <ArrowDown/>
+                     <div className="border border-blue-400 bg-white p-3 text-sm text-center shadow-sm">Reconocer tus sentimientos</div>
+                  </div>
+               </div>
+
+               {/* Flecha conectora móvil */}
+               <div className="block md:hidden text-center"><ArrowDown/></div>
+
+               <div className="border-2 border-blue-500 bg-white px-6 py-2 shadow-sm font-semibold text-blue-900 z-10 relative">Aceptar tus errores</div>
+            </div>
+            <p className="text-center text-xs text-slate-500 mt-4">El ciclo de la autoestima y el autocuidado es continuo.</p>
+          </div>
+        );
+
+        const DiagramaDrogas = () => (
+          <div className="w-full overflow-x-auto hide-scrollbar my-6">
+            <div className="min-w-[500px] flex flex-col items-center bg-slate-50 py-8 rounded-xl border border-slate-200">
+              <div className="font-bold text-lg border-t-[3px] border-slate-800 pt-1 px-4 mb-0 uppercase tracking-wide">TIPOS DE DROGAS</div>
+              <div className="w-px h-6 bg-slate-400"></div>
+              <div className="w-2/3 h-px bg-slate-400 relative">
+                 <div className="absolute left-0 top-0 w-px h-6 bg-slate-400"></div>
+                 <div className="absolute right-0 top-0 w-px h-6 bg-slate-400"></div>
+              </div>
+              <div className="w-2/3 flex justify-between pt-6">
+                 <div className="flex flex-col items-center w-1/2">
+                   <div className="border border-blue-600 px-8 py-2 w-36 text-center bg-white text-slate-800 font-semibold shadow-sm">Duras</div>
+                   <div className="w-px h-6 bg-slate-400"></div>
+                   <div className="bg-blue-600 text-white p-3 w-40 text-center text-sm shadow-md">
+                      Mariguana<br/>Hongos
+                   </div>
+                 </div>
+                 <div className="flex flex-col items-center w-1/2">
+                   <div className="border border-blue-600 px-8 py-2 w-36 text-center bg-white text-slate-800 font-semibold shadow-sm">Blandas</div>
+                   <div className="w-px h-6 bg-slate-400"></div>
+                   <div className="bg-blue-600 text-white p-3 w-40 text-center text-sm shadow-md">
+                      Cocaína<br/>Morfina<br/>Heroína
+                   </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        );
+
+        const DiagramaGobiernos = () => (
+          <div className="w-full overflow-x-auto hide-scrollbar my-6">
+            <div className="min-w-[700px] flex flex-col items-center bg-slate-50 py-8 rounded-xl border border-slate-200">
+              <div className="font-bold text-lg border-t-[3px] border-slate-800 pt-1 px-4 mb-0 uppercase tracking-wide">TIPOS DE GOBIERNO</div>
+              <div className="w-px h-6 bg-blue-600"></div>
+              <div className="w-5/6 h-px bg-blue-600 relative">
+                 <div className="absolute left-0 top-0 w-px h-6 bg-blue-600"></div>
+                 <div className="absolute left-1/2 top-0 w-px h-6 bg-blue-600"></div>
+                 <div className="absolute right-0 top-0 w-px h-6 bg-blue-600"></div>
+              </div>
+              <div className="w-5/6 flex justify-between pt-6 gap-4">
+                 <div className="flex flex-col items-center w-1/3">
+                   <div className="border border-blue-500 px-4 py-2 w-full text-center bg-white text-slate-800 font-semibold shadow-sm">Democráticos</div>
+                   <div className="w-px h-6 bg-blue-600"></div>
+                   <div className="bg-blue-600 text-white p-4 w-full text-center text-sm shadow-md h-full">
+                      Aquellos en los que la ciudadanía participa en la toma de decisiones y ejerce sus derechos y libertades.
+                   </div>
+                 </div>
+                 <div className="flex flex-col items-center w-1/3">
+                   <div className="border border-blue-500 px-4 py-2 w-full text-center bg-white text-slate-800 font-semibold shadow-sm">Autoritarios</div>
+                   <div className="w-px h-6 bg-blue-600"></div>
+                   <div className="bg-blue-600 text-white p-4 w-full text-center text-sm shadow-md h-full">
+                      Reprimen y sancionan a los opositores y evitan sus expresiones en público.
+                   </div>
+                 </div>
+                 <div className="flex flex-col items-center w-1/3">
+                   <div className="border border-blue-500 px-4 py-2 w-full text-center bg-white text-slate-800 font-semibold shadow-sm">Totalitarios</div>
+                   <div className="w-px h-6 bg-blue-600"></div>
+                   <div className="bg-blue-600 text-white p-4 w-full text-center text-sm shadow-md h-full">
+                      Buscan eliminar las formas de pensamiento opuestas, mediante el adoctrinamiento y el uso de propaganda para cambiar las formas de pensar de la población.
+                   </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        );
+
+        // ==========================================
+        // DATOS PRINCIPALES DE LAS SECCIONES Y QUIZ
+        // ==========================================
         const studyData = [
           {
             id: 'identidad',
             title: 'Construyo mi identidad',
-            desc: 'Análisis de la identidad, género, roles sociales y tradiciones culturales.',
+            desc: 'Análisis de la identidad, género, roles sociales y tradiciones.',
             icon: <IconUser />,
             color: 'blue',
             content: {
@@ -59,63 +236,52 @@
                   subtitle: "¿Quién Soy? La Identidad Personal",
                   body: (
                     <div className="space-y-3">
-                      <p>La <strong>identidad personal</strong> es un conjunto de rasgos o características que nos conforman como individuos y nos hacen únicos. Se constituye principalmente durante la infancia, adolescencia y juventud.</p>
-                      <p>Según <strong>Martin Buber</strong>, la identidad personal tiene al menos cuatro características:</p>
+                      <p>La <strong>identidad personal</strong> es un conjunto de rasgos que nos conforman y nos diferencian. Según <strong>Martin Buber</strong>, la identidad tiene 4 características clave:</p>
                       <ul className="list-disc pl-6 space-y-1 text-slate-600">
-                        <li>Es relativamente <strong>estable</strong> (permanece a lo largo de la vida, aun con ligeros cambios).</li>
+                        <li>Es relativamente <strong>estable</strong> (permanece en la vida con ligeros cambios).</li>
                         <li>Se construye dentro de un <strong>entorno social</strong>.</li>
-                        <li>Se reafirma en la <strong>convivencia con los demás</strong> (a partir de gustos, deseos y afinidades compartidas).</li>
-                        <li>Los <strong>grupos sociales y medios de comunicación</strong> influyen en cada persona.</li>
+                        <li>Se reafirma en la <strong>convivencia con los demás</strong>.</li>
+                        <li>Los <strong>grupos y medios</strong> influyen, pero el individuo decide qué tomar.</li>
                       </ul>
                     </div>
                   )
                 },
                 {
-                  subtitle: "Género y Estereotipos (Análisis de Imagen)",
+                  subtitle: "Género y Estereotipos",
                   body: (
                     <div className="space-y-4">
-                      <p>El <strong>género</strong> es una construcción social, cultural y psicológica asociada a lo masculino y femenino, mientras que el <strong>sexo</strong> se refiere a diferencias biológicas.</p>
+                      <p>El <strong>género</strong> se refiere a las características socioculturales asignadas a hombres y mujeres (es una construcción social), distinto al <strong>sexo</strong>, que es puramente biológico.</p>
                       <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                        <h4 className="font-bold text-blue-800 mb-2">Visión de la DSI (Doctrina Social)</h4>
-                        <p className="text-sm">Ve el género como una realidad integral ligada a la realidad biológica del ser humano. Las diferencias entre hombres y mujeres se consideran un don (complementariedad), promoviendo que florezcan sin verse como opuestos o en competencia.</p>
+                        <h4 className="font-bold text-blue-800 mb-1">Visión de la DSI (Doctrina Social)</h4>
+                        <p className="text-sm">Considera el género como una realidad integral ligada a la biología. Promueve la <strong>complementariedad</strong> de roles sin verse como opuestos o en competencia.</p>
                       </div>
-                      <p>A través del tiempo, los <strong>roles de género</strong> han asignado a las mujeres al hogar y a los hombres como proveedores, limitando potencialidades, aunque hoy en día estos roles se están modificando o invirtiendo.</p>
-                      
-                      <h4 className="font-bold text-slate-800 mt-4 border-b pb-1">Jerarquía de Estereotipos de Género</h4>
-                      <p>La sociedad clasifica lo Femenino y lo Masculino en dos grandes ramas:</p>
-                      <ul className="list-disc pl-6 space-y-1 text-slate-600">
-                        <li><strong>Hegemónica:</strong> El estereotipo "ideal" de lo que debería ser una mujer o un hombre. Sin embargo, <em>seguir estos modelos rígidos puede poner en riesgo la identidad y la salud física/emocional de los adolescentes.</em></li>
-                        <li><strong>Subalterna:</strong> Formas de género que no cumplen con el ideal y a menudo derivan en una categoría <strong>Marginada</strong>.</li>
-                      </ul>
+                      <DiagramaGenero />
+                      <p className="text-sm text-slate-600">La sociedad ha dictado <strong>roles de género</strong> limitantes. La mayor participación de las mujeres en la vida pública y política ha modificado e invertido estos roles históricos.</p>
                     </div>
                   )
                 },
                 {
                   subtitle: "Grupos de Pertenencia, Tradiciones y Símbolos",
                   body: (
-                    <div className="space-y-3">
-                      <p>Buscamos identificación y aceptación en grupos. Algunos no los elegimos (familia) y otros sí (amigos, colectivos).</p>
-                      <p>Existen grupos <strong>contraculturales o tribus urbanas</strong> (góticos, punks, gamers, feministas, anarquistas, etc.). Algunos expresan rebeldía y desafían gustos convencionales, lo que a veces genera que los adultos los toleren poco o discriminen.</p>
+                    <div className="space-y-4">
+                      <p>Existen grupos elegidos como las <strong>tribus urbanas</strong> (góticos, punks, gamers). Al desafiar gustos convencionales, a menudo se les tolera poco o discrimina.</p>
                       
-                      <table className="w-full text-left border-collapse border border-slate-200 mt-4 bg-white text-sm">
+                      <table className="study-table">
                         <thead>
-                          <tr className="bg-slate-100">
-                            <th className="p-3 border">Concepto</th>
-                            <th className="p-3 border">Definición y Características</th>
-                          </tr>
+                          <tr><th>Concepto</th><th>Definición y Efecto Social</th></tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td className="p-3 border font-semibold text-slate-800">Tradiciones</td>
-                            <td className="p-3 border text-slate-600">Prácticas heredadas de generación en generación. Pueden transformarse al mezclarse con otras culturas, fenómeno llamado <strong>sincretismo</strong> (ej. antiguas deidades mexicanas + religión católica).</td>
+                            <td className="font-semibold w-1/4">Tradiciones</td>
+                            <td>Prácticas heredadas de generación en generación. Al mezclarse generan <strong>sincretismo</strong> (ej. cultura prehispánica + española).</td>
                           </tr>
                           <tr>
-                            <td className="p-3 border font-semibold text-slate-800">Costumbres</td>
-                            <td className="p-3 border text-slate-600">Prácticas que por repetición se vuelven hábitos. Regulan la vida comunitaria. Incumplirlas no tiene castigo legal, pero genera <strong>repercusiones morales (censura, exclusión, discriminación)</strong>.</td>
+                            <td className="font-semibold">Costumbres</td>
+                            <td>Prácticas que se vuelven hábitos y regulan a la comunidad. Incumplirlas no es delito, pero causa <strong>discriminación, exclusión y censura</strong>.</td>
                           </tr>
                           <tr>
-                            <td className="p-3 border font-semibold text-slate-800">Símbolos</td>
-                            <td className="p-3 border text-slate-600">Imágenes, objetos o rituales (banderas, himnos, cruces, playeras) que evocan los valores y creencias de un pueblo, estableciendo un vínculo social.</td>
+                            <td className="font-semibold">Símbolos</td>
+                            <td>Imágenes u objetos (banderas, playeras) que evocan valores/creencias, estableciendo un <strong>vínculo social de identidad</strong>.</td>
                           </tr>
                         </tbody>
                       </table>
@@ -125,266 +291,180 @@
               ]
             },
             quiz: [
-              { q: "Según Martin Buber, ¿cuál de estas características NO pertenece a la identidad personal?", options: ["Se construye en un entorno social.", "Es relativamente estable a lo largo de la vida.", "Es inmutable y se define genéticamente al nacer.", "Se reafirma en la convivencia con los demás."], correct: 2 },
-              { q: "¿Cuál es la diferencia fundamental entre sexo y género según el texto?", options: ["El género es biológico y el sexo cultural.", "El sexo es una construcción social, el género es psicológico.", "Ambos términos significan exactamente lo mismo.", "El sexo son diferencias biológicas, el género es una construcción social y cultural."], correct: 3 },
-              { q: "Al estereotipo ideal de mujer u hombre que sirve como guía social, pero que puede poner en riesgo la salud por su exigencia, se le denomina:", options: ["Estereotipo marginal", "Estereotipo subalterno", "Estereotipo hegemónico", "Estereotipo transicional"], correct: 2 },
-              { q: "¿Qué nombre reciben las agrupaciones juveniles que expresan rebeldía y cuyos valores desafían los gustos convencionales?", options: ["Cofradías", "Contraculturales o tribus urbanas", "Grupos hegemónicos", "Sindicatos juveniles"], correct: 1 },
-              { q: "La combinación de antiguas tradiciones prehispánicas con creencias de la religión católica es un ejemplo de:", options: ["Dogmatismo", "Etnocentrismo", "Segregación", "Sincretismo"], correct: 3 },
-              { q: "A diferencia de una ley, cuando se incumple una costumbre arraigada, la consecuencia suele ser:", options: ["Multa económica", "Prisión preventiva", "Repercusiones morales y sociales como censura", "Exilio legal del país"], correct: 2 },
-              { q: "¿Qué elemento cultural evoca valores, sentimientos y creencias mediante objetos, imágenes o rituales?", options: ["Costumbres", "Símbolos", "Leyes", "Normas"], correct: 1 },
-              { q: "¿Qué provocó que las mujeres ingresaran a espacios que antes se consideraban exclusivos para hombres?", options: ["La biología evolutiva.", "Mayor participación en la vida social, política y económica, y necesidades sociales.", "Prohibiciones legales hacia los hombres.", "El declive de las tribus urbanas."], correct: 1 },
-              { q: "En la DSI (Doctrina Social), la visión sobre el género sostiene que:", options: ["Debe separarse totalmente de la biología.", "Es una realidad integral arraigada en lo biológico, promoviendo la complementariedad.", "Hombres y mujeres son competidores naturales.", "Los roles deben ser estrictamente rígidos y no modificables."], correct: 1 },
-              { q: "¿Qué categoría se encuentra por debajo de la rama 'Subalterna' en el diagrama de estereotipos de género?", options: ["Hegemónica", "Femenina pura", "Marginada", "Inclusiva"], correct: 2 }
+              { q: "Según Martin Buber, ¿cuál característica NO pertenece a la identidad personal?", options: ["Se construye en un entorno social.", "Es relativamente estable a lo largo de la vida.", "Es inmutable y se define genéticamente al nacer.", "Se reafirma en la convivencia."], correct: 2 },
+              { q: "¿Cuál es la diferencia fundamental entre sexo y género?", options: ["El género es biológico y el sexo cultural.", "El sexo es una construcción social, el género es psicológico.", "Son exactamente lo mismo.", "El sexo es biológico, el género es una construcción social y cultural."], correct: 3 },
+              { q: "En el diagrama de género, ¿qué categoría se encuentra como resultado directo de la 'Subalterna'?", options: ["Hegemónica", "Masculinidad", "Marginada", "Ideológica"], correct: 2 },
+              { q: "Al estereotipo ideal dominante de lo que debería ser un hombre/mujer se le denomina:", options: ["Subalterno", "Marginado", "Hegemónico", "Tradicional"], correct: 2 },
+              { q: "¿Qué nombre reciben los grupos juveniles que expresan rebeldía y desafían gustos convencionales?", options: ["Hegemónicos", "Tribus urbanas o contraculturales", "Sindicatos", "Cofradías"], correct: 1 },
+              { q: "La mezcla de antiguas tradiciones prehispánicas con religión católica produce:", options: ["Marginación", "Segregación", "Estigmatización", "Sincretismo"], correct: 3 },
+              { q: "A diferencia de las leyes, incumplir una costumbre arraigada genera:", options: ["Cárcel", "Multas", "Repercusiones morales (censura, exclusión)", "Exilio oficial"], correct: 2 },
+              { q: "¿Qué elemento evoca valores y creencias mediante objetos, imágenes o rituales?", options: ["Leyes", "Símbolos", "Costumbres", "Estatutos"], correct: 1 },
+              { q: "¿Qué ha propiciado que las mujeres ingresen a espacios antes exclusivos de hombres?", options: ["Ley marcial", "Su mayor participación política, económica y necesidades sociales.", "Prohibición masculina.", "Desaparición de tribus urbanas."], correct: 1 },
+              { q: "Según la DSI (Doctrina Social), la relación entre hombres y mujeres debe basarse en:", options: ["Competencia económica", "Separación absoluta de roles", "Complementariedad, siendo sus diferencias un don", "Jerarquía hegemónica"], correct: 2 }
             ]
           },
           {
             id: 'salud',
             title: 'Derecho a la salud',
-            desc: 'Autoestima, asertividad, autorregulación y clasificación de drogas.',
+            desc: 'Autoestima, asertividad y prevención de adicciones.',
             icon: <IconHeart />,
             color: 'rose',
             content: {
               sections: [
                 {
-                  subtitle: "Obligaciones del Estado y Prevención",
+                  subtitle: "El Derecho Integral y la Autorregulación",
                   body: (
-                    <div className="space-y-3">
-                      <p>Según la OMS, la <strong>Salud Integral</strong> es el bienestar físico, mental y social, no solo la ausencia de enfermedad.</p>
-                      <p>El Estado está obligado a garantizar este derecho mediante varios instrumentos:</p>
+                    <div className="space-y-4">
+                      <p>La <strong>Salud Integral</strong> (OMS) abarca el bienestar físico, mental y social. Está garantizada por el <strong>Art. 4°</strong> de la Constitución y el <strong>Art. 50</strong> de la Ley Gral. de Derechos de NNA.</p>
+                      
+                      <DiagramaCicloCuidado />
+
+                      <p>La prevención requiere dos defensas psicológicas fundamentales:</p>
                       <ul className="list-disc pl-6 space-y-1 text-slate-600">
-                        <li><strong>Art. 25</strong> de la Declaración Universal de Derechos Humanos.</li>
-                        <li><strong>Art. 4°</strong> de la Constitución Política de los EUM.</li>
-                        <li><strong>Art. 50</strong> de la Ley General de los Derechos de NNA (obligando a establecer medidas de prevención, combate y rehabilitación de adicciones).</li>
+                        <li><strong>Asertividad:</strong> Habilidad para expresar deseos y defender derechos de forma honesta, <em>sin ser agresivos</em>.</li>
+                        <li><strong>Autorregulación:</strong> Identificar situaciones de riesgo y <em>evitar acciones</em> destructivas aunque se sienta un gran deseo de realizarlas.</li>
                       </ul>
                     </div>
                   )
                 },
                 {
-                  subtitle: "El Ciclo del Autocuidado y la Autoestima",
+                  subtitle: "Adicciones y Drogas",
                   body: (
                     <div className="space-y-4">
-                      <p>La autoestima se gesta en la familia. El autocuidado es la manifestación directa de estimarnos. Según el esquema oficial, el ciclo virtuoso del autocuidado sigue este flujo continuo:</p>
-                      
-                      <div className="bg-rose-50 p-5 rounded-xl border border-rose-200">
-                        <ol className="list-decimal pl-5 space-y-2 text-rose-900 font-medium">
-                          <li>Aceptar tus errores</li>
-                          <li>Enfrentar los problemas</li>
-                          <li>Defender tus opiniones ante los demás</li>
-                          <li>Valorar tus capacidades y las de tus amigos/compañeros</li>
-                          <li>Impedir que te traten mal o que abusen de otras personas</li>
-                          <li>Cuidar tu cuerpo</li>
-                          <li>Valorar tu salud</li>
-                          <li>Reforzar tus aciertos</li>
-                          <li>Conocer tus cualidades y defectos</li>
-                          <li>Reconocer tus sentimientos <em>(y vuelve al inicio)</em></li>
-                        </ol>
-                      </div>
-                      
-                      <p>Para resistir la presión de pertenecer a un grupo destructivo se requieren dos habilidades: <strong>Asertividad</strong> (expresar honestamente sin agresión) y <strong>Autorregulación</strong> (identificar riesgos y evitar acciones aunque se desee hacerlas).</p>
-                    </div>
-                  )
-                },
-                {
-                  subtitle: "Las Adicciones y Tipos de Drogas (Esquema Oficial)",
-                  body: (
-                    <div className="space-y-4">
-                      <p>La adicción es una dependencia física, psicológica y emocional. Un <em>consumidor ocasional NO es un adicto</em>. El adicto tiene un consumo crónico y presenta <strong>dependencia psicofísica</strong> (tendencia a subir la dosis).</p>
-                      
-                      <div className="bg-white border border-slate-300 rounded-lg overflow-hidden shadow-sm">
-                        <div className="bg-slate-800 text-white text-center font-bold py-2 uppercase tracking-wide">Clasificación de Tipos de Drogas</div>
-                        <div className="grid grid-cols-2 divide-x divide-slate-300">
-                          <div className="p-4 bg-slate-50">
-                            <h4 className="font-bold text-center text-slate-700 border-b pb-2 mb-3">DURAS</h4>
-                            <ul className="list-disc pl-5 text-slate-600 space-y-1">
-                              <li>Mariguana</li>
-                              <li>Hongos</li>
-                            </ul>
-                          </div>
-                          <div className="p-4 bg-slate-50">
-                            <h4 className="font-bold text-center text-slate-700 border-b pb-2 mb-3">BLANDAS</h4>
-                            <ul className="list-disc pl-5 text-slate-600 space-y-1">
-                              <li>Cocaína</li>
-                              <li>Morfina</li>
-                              <li>Heroína</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-xs text-slate-500 italic mt-2">* Nota: Esta clasificación se basa de manera estricta en el esquema de la lectura proporcionada en el temario.</p>
+                      <p>La adicción implica dependencia física, psicológica y emocional constante (crónica). Un consumo ocasional no clasifica como adicto.</p>
+                      <DiagramaDrogas />
+                      <p className="text-sm text-slate-600 mt-4">A largo plazo, las drogas (usadas inicialmente para calmar estrés) <strong>exacerban los problemas, provocan depresión y daños neuronales irreparables</strong>, además de fracturar la cohesión social.</p>
                     </div>
                   )
                 }
               ]
             },
             quiz: [
-              { q: "¿Qué ley en México, en su artículo 50, obliga a prevenir, atender y rehabilitar problemas por adicciones?", options: ["Constitución Política", "Ley General de Educación", "Ley General de los Derechos de Niñas, Niños y Adolescentes", "Ley General de Salud Pública"], correct: 2 },
-              { q: "Dentro del esquema circular del cuidado corporal, ¿qué paso sigue inmediatamente después de 'Defender tus opiniones ante los demás'?", options: ["Reconocer tus sentimientos", "Cuidar tu cuerpo", "Aceptar tus errores", "Valorar tus capacidades y las de tus amigos/compañeros"], correct: 3 },
-              { q: "En el ciclo de autocuidado, 'Reforzar tus aciertos' es un paso que conecta directamente hacia:", options: ["Enfrentar los problemas", "Conocer tus cualidades y defectos", "Valorar tu salud", "Impedir que te traten mal"], correct: 1 },
-              { q: "Según el diagrama de Tipos de Drogas de la lectura oficial, ¿cuáles se clasifican como drogas DURAS?", options: ["Cocaína y Heroína", "Mariguana y Hongos", "Tabaco y Alcohol", "Morfina y Cocaína"], correct: 1 },
-              { q: "Según la lectura oficial, la Cocaína, la Morfina y la Heroína están clasificadas bajo el tipo de drogas:", options: ["Duras", "Legales", "Blandas", "Conductuales"], correct: 2 },
-              { q: "Médicamente y según el texto, ¿qué diferencia a un consumidor ocasional de un adicto?", options: ["El adicto consume drogas legales, el ocasional ilegales.", "El adicto presenta dependencia psicofísica constante y crónica.", "No hay diferencia, probar una vez te hace adicto.", "El consumidor ocasional tiene peor salud mental."], correct: 1 },
-              { q: "¿Qué habilidad social te permite exponer tus verdaderos deseos, decir 'no' y defender tus derechos sin ser agresivo?", options: ["Autoestima", "Autorregulación", "Asertividad", "Simpatía"], correct: 2 },
-              { q: "Identifica un ejemplo de adicción conductual o emocional:", options: ["Heroína", "Tabaquismo", "Relaciones de codependencia destructivas", "Inhalantes"], correct: 2 },
-              { q: "La capacidad para identificar obstáculos y evitar acciones que ponen en riesgo tu integridad, aunque sientas gran deseo de realizarlas, se llama:", options: ["Catarsis", "Abstinencia", "Asertividad", "Autorregulación"], correct: 3 },
-              { q: "¿Qué efecto a largo plazo suele provocar el uso de drogas como 'vía de escape' para el estrés?", options: ["Inmunidad a la ansiedad", "Aumento de la inteligencia cognitiva", "Exacerbación de problemas y provocación de depresión/trastornos mentales", "Mejora de la asertividad"], correct: 2 }
+              { q: "Según la OMS, la salud integral comprende el bienestar:", options: ["Físico y económico", "Físico, mental y social", "Únicamente biológico", "Académico y físico"], correct: 1 },
+              { q: "¿Qué artículo de la Constitución obliga al Estado a garantizar el derecho a la salud?", options: ["Artículo 3°", "Artículo 4°", "Artículo 25°", "Artículo 50°"], correct: 1 },
+              { q: "En el ciclo del autocuidado, ¿qué paso sigue directamente a 'Valorar tu salud'?", options: ["Reforzar tus aciertos", "Conocer tus cualidades", "Aceptar tus errores", "Enfrentar problemas"], correct: 0 },
+              { q: "En el ciclo del autocuidado, antes de 'Defender tus opiniones', ¿qué paso se realiza?", options: ["Impedir abusos", "Reconocer sentimientos", "Valorar tus capacidades y las de tus amigos", "Cuidar tu cuerpo"], correct: 2 },
+              { q: "Según el diagrama de Tipos de Drogas, ¿cuáles se clasifican como DURAS?", options: ["Morfina y Cocaína", "Mariguana y Hongos", "Heroína y Hongos", "Cocaína y Mariguana"], correct: 1 },
+              { q: "Según el diagrama, la Cocaína y la Heroína se clasifican como drogas:", options: ["Duras", "Legales", "Blandas", "Farmacéuticas"], correct: 2 },
+              { q: "¿Qué habilidad te permite decir 'NO' ante presiones de grupo sin recurrir a la agresión?", options: ["Autoestima", "Autorregulación", "Asertividad", "Empatía"], correct: 2 },
+              { q: "La capacidad de frenar impulsos frente a acciones riesgosas, aunque se deseen, es:", options: ["Dignidad", "Asertividad", "Resiliencia", "Autorregulación"], correct: 3 },
+              { q: "¿Qué diferencia a un consumidor ocasional de un adicto?", options: ["El tipo de droga", "El adicto presenta dependencia psicofísica constante/crónica", "El costo de la droga", "No hay diferencia"], correct: 1 },
+              { q: "A largo plazo, usar drogas para evadir la tristeza o ansiedad resulta en:", options: ["Cura emocional", "Inmunidad al estrés", "Exacerbación de problemas y depresión clínica", "Mejor integración social"], correct: 2 }
             ]
           },
           {
             id: 'vulnerables',
             title: 'Comunidades vulnerables',
-            desc: 'Dignidad humana, marginación, desigualdad estructural y factores de riesgo.',
+            desc: 'Dignidad, marginación y factores de desigualdad estructural.',
             icon: <IconGlobe />,
             color: 'emerald',
             content: {
               sections: [
                 {
-                  subtitle: "Dignidad Humana y Derechos Humanos",
+                  subtitle: "Dignidad Humana",
                   body: (
-                    <div className="space-y-3">
-                      <p>La <strong>Dignidad Humana</strong> es un valor inherente e inalienable. El Art. 1 de la DUDH sostiene que "Todos los seres humanos nacen libres e iguales en dignidad y derechos". Sus aspectos clave son:</p>
-                      <ul className="list-disc pl-6 space-y-1 text-slate-600">
-                        <li><strong>Igualdad:</strong> Mismo valor intrínseco.</li>
-                        <li><strong>Autonomía:</strong> Capacidad de tomar decisiones libres.</li>
-                        <li><strong>Integridad:</strong> Respeto físico/psicológico (prohíbe la tortura).</li>
-                        <li><strong>Trato digno:</strong> Respeto y justicia institucional.</li>
-                      </ul>
-                      <p>Aunque los DDHH exigen igualdad, las <strong>estructuras económico-sociales</strong> producen marginación.</p>
-                    </div>
-                  )
-                },
-                {
-                  subtitle: "Grupos Vulnerados",
-                  body: (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-                      <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-                        <h4 className="font-bold text-emerald-800">Vulnerabilidad Infantil</h4>
-                        <p className="text-sm mt-1">Niños y adolescentes. Dependen de adultos y tienen poca capacidad de autonomía para defender sus derechos.</p>
-                      </div>
-                      <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-                        <h4 className="font-bold text-emerald-800">Vulnerabilidad de Género</h4>
-                        <p className="text-sm mt-1">Mujeres y personas de género diverso. Enfrentan desigualdades que las exponen a violencia o discriminación.</p>
-                      </div>
-                      <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-                        <h4 className="font-bold text-emerald-800">Vulnerabilidad Económica</h4>
-                        <p className="text-sm mt-1">Personas en pobreza. Falta de acceso a educación, vivienda y salud de calidad.</p>
-                      </div>
-                    </div>
-                  )
-                },
-                {
-                  subtitle: "Factores que Contribuyen a la Marginación (Tabla 3.1)",
-                  body: (
-                    <div className="space-y-3">
-                      <p>La marginación es la relegación a un estatus social, económico o político inferior. Ocurre por 5 factores críticos:</p>
+                    <div className="space-y-4">
+                      <p>La <strong>Dignidad Humana</strong> sostiene que cada individuo posee un valor inherente. Se fundamenta en: <em>Igualdad, Autonomía, Integridad y Trato digno</em>.</p>
                       
-                      <table className="study-table text-sm">
-                        <tbody>
-                          <tr>
-                            <td className="w-1/3 bg-slate-100 font-semibold text-slate-800">Discriminación</td>
-                            <td>Basada en etnia, género, religión, discapacidad u orientación. <strong>Origina la negación de oportunidades</strong> (ej. no permitir que mujeres realicen algunas labores).</td>
-                          </tr>
-                          <tr>
-                            <td className="bg-slate-100 font-semibold text-slate-800">Desigualdad Económica</td>
-                            <td>La mala distribución de riqueza provoca <strong>menos acceso a empleo, educación, salud y vivienda</strong> para las poblaciones marginadas.</td>
-                          </tr>
-                          <tr>
-                            <td className="bg-slate-100 font-semibold text-slate-800">Barreras Estructurales</td>
-                            <td>Barreras institucionales (segregación en vivienda, empleo, falta de poder político). <strong>Ejemplo:</strong> Poblaciones en zonas limítrofes sin agua potable, luz o internet.</td>
-                          </tr>
-                          <tr>
-                            <td className="bg-slate-100 font-semibold text-slate-800">Estigmatización Social</td>
-                            <td>Los prejuicios <strong>aíslan a personas percibidas como "diferentes"</strong> o desfavorecidos (ej. personas con orientación sexual distinta).</td>
-                          </tr>
-                          <tr>
-                            <td className="bg-slate-100 font-semibold text-slate-800">Falta de Acceso a Servicios Básicos</td>
-                            <td>Falta de atención médica, educación y vivienda que <strong>mantiene a las personas en marginación</strong>, como quienes viven en zonas rurales e indígenas.</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="bg-emerald-50 p-4 rounded border border-emerald-100"><strong className="text-emerald-800 block">Vuln. Infantil</strong> Dependencia de adultos; falta de autonomía.</div>
+                        <div className="bg-emerald-50 p-4 rounded border border-emerald-100"><strong className="text-emerald-800 block">Vuln. de Género</strong> Exposición a violencia/discriminación.</div>
+                        <div className="bg-emerald-50 p-4 rounded border border-emerald-100"><strong className="text-emerald-800 block">Vuln. Económica</strong> Pobreza, falta de acceso a salud/educación.</div>
+                      </div>
                     </div>
+                  )
+                },
+                {
+                  subtitle: "Tabla 3.1 Factores que contribuyen a la marginación",
+                  body: (
+                    <table className="study-table">
+                      <tbody>
+                        <tr><td className="w-1/4 font-semibold bg-slate-100">Discriminación</td><td>Basada en etnia, género, religión u orientación. <strong>Origina la negación de oportunidades y tratos justos.</strong></td></tr>
+                        <tr><td className="font-semibold bg-slate-100">Desigualdad económica</td><td>Mala distribución de riqueza que <strong>provoca menos acceso a empleo, educación, atención médica y vivienda</strong>.</td></tr>
+                        <tr><td className="font-semibold bg-slate-100">Barreras estructurales</td><td>Institucionales (segregación de vivienda/empleo). Ej: <strong>Zonas limítrofes sin agua potable, luz o internet</strong>.</td></tr>
+                        <tr><td className="font-semibold bg-slate-100">Estigmatización social</td><td>Prejuicios que <strong>aíslan a personas percibidas como diferentes</strong> (ej. orientación sexual distinta).</td></tr>
+                        <tr><td className="font-semibold bg-slate-100">Falta de acceso a servicios básicos</td><td>Falta de atención médica, escuelas y vivienda. <strong>Mantiene en marginación a zonas rurales e indígenas</strong>.</td></tr>
+                      </tbody>
+                    </table>
                   )
                 }
               ]
             },
             quiz: [
-              { q: "¿Qué concepto afirma que cada individuo posee un valor inherente e inalienable que exige trato justo?", options: ["Empatía social", "Dignidad humana", "Soberanía estatal", "Tolerancia cultural"], correct: 1 },
-              { q: "En la Tabla 3.1, el hecho de que poblaciones en zonas limítrofes no tengan agua potable ni internet se clasifica como:", options: ["Discriminación explícita", "Vulnerabilidad de género", "Estigmatización social", "Barreras estructurales"], correct: 3 },
-              { q: "El Artículo 1° de la Declaración Universal de los Derechos Humanos menciona que todos los seres humanos nacen:", options: ["Libres y diferentes en derechos.", "Sujetos a las barreras estructurales de su país.", "Libres e iguales en dignidad y derechos.", "Con vulnerabilidad económica inherente."], correct: 2 },
-              { q: "¿Por qué los niños, niñas y adolescentes son un grupo especialmente vulnerable?", options: ["Por falta de educación.", "Debido a su dependencia de los adultos y poca capacidad de autonomía.", "Porque no tienen derechos humanos asignados aún.", "Por barreras estructurales exclusivas de las escuelas."], correct: 1 },
-              { q: "La prohibición de la tortura y los tratos inhumanos es una exigencia del aspecto de la dignidad conocido como:", options: ["Integridad", "Autonomía", "Igualdad", "Libertad de expresión"], correct: 0 },
-              { q: "Según la tabla oficial, aislar a personas o grupos al percibirlos como 'diferentes' (ej. orientación sexual distinta) contribuye a la marginación mediante:", options: ["Estigmatización social", "Vulnerabilidad económica", "Barreras institucionales", "Desigualdad de riqueza"], correct: 0 },
-              { q: "¿Qué componente de la dignidad exige que cada persona tenga capacidad de tomar decisiones libres sobre su propia vida?", options: ["Trato digno", "Autonomía", "Integridad", "Asertividad"], correct: 1 },
-              { q: "Según la tabla, la negación de tratos justos y oportunidades basada en características como etnia, género o discapacidad se denomina:", options: ["Barrera estructural", "Estigmatización", "Desigualdad económica", "Discriminación"], correct: 3 },
-              { q: "Según la tabla, la falta de atención médica, educación de calidad y vivienda asequible, que afecta sobre todo a zonas rurales e indígenas, se clasifica como:", options: ["Estigmatización social", "Falta de acceso a servicios básicos", "Discriminación religiosa", "Autonomía reducida"], correct: 1 },
-              { q: "La vulnerabilidad de género expone principalmente a las mujeres y personas de género diverso a:", options: ["Alta carga tributaria.", "Violencia y otras formas de discriminación.", "Pérdida de nacionalidad.", "Sobreprotección estatal."], correct: 1 }
+              { q: "El valor inherente e inalienable por el simple hecho de ser humano es la:", options: ["Integridad moral", "Dignidad humana", "Vulnerabilidad", "Autonomía"], correct: 1 },
+              { q: "Según la Tabla 3.1, negar empleo a alguien por su religión u orientación sexual es un ejemplo de:", options: ["Barrera estructural", "Estigmatización", "Discriminación", "Desigualdad económica"], correct: 2 },
+              { q: "Según la Tabla 3.1, que una población en la periferia no tenga luz, agua potable ni internet se clasifica como:", options: ["Discriminación", "Falta de servicios básicos", "Estigmatización social", "Barreras estructurales"], correct: 3 },
+              { q: "Aislar socialmente a un grupo por considerarlo 'diferente' (prejuicios) se conoce en la Tabla 3.1 como:", options: ["Estigmatización social", "Desigualdad económica", "Marginación infantil", "Asertividad"], correct: 0 },
+              { q: "Según la Tabla 3.1, ¿qué factor mantiene en estado de marginación especialmente a las zonas rurales e indígenas?", options: ["Falta de acceso a servicios básicos", "Barreras estructurales", "Vulnerabilidad de género", "Tolerancia cultural"], correct: 0 },
+              { q: "La vulnerabilidad infantil existe principalmente por:", options: ["Falta de inteligencia", "Total dependencia de adultos y falta de capacidad de autonomía", "Mala educación pública", "Desigualdad de género"], correct: 1 },
+              { q: "Dentro de la dignidad, la capacidad de tomar decisiones libres corresponde a la:", options: ["Igualdad", "Integridad", "Autonomía", "Trato digno"], correct: 2 },
+              { q: "La prohibición absoluta de la tortura y maltrato protege directamente tu:", options: ["Economía", "Igualdad", "Autonomía", "Integridad"], correct: 3 },
+              { q: "La vulnerabilidad de género expone estadísticamente más a las mujeres a:", options: ["Mejores salarios", "Pérdida de identidad nacional", "Desigualdades, violencia y discriminación", "Falta de acceso a internet"], correct: 2 },
+              { q: "La desigualdad económica se define en la tabla como la mala distribución de:", options: ["Prejuicios", "Riqueza y recursos", "Poder político", "Libertades de expresión"], correct: 1 }
             ]
           },
           {
             id: 'movimientos',
             title: 'Movimientos sociales',
-            desc: 'Formas de violación de DDHH, generaciones de derechos y activismo.',
+            desc: 'Sistemas de gobierno, DDHH y movimientos en México.',
             icon: <IconFlag />,
             color: 'violet',
             content: {
               sections: [
                 {
-                  subtitle: "Los Derechos Humanos y Formas de Violación",
+                  subtitle: "Formas de Violentar los Derechos Humanos",
                   body: (
-                    <div className="space-y-3">
-                      <p>Los DDHH son inherentes, imprescriptibles, universales, indivisibles e inalienables. Solo los agentes del Estado pueden violarlos (Art. 1°). Existen 3 formas documentadas de violencia institucional:</p>
-                      
-                      <div className="flex flex-col md:flex-row gap-4 mt-2">
-                        <div className="flex-1 bg-red-50 p-4 rounded-lg border border-red-200">
-                          <h4 className="font-bold text-red-800">Por Acción</h4>
-                          <p className="text-sm mt-1">Ataque directo a la dignidad humana (detenciones arbitrarias, desapariciones forzadas, ejecuciones, tortura).</p>
-                        </div>
-                        <div className="flex-1 bg-orange-50 p-4 rounded-lg border border-orange-200">
-                          <h4 className="font-bold text-orange-800">Por Omisión</h4>
-                          <p className="text-sm mt-1">Los poderes de gobierno muestran <strong>indiferencia</strong> ante situaciones que vulneran la dignidad y derechos.</p>
-                        </div>
-                        <div className="flex-1 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                          <h4 className="font-bold text-yellow-800">Por Aquiescencia</h4>
-                          <p className="text-sm mt-1">El Estado o autoridades dan el <strong>consentimiento directo</strong> para permitir secuestros o agresiones por parte de terceros (guardias o grupos paramilitares).</p>
-                        </div>
-                      </div>
-                    </div>
+                    <table className="study-table text-sm">
+                      <tbody>
+                        <tr>
+                          <td rowSpan="3" className="w-1/4 font-bold bg-slate-200 text-center align-middle">Formas en que se violentan los derechos humanos</td>
+                          <td className="bg-red-50"><strong className="text-red-800">Por acción:</strong> Se generan cuando agentes del Estado <strong>atacan directamente</strong> la dignidad (detenciones arbitrarias, tortura, desapariciones).</td>
+                        </tr>
+                        <tr>
+                          <td className="bg-orange-50"><strong className="text-orange-800">Por omisión:</strong> Ocurren cuando el gobierno muestra <strong>indiferencia</strong> ante situaciones que vulneran derechos.</td>
+                        </tr>
+                        <tr>
+                          <td className="bg-yellow-50"><strong className="text-yellow-800">Por aquiescencia:</strong> El Estado da el <strong>consentimiento directo</strong> permitiendo secuestros o agresiones por parte de terceros (ej. grupos paramilitares).</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   )
                 },
                 {
-                  subtitle: "Generaciones de Derechos Humanos (Tabla 4.1)",
+                  subtitle: "Tabla 4.1 Generaciones de los Derechos Humanos",
                   body: (
-                    <table className="study-table text-xs md:text-sm">
+                    <table className="study-table text-xs">
                       <thead>
                         <tr>
-                          <th>Primera Generación<br/><span className="font-normal">Derechos Civiles y Políticos</span></th>
-                          <th>Segunda Generación<br/><span className="font-normal">Económicos, Sociales y Culturales</span></th>
-                          <th>Tercera Generación<br/><span className="font-normal">Derechos de Solidaridad</span></th>
+                          <th className="w-1/3 text-center">Primera generación<br/><span className="font-normal text-slate-500">Civiles y políticos</span></th>
+                          <th className="w-1/3 text-center">Segunda generación<br/><span className="font-normal text-slate-500">Económicos, sociales y culturales</span></th>
+                          <th className="w-1/3 text-center">Tercera generación<br/><span className="font-normal text-slate-500">Derechos de solidaridad</span></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>
-                            <ul className="list-disc pl-4 space-y-1">
-                              <li>Derecho a la vida y a la igualdad</li>
-                              <li>Libertad, nacionalidad y privacidad</li>
+                          <td className="px-4">
+                            <ul className="list-disc pl-2 space-y-1">
+                              <li>Derecho a la vida, igualdad, libertad</li>
+                              <li>Nacionalidad, privacidad</li>
                               <li>Libertad de expresión y religiosa</li>
                               <li>Juicio justo y sufragio</li>
                             </ul>
                           </td>
-                          <td>
-                            <ul className="list-disc pl-4 space-y-1">
-                              <li>Trabajo, libre elección y condiciones equitativas</li>
-                              <li>Libertad sindical y huelga</li>
-                              <li>Vivienda digna, salud y educación</li>
-                              <li>Ciencia, tecnología y vida cultural</li>
+                          <td className="px-4">
+                            <ul className="list-disc pl-2 space-y-1">
+                              <li>Trabajo, condiciones laborales, huelga</li>
+                              <li>Nivel de vida y vivienda digna</li>
+                              <li>Salud y educación</li>
+                              <li>Vida cultural, ciencia, tecnología y ambiente</li>
                             </ul>
                           </td>
-                          <td>
-                            <ul className="list-disc pl-4 space-y-1">
-                              <li>Autodeterminación y paz</li>
-                              <li>Independencia económica y política</li>
-                              <li>Identidad nacional, coexistencia pacífica</li>
-                              <li>Patrimonio de la humanidad y ambiente</li>
+                          <td className="px-4">
+                            <ul className="list-disc pl-2 space-y-1">
+                              <li>Autodeterminación, independencia</li>
+                              <li>Identidad nacional, paz, coexistencia</li>
+                              <li>Cooperación/justicia internacional</li>
+                              <li>Uso de la ciencia, ambiente, patrimonio común y desarrollo digno</li>
                             </ul>
                           </td>
                         </tr>
@@ -393,66 +473,52 @@
                   )
                 },
                 {
-                  subtitle: "Tipos de Gobierno y Movimientos",
+                  subtitle: "Tipos de Gobierno y Tabla 4.3 de Movimientos",
                   body: (
-                    <div className="space-y-4">
-                      <p><strong>Diferencia clave:</strong> Los Movimientos Sociales buscan visibilizar injusticias y mejorar la sociedad. Los Movimientos Políticos buscan directamente alcanzar el poder político para gobernar.</p>
+                    <div className="space-y-6">
+                      <DiagramaGobiernos />
+                      <p>Los <strong>movimientos sociales</strong> visibilizan injusticias y piden mejoras para todos. Los <strong>políticos</strong> buscan alcanzar el poder.</p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div className="border border-slate-200 p-3 rounded bg-white shadow-sm">
-                          <h4 className="font-bold text-blue-700">Democráticos</h4>
-                          <p className="text-sm">La ciudadanía participa en decisiones y ejerce libertades.</p>
-                        </div>
-                        <div className="border border-slate-200 p-3 rounded bg-white shadow-sm">
-                          <h4 className="font-bold text-slate-700">Autoritarios</h4>
-                          <p className="text-sm">Reprimen y sancionan opositores, evitan expresión pública.</p>
-                        </div>
-                        <div className="border border-slate-200 p-3 rounded bg-white shadow-sm">
-                          <h4 className="font-bold text-red-700">Totalitarios</h4>
-                          <p className="text-sm">Buscan <em>eliminar</em> formas de pensamiento opuestas con adoctrinamiento y propaganda.</p>
-                        </div>
-                      </div>
-
-                      <h4 className="font-bold text-slate-800 border-b pb-1 mt-6">Movimientos Históricos en México (Tabla 4.3)</h4>
-                      <table className="study-table text-xs md:text-sm">
+                      <table className="study-table text-xs">
                         <thead>
-                          <tr><th>Movimiento</th><th>Tipo</th><th>Periodo</th><th>Demanda Principal</th></tr>
+                          <tr><th>Movimiento</th><th>Tipo</th><th>Periodo</th><th>Demandas</th></tr>
                         </thead>
                         <tbody>
-                          <tr><td>Ejército Cristero</td><td>Social</td><td>1926-1929</td><td>Respeto a profesión religiosa.</td></tr>
-                          <tr><td>Médicos y enfermeras</td><td>Social</td><td>1964-1965</td><td>Mejores condiciones laborales.</td></tr>
-                          <tr><td>Huelga de ferrocarrileros</td><td>Social</td><td>1959</td><td>Mejores condiciones laborales.</td></tr>
-                          <tr><td>Estudiantil de 1968</td><td>Social</td><td>1968</td><td>Democratización del país.</td></tr>
-                          <tr><td>Partido de los Pobres</td><td>Político</td><td>1967-1974</td><td>Contra asesinatos de campesinos en Guerrero.</td></tr>
-                          <tr><td>Liga Comunista 23 de Sept.</td><td>Político</td><td>1973-1983</td><td>Construcción de gobierno socialista.</td></tr>
-                          <tr><td>Mov. Acción Revolucionaria</td><td>Político</td><td>1969-1979</td><td>Democratización del país.</td></tr>
-                          <tr><td>EZLN</td><td>Político</td><td>1994</td><td>Derechos de pueblos indígenas.</td></tr>
-                          <tr><td>Consejo General de Huelga (UNAM)</td><td>Social</td><td>1999-2000</td><td>Defensa de educación pública y gratuita.</td></tr>
-                          <tr><td>#YoSoy132</td><td>Social</td><td>2012</td><td>Contra violaciones de derechos humanos.</td></tr>
+                          <tr><td className="font-bold">Ejército Cristero</td><td>Social</td><td>1926-1929</td><td>Respeto a profesión religiosa.</td></tr>
+                          <tr><td className="font-bold">Médicos y enfermeras</td><td>Social</td><td>1964-1965</td><td>Mejores condiciones laborales.</td></tr>
+                          <tr><td className="font-bold">Huelga ferrocarrilera</td><td>Social</td><td>1959</td><td>Mejores condiciones laborales.</td></tr>
+                          <tr><td className="font-bold">Estudiantil 1968</td><td>Social</td><td>1968</td><td>Democratización del país.</td></tr>
+                          <tr><td className="font-bold">Partido de los Pobres</td><td>Político</td><td>1967-1974</td><td>Contra asesinatos de campesinos en Gro.</td></tr>
+                          <tr><td className="font-bold">Liga Com. 23 de Sept.</td><td>Político</td><td>1973-1983</td><td>Construcción de gobierno socialista.</td></tr>
+                          <tr><td className="font-bold">Mov. Acción Revoluc.</td><td>Político</td><td>1969-1979</td><td>Democratización del país.</td></tr>
+                          <tr><td className="font-bold">EZLN</td><td>Político</td><td>1994</td><td>Derechos de pueblos indígenas.</td></tr>
+                          <tr><td className="font-bold">CGH, UNAM</td><td>Social</td><td>1999-2000</td><td>Defensa de educación pública/gratuita.</td></tr>
+                          <tr><td className="font-bold">#YoSoy132</td><td>Social</td><td>2012</td><td>Contra violaciones de derechos.</td></tr>
                         </tbody>
                       </table>
-                      <p className="text-sm mt-2 text-slate-600">Durante varias de estas décadas (50s-70s), el gobierno mexicano quebrantó derechos sistemáticamente, torturando y desapareciendo disidentes en lo que hoy se conoce como la <strong>Guerra Sucia</strong>.</p>
                     </div>
                   )
                 }
               ]
             },
             quiz: [
-              { q: "Si el gobierno muestra total indiferencia y no interviene ante una situación documentada que vulnera la dignidad, comete una violación por:", options: ["Acción", "Corrupción", "Omisión", "Aquiescencia"], correct: 2 },
-              { q: "Si las autoridades dan consentimiento directo o facilitan que un grupo paramilitar agreda civiles, es una violación de derechos por:", options: ["Acción", "Omisión", "Inmunidad", "Aquiescencia"], correct: 3 },
-              { q: "De acuerdo a la Tabla 4.1, ¿a qué generación de Derechos Humanos pertenece el 'Derecho a la educación' y 'la salud'?", options: ["Primera generación", "Segunda generación (Económicos y sociales)", "Tercera generación (Solidaridad)", "Cuarta generación"], correct: 1 },
-              { q: "Según la tabla oficial de movimientos en México (Tabla 4.3), ¿qué tipo de movimiento fue el Ejército Zapatista de Liberación Nacional (EZLN) en 1994?", options: ["Movimiento Político", "Movimiento Social", "Sindicato Obrero", "Tribu Urbana"], correct: 0 },
-              { q: "Según la tabla de movimientos, ¿cuál fue la demanda principal del Consejo General de Huelga (UNAM) en 1999-2000?", options: ["Gobierno socialista", "Derechos de pueblos indígenas", "Defensa de la educación pública y gratuita", "Respeto a la profesión religiosa"], correct: 2 },
-              { q: "¿Cuál es el fin primordial de un 'Movimiento Político' a diferencia de uno social?", options: ["Evidenciar injusticias ecológicas.", "Visibilizar derechos de minorías.", "Alcanzar el poder político para gobernar.", "Crear arte urbano contracultural."], correct: 2 },
-              { q: "Según la clasificación gráfica, un gobierno que no solo reprime, sino que busca ELIMINAR por completo el pensamiento opuesto mediante adoctrinamiento y propaganda es:", options: ["Democrático", "Autoritario", "Totalitario", "Hegemónico"], correct: 2 },
-              { q: "En México, la etapa de represión brutal, desapariciones y torturas sistemáticas por parte del Estado (ejército y policía) entre los años 50s y 70s se conoce como:", options: ["Guerra Cristera", "Revolución de Ayutla", "Guerra Sucia", "El Maximato"], correct: 2 },
-              { q: "Los Derechos Humanos se consideran 'imprescriptibles' porque:", options: ["No se pueden vender ni transferir.", "Se reconocen por el hecho de existir.", "No se pueden dividir ni jerarquizar.", "No pierden vigencia ni caducan con el paso del tiempo."], correct: 3 },
-              { q: "En la primera generación de Derechos Humanos se incluye principalmente el derecho a:", options: ["La vivienda y el trabajo", "La paz y el ambiente", "La vida, la libertad y el sufragio", "El patrimonio de la humanidad"], correct: 2 }
+              { q: "Si las autoridades permiten abiertamente y dan su consentimiento para que un grupo paramilitar torture, cometen violación por:", options: ["Acción", "Omisión", "Aquiescencia", "Corrupción"], correct: 2 },
+              { q: "Si el Estado muestra indiferencia y no hace nada ante reportes de violencia, la violación es por:", options: ["Acción", "Aquiescencia", "Marginación", "Omisión"], correct: 3 },
+              { q: "De acuerdo a la Tabla 4.1, los derechos a la salud, vivienda digna y educación pertenecen a:", options: ["Primera generación", "Segunda generación", "Tercera generación", "Cuarta generación"], correct: 1 },
+              { q: "Según la Tabla 4.1, la 'libertad de expresión' y el 'sufragio' pertenecen a los derechos:", options: ["Civiles y políticos (1ra Gen)", "De Solidaridad (3ra Gen)", "Económicos y sociales (2da Gen)", "Culturales (2da Gen)"], correct: 0 },
+              { q: "Según el diagrama de Tipos de Gobierno, ¿cuál busca ELIMINAR el pensamiento opuesto con propaganda y adoctrinamiento?", options: ["Democrático", "Autoritario", "Totalitario", "Conservador"], correct: 2 },
+              { q: "Según la Tabla 4.3, ¿qué tipo de movimiento fue el Ejército Zapatista de Liberación Nacional (EZLN) en 1994?", options: ["Social", "Político", "Sindical", "Estudiantil"], correct: 1 },
+              { q: "Según la Tabla 4.3, el movimiento estudiantil de 1968 fue de tipo 'Social' y exigía:", options: ["Derechos indígenas", "Educación pública gratuita", "Profesión religiosa", "Democratización del país"], correct: 3 },
+              { q: "La principal diferencia entre un movimiento social y uno político es que el político busca:", options: ["Mejores salarios", "Alcanzar el poder político", "Crear arte urbano", "Revolución religiosa"], correct: 1 },
+              { q: "Según la Tabla 4.3, ¿qué demandaba el movimiento de Médicos y enfermeras (1964-1965)?", options: ["Gobierno socialista", "Derechos indígenas", "Mejores condiciones laborales", "Alto a la violencia"], correct: 2 },
+              { q: "Legal y constitucionalmente, ¿quién es el único ente que puede 'violentar' los Derechos Humanos?", options: ["Crimen organizado", "Agentes e instituciones del Estado", "Empresas privadas", "Cualquier civil armado"], correct: 1 }
             ]
           }
         ];
 
-        // --- Componente: Landing Page ---
+        // ==========================================
+        // VISTAS DE NAVEGACIÓN (SPA)
+        // ==========================================
         const Landing = ({ onSelect }) => (
           <div className="max-w-6xl mx-auto px-4 py-12 fade-in">
             <div className="text-center mb-16">
@@ -460,34 +526,23 @@
                 Formación Cívica y Ética <span className="text-blue-600">2° Grado</span>
               </h1>
               <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-                Guía de Estudio Avanzada. Selecciona un tema para estudiar la teoría completa (con diagramas) y ponte a prueba con el simulador de examen.
+                Guía de Estudio Avanzada con diagramas interactivos. Selecciona un tema para estudiar la teoría completa y ponte a prueba con el examen final.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
               {studyData.map((module) => (
-                <div 
-                  key={module.id}
-                  onClick={() => onSelect(module.id)}
-                  className={`bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 hover:shadow-xl hover:border-${module.color}-300 transition-all duration-300 cursor-pointer group flex flex-col items-center text-center`}
-                >
-                  <div className={`w-16 h-16 rounded-2xl bg-${module.color}-50 text-${module.color}-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    {module.icon}
-                  </div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors font-poppins">
-                    {module.title}
-                  </h2>
+                <div key={module.id} onClick={() => onSelect(module.id)} className={`bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 hover:shadow-xl hover:border-${module.color}-400 transition-all duration-300 cursor-pointer group flex flex-col items-center text-center`}>
+                  <div className={`w-16 h-16 rounded-2xl bg-${module.color}-50 text-${module.color}-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>{module.icon}</div>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors font-poppins">{module.title}</h2>
                   <p className="text-slate-500 mb-6 flex-grow">{module.desc}</p>
-                  <div className={`text-${module.color}-600 font-semibold flex items-center gap-2 uppercase tracking-wide text-sm`}>
-                    Estudiar y Evaluar &rarr;
-                  </div>
+                  <div className={`text-${module.color}-600 font-semibold flex items-center gap-2 uppercase tracking-wide text-sm`}>Estudiar y Evaluar &rarr;</div>
                 </div>
               ))}
             </div>
           </div>
         );
 
-        // --- Componente: Quiz Interactivo ---
         const QuizSystem = ({ questions, color }) => {
           const [currentQ, setCurrentQ] = useState(0);
           const [score, setScore] = useState(0);
@@ -497,42 +552,24 @@
 
           const handleAnswer = () => {
             if (selectedOption === null) return;
-            
             const isCorrect = selectedOption === questions[currentQ].correct;
             setAnswers([...answers, { qIndex: currentQ, selected: selectedOption, isCorrect }]);
-            
             if (isCorrect) setScore(score + 1);
-            
-            if (currentQ < questions.length - 1) {
-              setCurrentQ(currentQ + 1);
-              setSelectedOption(null);
-            } else {
-              setShowResults(true);
-            }
+            if (currentQ < questions.length - 1) { setCurrentQ(currentQ + 1); setSelectedOption(null); } 
+            else { setShowResults(true); }
           };
 
-          const resetQuiz = () => {
-            setCurrentQ(0);
-            setScore(0);
-            setShowResults(false);
-            setAnswers([]);
-            setSelectedOption(null);
-          };
+          const resetQuiz = () => { setCurrentQ(0); setScore(0); setShowResults(false); setAnswers([]); setSelectedOption(null); };
 
           if (showResults) {
             const passed = score >= 7;
             return (
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 fade-in">
+              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 fade-in max-w-4xl mx-auto">
                 <div className="text-center mb-8">
                   <h3 className="text-3xl font-bold text-slate-800 mb-2 font-poppins">Resultados del Examen</h3>
-                  <div className={`inline-block px-6 py-3 rounded-full text-2xl font-bold mb-4 ${passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                    {score} / 10
-                  </div>
-                  <p className="text-slate-600 font-medium">
-                    {passed ? '¡Excelente trabajo! Tienes un dominio analítico del tema.' : 'Se recomienda repasar los diagramas y tablas en la sección teórica.'}
-                  </p>
+                  <div className={`inline-block px-6 py-3 rounded-full text-2xl font-bold mb-4 ${passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{score} / 10</div>
+                  <p className="text-slate-600 font-medium">{passed ? '¡Excelente trabajo! Tienes un dominio analítico de las tablas y diagramas.' : 'Se recomienda repasar los diagramas y tablas en la sección teórica.'}</p>
                 </div>
-                
                 <div className="space-y-6">
                   {questions.map((q, idx) => {
                     const ans = answers.find(a => a.qIndex === idx);
@@ -540,22 +577,14 @@
                       <div key={idx} className={`p-5 rounded-xl border ${ans.isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
                         <p className="font-semibold text-slate-800 mb-3">{idx + 1}. {q.q}</p>
                         <div className="text-sm space-y-2">
-                          {!ans.isCorrect && (
-                            <div className="flex items-start gap-2 text-red-700">
-                              <IconX /> <span className="line-through opacity-80">{q.options[ans.selected]}</span>
-                            </div>
-                          )}
-                          <div className="flex items-start gap-2 text-green-700 font-medium">
-                            <IconCheck /> <span>{q.options[q.correct]}</span>
-                          </div>
+                          {!ans.isCorrect && <div className="flex items-start gap-2 text-red-700"><IconX /> <span className="line-through opacity-80">{q.options[ans.selected]}</span></div>}
+                          <div className="flex items-start gap-2 text-green-700 font-medium"><IconCheck /> <span>{q.options[q.correct]}</span></div>
                         </div>
                       </div>
                     );
                   })}
                 </div>
-                <button onClick={resetQuiz} className={`mt-8 w-full py-4 rounded-xl text-white font-bold bg-${color}-600 hover:bg-${color}-700 transition-colors`}>
-                  Reintentar Quiz
-                </button>
+                <button onClick={resetQuiz} className={`mt-8 w-full py-4 rounded-xl text-white font-bold bg-${color}-600 hover:bg-${color}-700 transition-colors`}>Reintentar Quiz</button>
               </div>
             );
           }
@@ -567,126 +596,63 @@
                 <span className={`text-${color}-600 font-bold uppercase tracking-wider text-sm`}>Pregunta {currentQ + 1} de 10</span>
                 <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold border border-slate-200">Alta Dificultad</span>
               </div>
-              
               <h3 className="text-xl md:text-2xl font-semibold text-slate-800 mb-8 leading-relaxed">{q.q}</h3>
-              
               <div className="space-y-3 mb-8">
                 {q.options.map((opt, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedOption(idx)}
-                    className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center ${
-                      selectedOption === idx 
-                        ? `border-${color}-500 bg-${color}-50 shadow-sm` 
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    <span className={`inline-flex shrink-0 w-8 h-8 rounded-full items-center justify-center font-bold mr-4 ${
-                      selectedOption === idx ? `bg-${color}-500 text-white` : 'bg-slate-200 text-slate-600'
-                    }`}>
-                      {String.fromCharCode(65 + idx)}
-                    </span>
+                  <button key={idx} onClick={() => setSelectedOption(idx)} className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center ${selectedOption === idx ? `border-${color}-500 bg-${color}-50 shadow-sm` : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}>
+                    <span className={`inline-flex shrink-0 w-8 h-8 rounded-full items-center justify-center font-bold mr-4 ${selectedOption === idx ? `bg-${color}-500 text-white` : 'bg-slate-200 text-slate-600'}`}>{String.fromCharCode(65 + idx)}</span>
                     <span className="font-medium text-slate-700 leading-tight">{opt}</span>
                   </button>
                 ))}
               </div>
-
-              <button 
-                onClick={handleAnswer}
-                disabled={selectedOption === null}
-                className={`w-full py-4 rounded-xl text-white font-bold text-lg transition-all duration-200 ${
-                  selectedOption === null 
-                    ? 'bg-slate-300 cursor-not-allowed opacity-70' 
-                    : `bg-${color}-600 hover:bg-${color}-700 shadow-md`
-                }`}
-              >
+              <button onClick={handleAnswer} disabled={selectedOption === null} className={`w-full py-4 rounded-xl text-white font-bold text-lg transition-all duration-200 ${selectedOption === null ? 'bg-slate-300 cursor-not-allowed opacity-70' : `bg-${color}-600 hover:bg-${color}-700 shadow-md`}`}>
                 {currentQ === 9 ? 'Finalizar Examen' : 'Siguiente Pregunta'}
               </button>
             </div>
           );
         };
 
-        // --- Componente: Vista de Sección (Teoría Expandida + Quiz) ---
         const SectionView = ({ sectionId, onBack }) => {
           const module = studyData.find(s => s.id === sectionId);
           const [viewMode, setViewMode] = useState('theory');
-
           useEffect(() => { window.scrollTo(0, 0); }, [viewMode]);
 
           return (
             <div className="max-w-6xl mx-auto px-4 py-8 fade-in">
-              {/* Navegación Superior */}
-              <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium mb-8 transition-colors bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 inline-flex">
-                <IconHome /> Volver al Inicio
-              </button>
+              <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium mb-8 transition-colors bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 inline-flex"><IconHome /> Volver al Inicio</button>
 
-              {/* Cabecera Temática */}
               <div className={`bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 mb-8 text-white shadow-xl flex items-center gap-6`}>
-                <div className={`p-4 bg-white/10 rounded-2xl hidden md:block text-${module.color}-400`}>
-                  {module.icon}
-                </div>
+                <div className={`p-4 bg-white/10 rounded-2xl hidden md:block text-${module.color}-400`}>{module.icon}</div>
                 <div>
                   <h1 className="text-3xl md:text-5xl font-bold mb-4 font-poppins">{module.title}</h1>
                   <p className="text-slate-300 text-lg max-w-2xl">{module.desc}</p>
                 </div>
               </div>
 
-              {/* Pestañas (Tabs) */}
               <div className="flex space-x-2 mb-8 bg-slate-200 p-1 rounded-xl max-w-md mx-auto">
-                <button 
-                  onClick={() => setViewMode('theory')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'theory' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
-                >
-                  <IconBook /> Teoría y Tablas
-                </button>
-                <button 
-                  onClick={() => setViewMode('quiz')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'quiz' ? `bg-${module.color}-600 text-white shadow-sm` : 'text-slate-500 hover:text-slate-700'}`}
-                >
-                  <IconCheck /> Quiz Evaluativo
-                </button>
+                <button onClick={() => setViewMode('theory')} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'theory' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}><IconBook /> Teoría y Tablas</button>
+                <button onClick={() => setViewMode('quiz')} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'quiz' ? `bg-${module.color}-600 text-white shadow-sm` : 'text-slate-500 hover:text-slate-700'}`}><IconCheck /> Quiz Evaluativo</button>
               </div>
 
-              {/* Contenedor de Contenido */}
               {viewMode === 'theory' ? (
-                <div className="fade-in space-y-8 max-w-4xl mx-auto">
+                <div className="fade-in space-y-8 max-w-5xl mx-auto">
                   {module.content.sections.map((sec, idx) => (
-                    <div key={idx} className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-slate-200">
-                      <h3 className={`text-2xl font-bold text-${module.color}-700 mb-6 border-b-2 border-slate-100 pb-3 font-poppins`}>
-                        {sec.subtitle}
-                      </h3>
-                      <div className="text-slate-700 text-lg leading-relaxed">
-                        {sec.body}
-                      </div>
+                    <div key={idx} className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-slate-200 overflow-hidden">
+                      <h3 className={`text-2xl font-bold text-${module.color}-700 mb-6 border-b-2 border-slate-100 pb-3 font-poppins`}>{sec.subtitle}</h3>
+                      <div className="text-slate-700 text-lg leading-relaxed">{sec.body}</div>
                     </div>
                   ))}
                 </div>
-              ) : (
-                <QuizSystem questions={module.quiz} color={module.color} />
-              )}
+              ) : ( <QuizSystem questions={module.quiz} color={module.color} /> )}
             </div>
           );
         };
 
-        // --- App Componente Principal ---
         const App = () => {
           const [currentView, setCurrentView] = useState('landing');
           const [activeSection, setActiveSection] = useState(null);
-
-          const navigateToSection = (id) => {
-            setActiveSection(id);
-            setCurrentView('section');
-            window.scrollTo(0,0);
-          };
-
-          return (
-            <div>
-              {currentView === 'landing' 
-                ? <Landing onSelect={navigateToSection} /> 
-                : <SectionView sectionId={activeSection} onBack={() => setCurrentView('landing')} />
-              }
-            </div>
-          );
+          const navigateToSection = (id) => { setActiveSection(id); setCurrentView('section'); window.scrollTo(0,0); };
+          return <div>{currentView === 'landing' ? <Landing onSelect={navigateToSection} /> : <SectionView sectionId={activeSection} onBack={() => setCurrentView('landing')} />}</div>;
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
