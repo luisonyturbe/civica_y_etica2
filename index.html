@@ -25,7 +25,7 @@
         /* Estilos para las tablas */
         .study-table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1.5rem; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .study-table th { background-color: #e2e8f0; padding: 12px; text-align: left; font-weight: 700; color: #1e293b; border: 1px solid #cbd5e1; }
-        .study-table td { padding: 12px; border: 1px solid #cbd5e1; vertical-align: top; font-size: 0.9rem; }
+        .study-table td { padding: 12px; border: 1px solid #cbd5e1; vertical-align: top; font-size: 0.95rem; line-height: 1.5;}
         .study-table tr:nth-child(even) { background-color: #f8fafc; }
         
         /* Ocultar barra de scroll en diagramas anchos */
@@ -222,67 +222,86 @@
 
         // ==========================================
         // DATOS PRINCIPALES DE LAS SECCIONES Y QUIZ
+        // (Textos integrados completos desde los archivos originales)
         // ==========================================
         const studyData = [
           {
             id: 'identidad',
             title: 'Construyo mi identidad',
-            desc: 'Análisis de la identidad, género, roles sociales y tradiciones.',
+            desc: 'Conformación de las identidades juveniles, género, roles, grupos y tradiciones.',
             icon: <IconUser />,
             color: 'blue',
             content: {
               sections: [
                 {
-                  subtitle: "¿Quién Soy? La Identidad Personal",
+                  subtitle: "Conformación de las identidades juveniles y ¿Quién soy?",
                   body: (
-                    <div className="space-y-3">
-                      <p>La <strong>identidad personal</strong> es un conjunto de rasgos que nos conforman y nos diferencian. No es inmutable ni se define genéticamente al nacer. Según <strong>Martin Buber</strong>, la identidad tiene 4 características clave:</p>
-                      <ul className="list-disc pl-6 space-y-1 text-slate-600">
-                        <li>Es relativamente <strong>estable</strong> (permanece a lo largo de la vida con ligeros cambios).</li>
-                        <li>Se construye dentro de un <strong>entorno social</strong>.</li>
-                        <li>Se <strong>reafirma en la convivencia</strong> con los demás.</li>
-                        <li>Los <strong>grupos sociales y medios</strong> influyen en ella, pero el individuo decide qué tomar.</li>
+                    <div className="space-y-4">
+                      <p>¿Alguna vez te has preguntado "quién soy"? Seguramente, cuando te has mirado al espejo, en distintos momentos de tu vida, te has respondido de diferentes maneras. Esta pregunta es necesaria para que puedas tomar conciencia de ti y de cuál es el sentido y el valor que tiene para ti vivir plenamente.</p>
+                      <p>Pero, ¿te has cuestionado quiénes son los demás?, ¿qué cualidades nos hace semejantes y cuáles nos hacen diferentes?, ¿qué representan para mí y como influyen en mi forma de ser, pensar, sentir, creer y actuar? Estas relaciones con las personas permiten que te des cuenta de quién eres, es decir, que descubras y construyas tu identidad.</p>
+                      <p>La <strong>identidad personal</strong> se refiere a un conjunto de rasgos o características que nos conforman como individuos, nos hacen únicos como personas y nos diferencian de los demás. Ésta se constituye a partir de varios elementos a lo largo de la vida de una persona, sobre todo en las etapas de la infancia, adolescencia y la juventud, en las que desarrollamos nuestro ser y nuestra personalidad, junto con el crecimiento físico.</p>
+                      <p>Según <strong>Martin Buber</strong>, la identidad personal tiene, al menos, cuatro características:</p>
+                      <ul className="list-disc pl-6 space-y-2 text-slate-700">
+                        <li>Es relativamente estable, es decir, <strong>permanece a lo largo de la vida</strong>, aun con ligeros cambios.</li>
+                        <li>Se <strong>construye dentro de un entorno social</strong>.</li>
+                        <li>Se <strong>reafirma en la convivencia</strong> con los demás, o sea, una persona la construye a partir de sus gustos, deseos y afinidades que tiene con los demás.</li>
+                        <li>Los <strong>grupos sociales y los medios de comunicación</strong> influyen en cada persona aunque cada uno toma de ellos lo que considera conveniente.</li>
                       </ul>
                     </div>
                   )
                 },
                 {
-                  subtitle: "Género y Estereotipos",
+                  subtitle: "Género y Roles de Género",
                   body: (
                     <div className="space-y-4">
-                      <p>Existe una diferencia fundamental: el <strong>sexo es biológico</strong>, mientras que el <strong>género es una construcción social y cultural</strong> que asigna características a hombres y mujeres.</p>
-                      <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                        <h4 className="font-bold text-blue-800 mb-1">Visión de la DSI (Doctrina Social)</h4>
-                        <p className="text-sm">Considera el género como una realidad integral ligada a la biología. Su visión sostiene que la relación entre hombres y mujeres debe basarse en la <strong>complementariedad, siendo sus diferencias un don</strong>, sin verse como opuestos en competencia.</p>
+                      <p>El concepto de <strong>género</strong> se refiere a las características sociales, culturales y psicológicas asociadas a las diferencias entre hombres y mujeres en una sociedad determinada. A menudo, se distingue del <strong>sexo</strong>, que se refiere a las diferencias biológicas entre machos y hembras de una especie. Así, el género es una construcción social y cultural que define y asocia lo masculino con los hombres y lo femenino con las mujeres, en un lugar, un tiempo y una sociedad determinados.</p>
+                      
+                      <div className="bg-blue-50 p-5 rounded-lg border border-blue-100">
+                        <h4 className="font-bold text-blue-800 mb-2">La Relación entre Género y Teología en la DSI (Doctrina Social)</h4>
+                        <p className="mb-2 text-slate-800">El término "género", tal como se usa en la discusión actual, a menudo se enfoca en la construcción social y cultural, a veces separándolo de la realidad biológica. La Iglesia, por su parte, ve el género como una realidad integral que no puede separarse de la persona en su totalidad (cuerpo y alma).</p>
+                        <ul className="list-disc pl-5 space-y-1 text-slate-800">
+                            <li><strong>Identidad Integral:</strong> La visión católica considera que la identidad de género está profundamente arraigada en la realidad biológica del ser hombre o mujer. Para la DSI, una sociedad que ignora o distorsiona esta realidad crea problemas para el bien común. Por ejemplo, una cultura que devalúa la maternidad o la paternidad, afecta la estructura fundamental de la familia y de la sociedad.</li>
+                            <li><strong>Roles y Complementariedad:</strong> Esto no significa que los roles de género deban ser rígidos o que las mujeres y los hombres no puedan participar en las mismas actividades. Lo que sí significa es que sus diferencias son un don, y que una sociedad sana promueve un espacio donde tanto lo femenino como lo masculino puedan florecer de manera <strong>complementaria</strong>, sin ser vistos como opuestos o en competencia. La DSI promueve una sociedad donde hombres y mujeres trabajen juntos para el bien de todos.</li>
+                        </ul>
                       </div>
+
+                      <p>A partir de las significaciones asignadas a las mujeres y los hombres, se distribuyen los <strong>roles de género</strong> que desempeñan en la sociedad. Estos roles se refieren a las expectativas sociales y culturales sobre cómo deben comportarse las personas en función de su género, y pueden variar ampliamente en diferentes culturas y períodos de tiempo.</p>
+                      <p>De esta manera, por mucho tiempo se ha asignado a las mujeres una mayor participación en las actividades del hogar y del cuidado de los integrantes de la familia, por considerar que son actividades propias de su sexo; mientras que los hombres han ejercido el papel de proveedores y, por lo tanto, se les ha visto como los responsables de desarrollar trabajos fuera de casa para obtener recursos económicos y materiales que la familia necesita. Estas ideas y prácticas han limitado las posibilidades, potencialidades y objetivos de vida de ambos sexos, restringiéndolos. Sin embargo, con el paso del tiempo, estos roles de género se han modificado e, incluso, invertido.</p>
+                      <p>La mayor participación de las mujeres en la vida social, política, económica y cultural y las necesidades sociales han propiciado que <strong>las mujeres ingresen a espacios que por mucho tiempo se consideraron exclusivos para los hombres</strong>. Asimismo, ellos han tenido que participar en actividades como el cuidado de los hijos, de los adultos mayores o de los animales de compañía, lo que ha favorecido mayores vínculos emocionales y de cuidado con los demás.</p>
+
+                      <p>Al estereotipo ideal de mujer ideal se le llama <strong>hegemónico</strong>; es decir, que sirve como guía para alcanzar lo que la sociedad y cultura de cada tiempo esperaría de lo que debe ser una mujer; del mismo modo, hay un estereotipo de hombre ideal. Sin embargo, esas formas ideales pueden poner en riesgo la identidad de la mayoría de las y los adolescentes, ya que por seguir estos modelos se llega a poner en riesgo la salud física, emocional y social.</p>
+                      
                       <DiagramaGenero />
-                      <p className="text-sm text-slate-600 mt-4">Dentro de la estructura social, al modelo ideal dominante de lo que debería ser un hombre o una mujer se le denomina <strong>estereotipo hegemónico</strong>. El no encajar en él genera la rama <strong>subalterna</strong>, que tiene como resultado directo la categoría <strong>marginada</strong>.</p>
-                      <p className="text-sm text-slate-600">Históricamente, los roles de género han sido limitantes. Sin embargo, <strong>la mayor participación política, económica y las necesidades sociales</strong> han propiciado que las mujeres ingresen a espacios que antes eran exclusivos de los hombres.</p>
+                      
+                      <p>Los papeles femenino y masculino son un elemento constitutivo de la identidad personal, que cobra especial importancia durante la adolescencia. Las características atribuidas al sexo sirven para identificarse y distinguirse con los demás, pero se debe evitar reproducir discursos y actos discriminatorios o violentos entre hombres y mujeres, así como entre personas del mismo sexo.</p>
                     </div>
                   )
                 },
                 {
-                  subtitle: "Grupos de Pertenencia, Tradiciones y Símbolos",
+                  subtitle: "Grupos de Pertenencia, Tradiciones, Costumbres y Símbolos",
                   body: (
                     <div className="space-y-4">
-                      <p>Los adolescentes buscan aceptación en diversos grupos. Los grupos juveniles que expresan rebeldía y cuyos valores desafían los gustos convencionales reciben el nombre de <strong>tribus urbanas o grupos contraculturales</strong>.</p>
+                      <p>Todos los seres humanos necesitamos pertenecer a un grupo, es decir, buscamos la identificación con los integrantes de una comunidad, además de recibir su aceptación. Hay grupos a los que pertenecemos sin haberlos elegido, como la familia; no obstante, hay otros que elegimos, como los equipos deportivos, los colectivos o grupos artísticos y el círculo de amigos. Estos grupos comparten gustos, estilos de vida, formas de ser, valores, creencias, intereses u objetivos de vida que coinciden con los nuestros y que nos permiten permanecer unidos.</p>
+                      <p>Algunas expresiones adolescentes y juveniles se denominan <strong>contraculturales, sub-culturas juveniles o tribus urbanas</strong>, como los góticos, cosplay, heavies, hardcores, hippies, punks, emos, rockers, hiphoperos, gamers, frikis, lolitas, mods, bakalas, indies y skins, entre otros. Éstos expresan su identidad por medio de manifestaciones artísticas (música, literatura, pintura, grafiti), y algunos desarrollan un tipo de ideología y activismo social y político (feministas, ambientalistas, comunistas, anarquistas).</p>
+                      <p>Algunos grupos juveniles surgen para expresar rebeldía y distinguirse de los adultos. Sus valores, lenguaje y actividades suelen desafiar los gustos convencionales; por ello, su ropa, la letra de su música o sus actitudes son consideradas por los adultos como una provocación y a veces se les tolera poco o se les discrimina porque sus comportamientos y forma de pensar son diferentes.</p>
                       
-                      <table className="study-table">
+                      <h4 className="font-bold text-slate-800 text-lg mt-6 border-b pb-2">Tradiciones, Costumbres y Símbolos</h4>
+                      <table className="study-table mt-4">
                         <thead>
                           <tr><th className="w-1/4">Concepto</th><th>Definición y Efecto Social</th></tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td className="font-semibold text-blue-800">Tradiciones</td>
-                            <td>Prácticas heredadas de generación en generación. La mezcla de antiguas tradiciones (como las prehispánicas) con nuevas creencias (como la religión católica) produce un fenómeno llamado <strong>sincretismo</strong>.</td>
+                            <td className="font-bold text-blue-900">Tradiciones</td>
+                            <td>Son prácticas culturales que se heredan de una generación a otra, constituyen una forma de vinculación familiar, comunitaria y social. Por ejemplo, las tradiciones de los antiguos mexicanos se transformaron con la llegada de los españoles, lo que produjo <strong>sincretismo</strong>, es decir, una combinación de las antiguas tradiciones con creencias de la religión católica. Las tradiciones permiten a los y las adolescentes conocer más de su origen, lo que les da un sentido de identidad.</td>
                           </tr>
                           <tr>
-                            <td className="font-semibold text-blue-800">Costumbres</td>
-                            <td>Prácticas que se vuelven hábitos. A diferencia de las leyes, incumplir una costumbre arraigada no tiene castigo oficial, pero genera <strong>repercusiones morales y sociales como censura, exclusión y discriminación</strong>.</td>
+                            <td className="font-bold text-blue-900">Costumbres</td>
+                            <td>Son prácticas que por su repetición se consolidan como hábitos en una persona, un grupo o una nación. Las prácticas que se constituyen como costumbres regulan la vida comunitaria. Cuando incumplimos las costumbres no hay ningún castigo por parte de alguna autoridad; sin embargo, además de sentir que violentamos o traicionamos nuestra historia, también puede haber <strong>algunas repercusiones morales y sociales, como la discriminación, la exclusión y la censura</strong>.</td>
                           </tr>
                           <tr>
-                            <td className="font-semibold text-blue-800">Símbolos</td>
-                            <td>Elemento cultural que <strong>evoca valores, sentimientos y creencias mediante objetos, imágenes o rituales</strong> (banderas, escudos, playeras), creando un fuerte vínculo de identidad.</td>
+                            <td className="font-bold text-blue-900">Símbolos</td>
+                            <td>Los símbolos son expresiones de las ideas de un pueblo: <strong>evocan valores, sentimientos, creencias, convicciones e ideales que se representan por medio de una imagen, un objeto o un ritual</strong>. Por ejemplo, la bandera, el escudo y el himno nacionales, o una cruz. Los símbolos dan identidad y sentido a las personas como a las comunidades. Establecen un vínculo social.</td>
                           </tr>
                         </tbody>
                       </table>
@@ -298,7 +317,7 @@
               { q: "Al estereotipo ideal dominante de lo que debería ser un hombre/mujer se le denomina:", options: ["Subalterno", "Marginado", "Hegemónico", "Tradicional"], correct: 2 },
               { q: "¿Qué nombre reciben los grupos juveniles que expresan rebeldía y desafían gustos convencionales?", options: ["Hegemónicos", "Tribus urbanas o contraculturales", "Sindicatos", "Cofradías"], correct: 1 },
               { q: "La mezcla de antiguas tradiciones prehispánicas con religión católica produce:", options: ["Marginación", "Segregación", "Estigmatización", "Sincretismo"], correct: 3 },
-              { q: "A diferencia de las leyes, incumplir una costumbre arraigada genera:", options: ["Cárcel", "Multas", "Repercusiones morales (censura, exclusión)", "Exilio oficial"], correct: 2 },
+              { q: "A diferencia de las leyes, incumplir una costumbre arraigada genera:", options: ["Cárcel", "Multas", "Repercusiones morales (censura, exclusión, discriminación)", "Exilio oficial"], correct: 2 },
               { q: "¿Qué elemento evoca valores y creencias mediante objetos, imágenes o rituales?", options: ["Leyes", "Símbolos", "Costumbres", "Estatutos"], correct: 1 },
               { q: "¿Qué ha propiciado que las mujeres ingresen a espacios antes exclusivos de hombres?", options: ["Ley marcial", "Su mayor participación política, económica y necesidades sociales.", "Prohibición masculina.", "Desaparición de tribus urbanas."], correct: 1 },
               { q: "Según la DSI (Doctrina Social), la relación entre hombres y mujeres debe basarse en:", options: ["Competencia económica", "Separación absoluta de roles", "Complementariedad, siendo sus diferencias un don", "Jerarquía hegemónica"], correct: 2 }
@@ -307,36 +326,56 @@
           {
             id: 'salud',
             title: 'Derecho a la salud',
-            desc: 'Autoestima, asertividad y prevención de adicciones.',
+            desc: 'Prevención en el consumo de drogas, autoestima, asertividad y autorregulación.',
             icon: <IconHeart />,
             color: 'rose',
             content: {
               sections: [
                 {
-                  subtitle: "El Derecho Integral y la Autorregulación",
+                  subtitle: "Derecho a la salud y prevención",
                   body: (
                     <div className="space-y-4">
-                      <p>Según la OMS, la <strong>salud integral comprende el bienestar físico, mental y social</strong>. Para proteger este bienestar, el <strong>Artículo 4°</strong> de la Constitución obliga al Estado a garantizar el derecho a la salud en México.</p>
+                      <p>La adolescencia es una etapa en el ciclo de vida en la cual aprendemos de nosotros mismos y de los demás. Los descubrimientos que vas teniendo durante este periodo marcarán gran parte del rumbo de tu integridad como persona y de las decisiones que irán construyendo tu vida adulta. Lejos de ser una etapa en que se carece de experiencias y elementos para construir la propia vida, es un momento de aprendizajes que permitirán adentrarte en saber quién eres.</p>
+                      <p>Un desarrollo integral implica poner en práctica valores y habilidades para fomentar y enriquecer la autoestima, el autocuidado, la asertividad y la auto-regulación, además de ejercer tus derechos como adolescente para hacer frente a algunas situaciones que pueden poner en riesgo tu integridad física, emocional, mental y social. Los adultos y el Estado tienen la obligación de protegerte y de garantizar tu derecho a la salud y a vivir de manera plena.</p>
+                      
+                      <h4 className="font-bold text-slate-800 text-lg mt-6 border-b pb-2">Autoestima y Autocuidado</h4>
+                      <p>Durante la adolescencia se presentan procesos de transformación. La identidad propia, la apariencia y la búsqueda de agrado y aceptación de personas de nuestra edad provocan que definamos nuestros gustos y estilos de vida de manera independiente.</p>
+                      <p>En la familia inicia el desarrollo de la autoestima, al reconocer nuestras capacidades y potencialidades. En nuestro núcleo familiar se gestan las bases para construir una adecuada o inadecuada autoestima. No obstante, ésta va más allá de la valoración de los padres y la familia. La baja autoestima o subestimarte puede ocasionarte problemas y colocarte en situaciones de riesgo; por ejemplo: manipulación, menosprecio, rechazo, vulnerabilidad a violencia en el noviazgo, abuso sexual, embarazos no deseados, o <strong>consumir algún tipo de droga o sustancia adictiva</strong>.</p>
+                      <p>Cuando nos estimamos y valoramos, nos cuidamos. <strong>El autocuidado es una manifestación de la autoestima</strong>. Cuando tienes una autoestima saludable, es más probable que te valores lo suficiente como para cuidarte.</p>
                       
                       <DiagramaCicloCuidado />
-
-                      <p>La prevención de adicciones y comportamientos destructivos requiere desarrollar dos defensas psicológicas fundamentales frente a la presión social:</p>
-                      <ul className="list-disc pl-6 space-y-2 text-slate-700">
-                        <li><strong>Asertividad:</strong> Es la habilidad que te permite decir "NO" ante presiones de grupo y exponer tus verdaderos deseos <strong>sin recurrir a la agresión</strong>.</li>
-                        <li><strong>Autorregulación:</strong> Es la <strong>capacidad de frenar impulsos frente a acciones riesgosas, aunque se deseen</strong> realizarlas intensamente.</li>
-                      </ul>
                     </div>
                   )
                 },
                 {
-                  subtitle: "Adicciones y Drogas",
+                  subtitle: "Asertividad, Autorregulación y Marco Legal de la Salud",
                   body: (
                     <div className="space-y-4">
-                      <p>Existe una gran diferencia médica: un consumidor ocasional no es un adicto. Lo que diferencia a un adicto es que <strong>presenta una dependencia psicofísica constante y crónica</strong>.</p>
+                      <p>Según la Encuesta Nacional de Consumo de Drogas, Alcohol y Tabaco (Encodat) 2016-2017, la mayoría de los adolescentes comienzan a beber alcohol, fumar o ingerir alguna sustancia adictiva por pertenecer a un grupo, aun cuando saben los daños que podría generar el consumo de estas sustancias. Una causa probable es que en la adolescencia se busca la aceptación de los demás, por lo que, si la autoestima y autovaloración no son firmes, las decisiones son poco asertivas.</p>
+                      <ul className="list-disc pl-6 space-y-2 text-slate-700">
+                        <li><strong>La asertividad</strong> es la habilidad que tenemos para expresar nuestros pensamientos y emociones, así como de defender nuestras ideas, opiniones, argumentos y derechos, además de participar y hacer sugerencias a los demás, <strong>de forma honesta, sin ser agresivos, respetando a los otros y, sobre todo, a nuestras necesidades e intereses</strong>.</li>
+                        <li><strong>La autorregulación</strong> permite darnos cuenta de los obstáculos que pueden presentarse en el proceso de lograr nuestros objetivos personales y, por lo tanto, nos ayuda a identificar situaciones que ponen en riesgo el proyecto y la integridad individual. Una persona autorregulada <strong>evita acciones que posiblemente desemboquen en problemas que quizá no pueda resolver de manera satisfactoria, aunque sienta un gran deseo de realizarlas</strong>.</li>
+                      </ul>
+                      
+                      <h4 className="font-bold text-slate-800 text-lg mt-6 border-b pb-2">Derecho a la Salud Integral</h4>
+                      <p>Según la Organización Mundial de la Salud (OMS), la <strong>salud integral comprende el bienestar físico, mental y social de los individuos</strong> e implica condiciones adecuadas para vivir y desarrollarse en ambientes propicios para el aprendizaje, la convivencia, el desarrollo corporal y la recreación.</p>
+                      <p>La salud es un derecho humano. El Estado está obligado a garantizarlo, según lo establece el <strong>artículo 25</strong> de la Declaración Universal de Derechos Humanos y el <strong>4° de la Constitución Política</strong> de los Estados Unidos Mexicanos.</p>
+                      <p>Los artículos 3° y 24 de la Convención de los Derechos del Niño obligan a dar salud desde el nacimiento hasta los 18 años. De igual forma, en México, la <strong>Ley General de los Derechos de Niñas, Niños y Adolescentes señala en el artículo 50, apartado xv</strong>, que se deben "establecer medidas tendientes a la prevención, atención, combate y rehabilitación de los problemas de salud pública causados por las adicciones".</p>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "El Consumo de Drogas como Riesgo",
+                  body: (
+                    <div className="space-y-4">
+                      <p>El uso de drogas altera el equilibrio emocional de las personas. Al principio, pueden parecer una vía para aliviar el estrés o la ansiedad; pero, a largo plazo, <strong>suelen exacerbarse estos problemas y provocar depresión y otros trastornos mentales en quienes las consumen</strong>.</p>
+                      <p>Para la OMS, una adicción es una dependencia física, psicológica y emocional hacia una sustancia, actividad o relación. Hay otras adicciones de tipo conductual o emocional; por ejemplo, las conductas compulsivas y <strong>las relaciones de codependencia o destructivas</strong>.</p>
+                      <p>Hay sustancias que no son legales y cuyo consumo en menores de edad limita su desarrollo físico, emocional, intelectual, moral y espiritual. Algunos ejemplos son la mariguana, el peyote, los hongos alucinógenos, los inhalantes, la cocaína, la morfina, la heroína, la codeína, el crack, el éxtasis, el fentanilo y las anfetaminas. Los tipos de drogas se clasifican a partir del impacto físico que ocasionan en sus consumidores:</p>
                       
                       <DiagramaDrogas />
                       
-                      <p className="text-sm text-slate-600 mt-4">En la adolescencia, muchos inician el consumo para evadir problemas o buscar aceptación. Sin embargo, a largo plazo, usar drogas para evadir la tristeza o ansiedad resulta en la <strong>exacerbación de problemas y provoca depresión clínica</strong> o trastornos mentales irreversibles.</p>
+                      <p><strong>A la persona que consumió ocasionalmente una droga, no se le considera adicta</strong>, de la misma forma que si alguien tomó un vaso de alguna bebida embriagante, no puede ser considerada alcohólica. El adicto es aquella persona cuyo consumo de drogas es constante y crónico, es decir, cuando se presenta <strong>dependencia psicofísica</strong>, con una tendencia a consumir cada vez dosis mayores.</p>
+                      <p>El consumo de drogas está asociado con infartos, taquicardias, lesiones hepáticas, esquizofrenia, impotencia sexual, daños neuronales, pérdida de motricidad e inteligencia. De igual forma, las adicciones se vinculan con actos de violencia física y agresiones sexuales, pandillerismo, riñas y actos delictivos como el robo.</p>
                     </div>
                   )
                 }
@@ -350,92 +389,121 @@
               { q: "Según el diagrama de Tipos de Drogas, ¿cuáles se clasifican como DURAS?", options: ["Morfina y Cocaína", "Mariguana y Hongos", "Heroína y Hongos", "Cocaína y Mariguana"], correct: 1 },
               { q: "Según el diagrama, la Cocaína y la Heroína se clasifican como drogas:", options: ["Duras", "Legales", "Blandas", "Farmacéuticas"], correct: 2 },
               { q: "¿Qué habilidad te permite decir 'NO' ante presiones de grupo sin recurrir a la agresión?", options: ["Autoestima", "Autorregulación", "Asertividad", "Empatía"], correct: 2 },
-              { q: "La capacidad de frenar impulsos frente a acciones riesgosas, aunque se deseen, es:", options: ["Dignidad", "Asertividad", "Resiliencia", "Autorregulación"], correct: 3 },
-              { q: "¿Qué diferencia a un consumidor ocasional de un adicto?", options: ["El tipo de droga", "El adicto presenta dependencia psicofísica constante/crónica", "El costo de la droga", "No hay diferencia"], correct: 1 },
-              { q: "A largo plazo, usar drogas para evadir la tristeza o ansiedad resulta en:", options: ["Cura emocional", "Inmunidad al estrés", "Exacerbación de problemas y depresión clínica", "Mejor integración social"], correct: 2 }
+              { q: "La capacidad de frenar impulsos frente a acciones riesgosas, aunque se deseen realizarlas intensamente, es:", options: ["Dignidad", "Asertividad", "Resiliencia", "Autorregulación"], correct: 3 },
+              { q: "¿Qué diferencia a un consumidor ocasional de un adicto?", options: ["El tipo de droga", "El adicto presenta dependencia psicofísica constante y crónica", "El costo de la droga", "No hay diferencia"], correct: 1 },
+              { q: "A largo plazo, usar drogas para aliviar el estrés o ansiedad resulta en:", options: ["Cura emocional", "Inmunidad al estrés", "La exacerbación de estos problemas y provoca depresión u otros trastornos mentales", "Mejor integración social"], correct: 2 }
             ]
           },
           {
             id: 'vulnerables',
             title: 'Comunidades vulnerables',
-            desc: 'Dignidad, marginación y factores de desigualdad estructural.',
+            desc: 'Dignidad humana, vulnerabilidad, marginación social y estructural.',
             icon: <IconGlobe />,
             color: 'emerald',
             content: {
               sections: [
                 {
-                  subtitle: "Dignidad Humana y Vulnerabilidad",
+                  subtitle: "Los Derechos Humanos y Las Sociedades Actuales",
                   body: (
                     <div className="space-y-4">
-                      <p>La <strong>Dignidad Humana</strong> es el <strong>valor inherente e inalienable por el simple hecho de ser humano</strong>. Todos merecemos un trato justo sin importar nuestro origen. Se desglosa en pilares clave:</p>
-                      <ul className="list-disc pl-6 space-y-1 text-slate-700">
-                        <li><strong>Autonomía:</strong> Dentro de la dignidad, corresponde a la <strong>capacidad de tomar decisiones libres</strong> sobre nuestra propia vida.</li>
-                        <li><strong>Integridad:</strong> Protege el estado físico y psicológico. La prohibición absoluta de la tortura y maltrato protege directamente tu <strong>integridad</strong>.</li>
-                      </ul>
+                      <p>La <strong>dignidad humana</strong> es la condición que iguala a todas las personas, nos hace compartir un mismo sentido de humanidad, y reconoce lo valioso de la diversidad entre individuos y grupos. El sentido de pertenencia a la humanidad implica compromiso con el respeto y la garantía de la dignidad y el reconocimiento de la igualdad.</p>
+                      <p>Sin embargo, hay personas y grupos que socialmente no tienen las mismas oportunidades de desarrollo personal, social y económico, lo cual impide el disfrute de su dignidad humana de forma plena. Aun cuando los derechos humanos reconocen en todas las personas la igualdad en dignidad y, por lo tanto, la obligación del Estado de garantizar el bienestar, las estructuras económico-sociales producen marginación y vulnerabilidad.</p>
+                      <p>Los derechos humanos y la marginación están intrínsecamente relacionados, pues esta última a menudo implica violaciones a los derechos fundamentales lo que impide a los individuos tener acceso a bienes, recursos y oportunidades que les permitan una mayor calidad de vida y la toma de decisiones sobre sus vidas. Para erradicar la marginación social y fomentar la igualdad, es esencial garantizar el respeto y la protección de los derechos humanos de todas las personas, establecer leyes y políticas antidiscriminación, impulsar la inclusión y la igualdad de oportunidades.</p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
-                        <div className="bg-emerald-50 p-4 rounded border border-emerald-100"><strong className="text-emerald-800 block">Vuln. Infantil</strong> Existe principalmente por su <strong>total dependencia de adultos y falta de capacidad de autonomía</strong>.</div>
-                        <div className="bg-emerald-50 p-4 rounded border border-emerald-100"><strong className="text-emerald-800 block">Vuln. de Género</strong> Expone estadísticamente a las mujeres a <strong>desigualdades, violencia y discriminación</strong>.</div>
-                        <div className="bg-emerald-50 p-4 rounded border border-emerald-100"><strong className="text-emerald-800 block">Vuln. Económica</strong> Pobreza y falta crítica de acceso a servicios básicos.</div>
-                      </div>
+                      <h4 className="font-bold text-slate-800 text-lg mt-6 border-b pb-2">Dignidad Humana</h4>
+                      <p>La dignidad humana es un concepto fundamental en la ética y los derechos humanos. Este sostiene que <strong>cada individuo, simplemente por ser humano, posee un valor inherente e inalienable que debe ser respetado y protegido</strong> en todas las circunstancias. Afirma que todos los seres humanos merecen un trato justo, igualitario y respetuoso, independientemente del origen, género, etnia, religión, etc.</p>
+                      <p>La Declaración Universal de los Derechos Humanos menciona, en el artículo 1.°, que "Todos los seres humanos nacen libres e iguales en dignidad y derechos". Algunos aspectos clave de la dignidad humana incluyen:</p>
+                      <ul className="list-disc pl-6 space-y-2 text-slate-700">
+                        <li><strong>Igualdad:</strong> todos los individuos son iguales en términos de su valor intrínseco.</li>
+                        <li><strong>Autonomía:</strong> cada persona tiene la <strong>capacidad de tomar decisiones libres y autónomas sobre su propia vida</strong>; esto incluye el derecho a la libertad de pensamiento, conciencia y expresión.</li>
+                        <li><strong>Integridad:</strong> la dignidad humana exige que se respete la integridad física y psicológica de cada individuo. Esto implica <strong>la prohibición de la tortura, el trato inhumano y degradante, y otras formas de violencia</strong>.</li>
+                        <li><strong>Trato digno:</strong> significa que todas las personas deben ser tratadas con igualdad, respeto, consideración y justicia en todas las interacciones sociales, legales e institucionales.</li>
+                      </ul>
                     </div>
                   )
                 },
                 {
-                  subtitle: "Tabla 3.1 Factores que contribuyen a la marginación",
+                  subtitle: "Grupos Marginados y Vulnerados",
                   body: (
-                    <table className="study-table text-sm">
-                      <tbody>
-                        <tr><td className="w-1/4 font-bold text-emerald-900 bg-emerald-50">Discriminación</td><td>Negar empleo o trato justo a alguien por su religión u orientación sexual es un claro ejemplo de <strong>discriminación</strong>.</td></tr>
-                        <tr><td className="font-bold text-emerald-900 bg-emerald-50">Desigualdad económica</td><td>Se define estrictamente como la <strong>mala distribución de riqueza y recursos</strong> que limita las oportunidades.</td></tr>
-                        <tr><td className="font-bold text-emerald-900 bg-emerald-50">Barreras estructurales</td><td>Fallas en el diseño institucional o gubernamental. Por ejemplo, que una población en la periferia no tenga luz, agua potable ni internet se clasifica como <strong>barreras estructurales</strong>.</td></tr>
-                        <tr><td className="font-bold text-emerald-900 bg-emerald-50">Estigmatización social</td><td>Aislar socialmente a un grupo por considerarlo "diferente" debido a prejuicios profundamente arraigados se conoce como <strong>estigmatización social</strong>.</td></tr>
-                        <tr><td className="font-bold text-emerald-900 bg-emerald-50">Falta de acceso a servicios básicos</td><td>La carencia de clínicas y escuelas es el factor principal que <strong>mantiene en estado de marginación especialmente a las zonas rurales e indígenas</strong>.</td></tr>
-                      </tbody>
-                    </table>
+                    <div className="space-y-4">
+                      <p>La <strong>marginación</strong> es la exclusión o relegación de personas o grupos a un estatus social, económico o político inferior. Se manifiesta en varios aspectos de la vida, como el acceso limitado a la educación, la atención médica, el empleo, la vivienda, la participación política y otros servicios y oportunidades básicas. Las personas marginadas a menudo enfrentan obstáculos que dificultan su pleno desarrollo y participación en la sociedad.</p>
+                      
+                      <table className="study-table text-sm">
+                        <caption className="caption-top text-left font-bold text-slate-800 mb-2 uppercase text-base">Tabla 3.1 Factores que contribuyen a la marginación</caption>
+                        <tbody>
+                          <tr><td className="w-1/4 font-bold text-emerald-900 bg-emerald-50">Discriminación</td><td>La discriminación basada en características como la etnia, el género, la orientación sexual, la religión o la discapacidad, <strong>origina la negación a oportunidades y tratos justos</strong> a ciertos grupos, como cuando no se permite que las mujeres realicen algunas labores.</td></tr>
+                          <tr><td className="font-bold text-emerald-900 bg-emerald-50">Desigualdad económica</td><td><strong>La desigualdad en la distribución de la riqueza y los recursos</strong> en ciertas comunidades provoca menos acceso al empleo, la educación, la atención médica y la vivienda adecuada en quienes conforman las poblaciones marginadas.</td></tr>
+                          <tr><td className="font-bold text-emerald-900 bg-emerald-50">Barreras estructurales</td><td>Las barreras institucionales y estructurales, como la segregación en la vivienda, la discriminación en el empleo y la falta de representación política fomentan la marginación; por ejemplo, de las <strong>poblaciones que viven en zonas limítrofes de las ciudades, donde falta agua potable, energía eléctrica, servicio telefónico o internet</strong>.</td></tr>
+                          <tr><td className="font-bold text-emerald-900 bg-emerald-50">Estigmatización social</td><td>La estigmatización y los prejuicios sociales contribuyen a la marginación, al <strong>aislar a personas o grupos que son percibidos como diferentes</strong> o desfavorecidos; por ejemplo, el caso de las personas con una orientación sexual distinta.</td></tr>
+                          <tr><td className="font-bold text-emerald-900 bg-emerald-50">Falta de acceso a servicios básicos</td><td>La falta de acceso a servicios esenciales, como atención médica, educación de calidad y vivienda asequible, <strong>mantiene a las personas en situaciones de marginación, como quienes viven en zonas rurales e indígenas</strong>.</td></tr>
+                        </tbody>
+                      </table>
+
+                      <h4 className="font-bold text-slate-800 text-lg mt-6 border-b pb-2">Tipos de Vulnerabilidad</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                        <div className="bg-emerald-50 p-5 rounded-lg border border-emerald-100 shadow-sm">
+                          <h4 className="font-bold text-emerald-900 mb-2">Vulnerabilidad infantil</h4>
+                          <p className="text-sm text-slate-800">Niños, niñas y adolescentes son especialmente vulnerables debido a su <strong>dependencia de los adultos y a su falta o poca capacidad de autonomía</strong> para defender sus derechos y necesidades.</p>
+                        </div>
+                        <div className="bg-emerald-50 p-5 rounded-lg border border-emerald-100 shadow-sm">
+                          <h4 className="font-bold text-emerald-900 mb-2">Vulnerabilidad de género</h4>
+                          <p className="text-sm text-slate-800">Las mujeres y las personas de género diverso a menudo enfrentan <strong>desigualdades y discriminación, lo que las expone a la violencia</strong> y a otras formas de discriminación.</p>
+                        </div>
+                        <div className="bg-emerald-50 p-5 rounded-lg border border-emerald-100 shadow-sm">
+                          <h4 className="font-bold text-emerald-900 mb-2">Vulnerabilidad económica</h4>
+                          <p className="text-sm text-slate-800">Las personas en situación de pobreza o con bajos ingresos son vulnerables a la falta de acceso a servicios básicos, como atención médica, educación de calidad y vivienda adecuada.</p>
+                        </div>
+                      </div>
+                    </div>
                   )
                 }
               ]
             },
             quiz: [
-              { q: "El valor inherente e inalienable por el simple hecho de ser humano es la:", options: ["Integridad moral", "Dignidad humana", "Vulnerabilidad", "Autonomía"], correct: 1 },
-              { q: "Según la Tabla 3.1, negar empleo a alguien por su religión u orientación sexual es un ejemplo de:", options: ["Barrera estructural", "Estigmatización", "Discriminación", "Desigualdad económica"], correct: 2 },
-              { q: "Según la Tabla 3.1, que una población en la periferia no tenga luz, agua potable ni internet se clasifica como:", options: ["Discriminación", "Falta de servicios básicos", "Estigmatización social", "Barreras estructurales"], correct: 3 },
-              { q: "Aislar socialmente a un grupo por considerarlo 'diferente' (prejuicios) se conoce en la Tabla 3.1 como:", options: ["Estigmatización social", "Desigualdad económica", "Marginación infantil", "Asertividad"], correct: 0 },
-              { q: "Según la Tabla 3.1, ¿qué factor mantiene en estado de marginación especialmente a las zonas rurales e indígenas?", options: ["Falta de acceso a servicios básicos", "Barreras estructurales", "Vulnerabilidad de género", "Tolerancia cultural"], correct: 0 },
-              { q: "La vulnerabilidad infantil existe principalmente por:", options: ["Falta de inteligencia", "Total dependencia de adultos y falta de capacidad de autonomía", "Mala educación pública", "Desigualdad de género"], correct: 1 },
-              { q: "Dentro de la dignidad, la capacidad de tomar decisiones libres corresponde a la:", options: ["Igualdad", "Integridad", "Autonomía", "Trato digno"], correct: 2 },
-              { q: "La prohibición absoluta de la tortura y maltrato protege directamente tu:", options: ["Economía", "Igualdad", "Autonomía", "Integridad"], correct: 3 },
-              { q: "La vulnerabilidad de género expone estadísticamente más a las mujeres a:", options: ["Mejores salarios", "Pérdida de identidad nacional", "Desigualdades, violencia y discriminación", "Falta de acceso a internet"], correct: 2 },
-              { q: "La desigualdad económica se define en la tabla como la mala distribución de:", options: ["Prejuicios", "Riqueza y recursos", "Poder político", "Libertades de expresión"], correct: 1 }
+              { q: "El concepto que sostiene que cada individuo posee un valor inherente e inalienable que debe ser respetado, por el simple hecho de ser humano, es la:", options: ["Integridad moral", "Dignidad humana", "Vulnerabilidad", "Autonomía"], correct: 1 },
+              { q: "Según la Tabla 3.1, la negación a oportunidades y tratos justos basada en características como la religión u orientación sexual es un ejemplo de:", options: ["Barrera estructural", "Estigmatización", "Discriminación", "Desigualdad económica"], correct: 2 },
+              { q: "Según la Tabla 3.1, que las poblaciones en zonas limítrofes de las ciudades no tengan agua potable, energía eléctrica ni internet se clasifica como:", options: ["Discriminación", "Falta de servicios básicos", "Estigmatización social", "Barreras estructurales"], correct: 3 },
+              { q: "Aislar a personas o grupos que son percibidos como 'diferentes' por prejuicios sociales se conoce en la Tabla 3.1 como:", options: ["Estigmatización social", "Desigualdad económica", "Marginación infantil", "Asertividad"], correct: 0 },
+              { q: "Según la Tabla 3.1, la falta de acceso a servicios esenciales como clínicas y escuelas mantiene en situación de marginación especialmente a:", options: ["Zonas rurales e indígenas", "Sectores financieros", "Poblaciones con vulnerabilidad de género", "Todas las zonas limítrofes"], correct: 0 },
+              { q: "La vulnerabilidad infantil se da especialmente por:", options: ["Falta de inteligencia", "Su dependencia de los adultos y a su falta o poca capacidad de autonomía", "Mala educación pública", "Desigualdad de género en el hogar"], correct: 1 },
+              { q: "Dentro de los aspectos clave de la dignidad humana, la capacidad de tomar decisiones libres y autónomas sobre la propia vida corresponde a la:", options: ["Igualdad", "Integridad", "Autonomía", "Trato digno"], correct: 2 },
+              { q: "La prohibición de la tortura, el trato inhumano y degradante es una exigencia directa para proteger la:", options: ["Economía", "Igualdad", "Autonomía", "Integridad"], correct: 3 },
+              { q: "La vulnerabilidad de género expone estadísticamente más a las mujeres y personas de género diverso a:", options: ["Mejores salarios", "Pérdida de identidad nacional", "Desigualdades, violencia y otras formas de discriminación", "Falta de acceso a internet"], correct: 2 },
+              { q: "La desigualdad económica se define en la tabla como la desigualdad en la distribución de:", options: ["Prejuicios", "La riqueza y los recursos en ciertas comunidades", "El poder político", "Libertades de expresión"], correct: 1 }
             ]
           },
           {
             id: 'movimientos',
             title: 'Movimientos sociales',
-            desc: 'Sistemas de gobierno, DDHH y movimientos en México.',
+            desc: 'Sistemas de gobierno, DDHH, violaciones y movimientos históricos en México.',
             icon: <IconFlag />,
             color: 'violet',
             content: {
               sections: [
                 {
-                  subtitle: "Mecanismos de Violación a los Derechos Humanos",
+                  subtitle: "Las sociedades se organizan para exigir sus derechos",
                   body: (
                     <div className="space-y-4">
-                      <p>Los Derechos Humanos son inherentes, universales e imprescriptibles (no pierden vigencia ni caducan con el paso del tiempo). Legal y constitucionalmente, <strong>los agentes e instituciones del Estado son el único ente que puede 'violentar' los Derechos Humanos</strong> oficialmente.</p>
-                      <table className="study-table text-sm">
+                      <p>La dignidad y los derechos humanos son principios que sirven como guías para evaluar las condiciones de vida de las personas en cualquier lugar del mundo. Participar, de manera organizada, por el respeto a la justicia social y económica, la diversidad sexual, social y cultural, la defensa del medio ambiente, la paz, la resolución no violenta de los conflictos y los valores democráticos reflejados en los derechos individuales y colectivos, son retos que, en la actualidad, al enfrentarse de manera organizada, implican empatía, cohesión entre grupos e identificación de necesidades colectivas.</p>
+                      
+                      <h4 className="font-bold text-slate-800 text-lg mt-6 border-b pb-2">Los Derechos Humanos</h4>
+                      <p>Los derechos humanos son el conjunto de reconocimientos jurídicos, éticos y morales, así como las facultades que tiene una persona, sustentados en la dignidad humana; ejercerlos por completo es indispensable para el desarrollo integral de las personas. Estas prerrogativas las establecen las leyes, el orden jurídico nacional, nuestra Constitución Política y los tratados internacionales.</p>
+                      <p>Los derechos humanos son inherentes, <strong>imprescriptibles</strong> (no pierden vigencia), universales, progresivos, indivisibles, inalienables e inviolables, por lo que no se otorgan a la persona, sino que se le reconocen como parte de sí por el sólo hecho de existir. La Oficina del Alto Comisionado de las Naciones Unidas para los Derechos Humanos (ACNUDH) los define como "inherentes a todos los seres humanos, sin distinción alguna...". Los Estados y las autoridades están obligados a promover, respetar, proteger y garantizarlos. <strong>Los derechos humanos sólo pueden ser violentados por agentes del Estado</strong>, como las autoridades, servidores o funcionarios, fuerzas policiacas o militares, ya que, según el artículo 1° constitucional, son el garante jurídico de dichos derechos.</p>
+
+                      <table className="study-table text-sm mt-4">
+                        <caption className="caption-top text-left font-bold text-slate-800 mb-2 uppercase text-base">Formas en que se violentan los derechos humanos</caption>
                         <tbody>
                           <tr>
-                            <td className="w-1/4 font-bold bg-slate-200 text-center align-middle">Tipos de Violación (Por parte del Estado)</td>
-                            <td className="bg-red-50"><strong className="text-red-800">Por acción:</strong> El Estado ataca directamente la dignidad (ej. desapariciones forzadas).</td>
+                            <td className="w-1/4 bg-red-50"><strong className="text-red-900">Por acción</strong></td>
+                            <td>Se generan cuando <strong>se ataca la dignidad humana</strong>, como detenciones arbitrarias, desapariciones forzadas, ejecuciones extrajudiciales, maltrato físico y moral o tortura.</td>
                           </tr>
                           <tr>
-                            <td className="hidden md:table-cell border-0"></td>
-                            <td className="bg-orange-50"><strong className="text-orange-800">Por omisión:</strong> Ocurre cuando el Estado <strong>muestra indiferencia y no hace nada ante reportes de violencia</strong> que vulneran derechos.</td>
+                            <td className="w-1/4 bg-orange-50"><strong className="text-orange-900">Por omisión</strong></td>
+                            <td>Ocurren cuando los poderes de gobierno <strong>muestran indiferencia</strong> ante situaciones que vulneran la dignidad y los derechos humanos.</td>
                           </tr>
                           <tr>
-                            <td className="hidden md:table-cell border-0"></td>
-                            <td className="bg-yellow-50"><strong className="text-yellow-800">Por aquiescencia:</strong> Sucede si las autoridades <strong>permiten abiertamente y dan su consentimiento</strong> para que un grupo paramilitar o tercero cometa agresiones y torturas.</td>
+                            <td className="w-1/4 bg-yellow-50"><strong className="text-yellow-900">Por aquiescencia</strong></td>
+                            <td>Suceden cuando un Estado, y las autoridades que lo representan, <strong>da el consentimiento directo de permitir</strong> secuestros, agresiones físicas, psicológicas, morales y sexuales o asesinatos por parte de guardias o grupos paramilitares.</td>
                           </tr>
                         </tbody>
                       </table>
@@ -443,53 +511,101 @@
                   )
                 },
                 {
-                  subtitle: "Generaciones de Derechos y Tipos de Gobierno",
+                  subtitle: "Generaciones de Derechos y Movimientos",
                   body: (
                     <div className="space-y-6">
-                      <p>Los Derechos Humanos se clasifican históricamente en tres generaciones. De acuerdo a la Tabla 4.1:</p>
-                      <ul className="list-disc pl-6 space-y-1 text-slate-700">
-                        <li><strong>Primera Generación (Civiles y Políticos):</strong> Incluye el derecho a la vida, la libertad, el <strong>sufragio y la libertad de expresión</strong>.</li>
-                        <li><strong>Segunda Generación (Económicos y Sociales):</strong> Incluye el derecho al trabajo, a la <strong>salud, la vivienda digna y la educación</strong>.</li>
-                        <li><strong>Tercera Generación (Solidaridad):</strong> Patrimonio de la humanidad, ambiente y paz.</li>
-                      </ul>
-                      
-                      <DiagramaGobiernos />
-                      <p className="text-sm text-slate-600 text-center">Nota importante: A diferencia de un gobierno democrático o autoritario, un gobierno <strong>Totalitario busca ELIMINAR el pensamiento opuesto</strong> con propaganda y adoctrinamiento.</p>
+                      <table className="study-table text-xs">
+                        <caption className="caption-top text-left font-bold text-slate-800 mb-2 uppercase text-base">Tabla 4.1 Generaciones de los Derechos Humanos</caption>
+                        <thead>
+                          <tr>
+                            <th className="w-1/3 text-center">Primera generación<br/><span className="font-normal text-slate-600">Derechos civiles y políticos</span></th>
+                            <th className="w-1/3 text-center">Segunda generación<br/><span className="font-normal text-slate-600">Derechos económicos, sociales y culturales</span></th>
+                            <th className="w-1/3 text-center">Tercera generación<br/><span className="font-normal text-slate-600">Derechos de solidaridad</span></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="px-4">
+                              <ul className="list-disc pl-2 space-y-2">
+                                <li>Derecho a la vida, igualdad, libertad</li>
+                                <li>Derecho a la nacionalidad, privacidad</li>
+                                <li><strong>Libertad de expresión</strong> y religiosa</li>
+                                <li>Derecho a un juicio justo y <strong>al sufragio</strong></li>
+                              </ul>
+                            </td>
+                            <td className="px-4">
+                              <ul className="list-disc pl-2 space-y-2">
+                                <li>Derecho al trabajo, libre elección y condiciones laborales equitativas</li>
+                                <li>Libertad sindical y derecho de huelga</li>
+                                <li>Derecho a un nivel de vida adecuado y <strong>vivienda digna</strong></li>
+                                <li>Derecho a la <strong>salud y a la educación</strong></li>
+                                <li>Derecho a la vida cultural, ciencia y tecnología</li>
+                              </ul>
+                            </td>
+                            <td className="px-4">
+                              <ul className="list-disc pl-2 space-y-2">
+                                <li>Derecho a la autodeterminación, independencia económica y política</li>
+                                <li>Derecho a la identidad nacional y cultural, a la paz y coexistencia pacífica</li>
+                                <li>Derecho a la cooperación/justicia internacional</li>
+                                <li>Derecho al uso de avances científicos, al ambiente, al patrimonio común de la humanidad y desarrollo digno</li>
+                              </ul>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <p>La idea de movimiento civil va asociada a la acción colectiva, a las necesidades y demandas de la población relacionadas con el respeto de la dignidad. Los <strong>movimientos sociales</strong> realizan acciones de participación ciudadana en las cuales expresan valores, creencias e ideologías frente al descontento y la inconformidad ante las formas de actuación de un gobierno y se movilizan por los derechos y para evidenciar y poner fin a las injusticias. Buscan proponer, reivindicar y pedir mejoras en conjunto para toda la sociedad.</p>
+                      <p>Los <strong>movimientos políticos</strong> buscan tener mayor participación en la toma de decisiones en el gobierno para llevar a cabo las mejoras que creen convenientes. Están conformados por un grupo con afinidad de criterios que se constituyen y accionan <strong>con el fin primordial de alcanzar el poder político</strong>.</p>
                     </div>
                   )
                 },
                 {
-                  subtitle: "Movimientos Sociales vs Políticos (Tabla 4.3)",
+                  subtitle: "Gobiernos en América Latina y México",
                   body: (
                     <div className="space-y-4">
-                      <p>La principal diferencia estructural es que un movimiento social busca mejoras sin gobernar, mientras que <strong>el movimiento político busca alcanzar el poder político</strong>.</p>
+                      <p>En América Latina, el siglo XX se caracterizó por una marcada inestabilidad política y frecuentes golpes de Estado, que resultaron en la imposición de gobiernos autoritarios y totalitarios. Dichos regímenes se distinguieron por la concentración de poder, además de despreciar los derechos humanos y utilizar sistemáticamente la represión y la censura.</p>
+                      <DiagramaGobiernos />
+                      <p>Actualmente, el informe Freedom in the world 2022, de la organización Freedom House, clasifica a los países del mundo. <strong>México y Centroamérica son distinguidos como parcialmente libres</strong>. América del Norte y del Sur son mayormente libres, mientras que Europa cuenta con más naciones libres. Asia y África tienen un número mayor de países no libres.</p>
+
+                      <h4 className="font-bold text-slate-800 text-lg mt-6 border-b pb-2">Movimientos en México</h4>
+                      <p>En el caso de México, a finales del siglo XIX y principios del XX, la Revolución Mexicana buscó la democracia y el respeto de los derechos. Sin embargo, con la conclusión de la revuelta armada se instauró un orden institucional que mantuvo a un partido político en el poder por más de 70 años. El gobierno de este partido se caracterizó por imponer sus decisiones y mantener el orden público por medio de la fuerza, la represión y la violencia. Ejemplos de estas situaciones fueron las represiones sufridas en las décadas de los años 50, 60 y 70.</p>
                       
-                      <table className="study-table text-sm">
+                      <table className="study-table text-xs">
+                        <caption className="caption-top text-left font-bold text-slate-800 mb-2 uppercase text-base">Tabla 4.3 Movimientos Sociales y Políticos de México, Siglo XX a XXI</caption>
                         <thead>
-                          <tr><th>Movimiento Histórico</th><th>Tipo</th><th>Demanda Principal</th></tr>
+                          <tr><th>Movimiento</th><th>Tipo de movimiento</th><th>Periodo</th><th>Demandas</th></tr>
                         </thead>
                         <tbody>
-                          <tr><td className="font-bold">Médicos y enfermeras (1964-1965)</td><td>Social</td><td>Exigían <strong>mejores condiciones laborales</strong>.</td></tr>
-                          <tr><td className="font-bold">Estudiantil 1968</td><td>Social</td><td>Su demanda principal era la <strong>democratización del país</strong> y fin a la represión.</td></tr>
-                          <tr><td className="font-bold">EZLN (1994)</td><td><strong>Político</strong></td><td>Lucha armada exigiendo derechos para los pueblos indígenas.</td></tr>
+                          <tr><td className="font-bold">Ejército Cristero</td><td>Social</td><td>1926-1929</td><td>Respeto a los derechos a la profesión religiosa.</td></tr>
+                          <tr><td className="font-bold">Movimiento de médicos y enfermeras</td><td>Social</td><td>1964-1965</td><td><strong>Mejores condiciones laborales.</strong></td></tr>
+                          <tr><td className="font-bold">Huelga de ferrocarrileros</td><td>Social</td><td>1959</td><td>Mejores condiciones laborales.</td></tr>
+                          <tr><td className="font-bold">Movimiento estudiantil de 1968</td><td>Social</td><td>1968</td><td><strong>Democratización del país.</strong></td></tr>
+                          <tr><td className="font-bold">Partido de los Pobres</td><td>Político</td><td>1967-1974</td><td>Contra asesinatos de campesinos en Guerrero.</td></tr>
+                          <tr><td className="font-bold">Liga Comunista 23 de Septiembre</td><td>Político</td><td>1973-1983</td><td>Construcción de un gobierno socialista.</td></tr>
+                          <tr><td className="font-bold">Movimiento de Acción Revolucionaria</td><td>Político</td><td>1969-1979</td><td>Democratización del país.</td></tr>
+                          <tr><td className="font-bold">Ejército Zapatista de Liberación Nacional</td><td><strong>Político</strong></td><td>1994</td><td>Derechos de los pueblos indígenas.</td></tr>
+                          <tr><td className="font-bold">Consejo General de Huelga, UNAM</td><td>Social</td><td>1999-2000</td><td>Defensa de la educación pública y gratuita.</td></tr>
+                          <tr><td className="font-bold">#YoSoy132</td><td>Social</td><td>2012</td><td>Contra violaciones de derechos humanos.</td></tr>
                         </tbody>
                       </table>
+
+                      <p>Además de la brutalidad policiaca, el ejército mexicano también participó en detenciones arbitrarias, desapariciones forzadas, ejecuciones extrajudiciales, maltrato físico y moral o tortura de participantes de movimientos sociales, políticos, estudiantiles y armados, lo que se ha denominado a la fecha como <strong>Guerra Sucia</strong>.</p>
                     </div>
                   )
                 }
               ]
             },
             quiz: [
-              { q: "Si las autoridades permiten abiertamente y dan su consentimiento para que un grupo paramilitar torture, cometen violación por:", options: ["Acción", "Omisión", "Aquiescencia", "Corrupción"], correct: 2 },
-              { q: "Si el Estado muestra indiferencia y no hace nada ante reportes de violencia, la violación es por:", options: ["Acción", "Aquiescencia", "Marginación", "Omisión"], correct: 3 },
-              { q: "De acuerdo a la Tabla 4.1, los derechos a la salud, vivienda digna y educación pertenecen a:", options: ["Primera generación", "Segunda generación", "Tercera generación", "Cuarta generación"], correct: 1 },
-              { q: "Según la Tabla 4.1, la 'libertad de expresión' y el 'sufragio' pertenecen a los derechos:", options: ["Civiles y políticos (1ra Gen)", "De Solidaridad (3ra Gen)", "Económicos y sociales (2da Gen)", "Culturales (2da Gen)"], correct: 0 },
-              { q: "Según el diagrama de Tipos de Gobierno, ¿cuál busca ELIMINAR el pensamiento opuesto con propaganda y adoctrinamiento?", options: ["Democrático", "Autoritario", "Totalitario", "Conservador"], correct: 2 },
+              { q: "Si las autoridades permiten abiertamente y dan su consentimiento directo para que un grupo paramilitar secuestre y torture, cometen violación de derechos humanos por:", options: ["Acción", "Omisión", "Aquiescencia", "Corrupción"], correct: 2 },
+              { q: "Si los poderes de gobierno muestran indiferencia ante situaciones que vulneran la dignidad y los derechos, la violación es por:", options: ["Acción", "Aquiescencia", "Marginación", "Omisión"], correct: 3 },
+              { q: "De acuerdo a la Tabla 4.1, los derechos a la salud, vivienda digna y educación pertenecen a los derechos de:", options: ["Primera generación", "Segunda generación (Económicos, sociales y culturales)", "Tercera generación", "Cuarta generación"], correct: 1 },
+              { q: "Según la Tabla 4.1, la 'libertad de expresión' y el 'derecho al sufragio' pertenecen a los derechos:", options: ["Civiles y políticos (Primera generación)", "De Solidaridad (Tercera generación)", "Económicos y sociales (Segunda generación)", "Culturales (Segunda generación)"], correct: 0 },
+              { q: "Según el diagrama de Tipos de Gobierno, el régimen que busca eliminar las formas de pensamiento opuestas, mediante el adoctrinamiento y el uso de propaganda es el:", options: ["Democrático", "Autoritario", "Totalitario", "Conservador"], correct: 2 },
               { q: "Según la Tabla 4.3, ¿qué tipo de movimiento fue el Ejército Zapatista de Liberación Nacional (EZLN) en 1994?", options: ["Social", "Político", "Sindical", "Estudiantil"], correct: 1 },
-              { q: "Según la Tabla 4.3, el movimiento estudiantil de 1968 fue de tipo 'Social' y exigía:", options: ["Derechos indígenas", "Educación pública gratuita", "Profesión religiosa", "Democratización del país"], correct: 3 },
-              { q: "La principal diferencia entre un movimiento social y uno político es que el político busca:", options: ["Mejores salarios", "Alcanzar el poder político", "Crear arte urbano", "Revolución religiosa"], correct: 1 },
-              { q: "Según la Tabla 4.3, ¿qué demandaba el movimiento de Médicos y enfermeras (1964-1965)?", options: ["Gobierno socialista", "Derechos indígenas", "Mejores condiciones laborales", "Alto a la violencia"], correct: 2 },
-              { q: "Legal y constitucionalmente, ¿quién es el único ente que puede 'violentar' los Derechos Humanos?", options: ["Crimen organizado", "Agentes e instituciones del Estado", "Empresas privadas", "Cualquier civil armado"], correct: 1 }
+              { q: "Según la Tabla 4.3, el movimiento estudiantil de 1968 fue de tipo 'Social' y exigía la:", options: ["Protección de derechos indígenas", "Educación pública gratuita", "Profesión religiosa", "Democratización del país"], correct: 3 },
+              { q: "A diferencia de un movimiento social que busca mejoras para todos, un movimiento político se constituye y acciona con el fin primordial de:", options: ["Mejorar condiciones laborales", "Alcanzar el poder político", "Crear activismo ecológico", "Revolución religiosa"], correct: 1 },
+              { q: "Según la Tabla 4.3, ¿qué demandaba el movimiento social de Médicos y enfermeras (1964-1965)?", options: ["Construcción de gobierno socialista", "Derechos indígenas", "Mejores condiciones laborales", "Alto a la violencia"], correct: 2 },
+              { q: "Legal y constitucionalmente (Artículo 1°), ¿quién es el garante jurídico y el único ente que puede 'violentar' los Derechos Humanos por definición?", options: ["El crimen organizado", "Los agentes del Estado (autoridades, fuerzas policiacas o militares)", "Empresas privadas", "Cualquier civil armado"], correct: 1 }
             ]
           }
         ];
@@ -504,7 +620,7 @@
                 Formación Cívica y Ética <span className="text-blue-600">2° Grado</span>
               </h1>
               <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-                Guía de Estudio Avanzada con diagramas interactivos. Selecciona un tema para estudiar la teoría completa y ponte a prueba con el examen final.
+                Guía de Estudio Avanzada con lecturas completas y diagramas interactivos. Selecciona un tema para estudiar la teoría y ponte a prueba con el examen final.
               </p>
             </div>
 
@@ -546,7 +662,7 @@
                 <div className="text-center mb-8">
                   <h3 className="text-3xl font-bold text-slate-800 mb-2 font-poppins">Resultados del Examen</h3>
                   <div className={`inline-block px-6 py-3 rounded-full text-2xl font-bold mb-4 ${passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{score} / 10</div>
-                  <p className="text-slate-600 font-medium">{passed ? '¡Excelente trabajo! Tienes un dominio analítico de las tablas y diagramas.' : 'Se recomienda repasar los diagramas y tablas en la sección teórica.'}</p>
+                  <p className="text-slate-600 font-medium">{passed ? '¡Excelente trabajo! Tienes un dominio analítico de la lectura completa y las tablas.' : 'Se recomienda volver a leer los textos íntegros y tablas en la sección teórica.'}</p>
                 </div>
                 <div className="space-y-6">
                   {questions.map((q, idx) => {
@@ -617,7 +733,7 @@
                   {module.content.sections.map((sec, idx) => (
                     <div key={idx} className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-slate-200 overflow-hidden">
                       <h3 className={`text-2xl font-bold text-${module.color}-700 mb-6 border-b-2 border-slate-100 pb-3 font-poppins`}>{sec.subtitle}</h3>
-                      <div className="text-slate-700 text-lg leading-relaxed">{sec.body}</div>
+                      <div className="text-slate-800 text-base leading-relaxed">{sec.body}</div>
                     </div>
                   ))}
                 </div>
