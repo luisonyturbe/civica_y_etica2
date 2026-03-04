@@ -1,261 +1,315 @@
-import React, { useState } from 'react';
-import { BookOpen, Scale, Users, Gavel, Handshake, ShieldAlert, HeartHandshake, ExternalLink, ChevronRight, Menu, X } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Estudio: Temario 2° Grado</title>
+    <!-- Tailwind CSS cargado automáticamente vía CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería de íconos Lucide vía CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Animación suave al cambiar de tema -->
+    <style>
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-slide {
+            animation: fadeSlideIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen">
 
-// Base de datos de los temas (Generada con contenido educativo para 2° Grado)
-const topicsData = [
-  {
-    id: 1,
-    title: "Movimientos Sociales",
-    icon: <Users className="w-5 h-5" />,
-    driveLink: "https://drive.google.com/file/d/1Tj-9gX8DnEAYHj7OYez8o_LmV7HQjDoB/view?usp=drive_open",
-    summary: "Los movimientos sociales son acciones colectivas organizadas por grupos de personas que buscan generar un cambio en la sociedad, defender sus derechos, visibilizar injusticias o proponer nuevas formas de convivencia. Surgen cuando una parte de la población siente que sus necesidades no son atendidas por el Estado.",
-    keywords: [
-      { term: "Movimiento social", definition: "Grupo de personas organizado y estructurado que busca un cambio sociopolítico específico." },
-      { term: "Acción colectiva", definition: "Acciones realizadas por un grupo de personas en conjunto para alcanzar un objetivo común." },
-      { term: "Participación ciudadana", definition: "Involucramiento activo de los ciudadanos en los procesos de toma de decisiones públicas." }
-    ],
-    articles: [
-      { article: "Artículo 9° Constitucional", description: "Garantiza el derecho a la libre asociación y reunión pacífica con cualquier objeto lícito. Es la base legal que permite la existencia de marchas y movimientos." }
-    ]
-  },
-  {
-    id: 2,
-    title: "Interculturalidad y Paz",
-    icon: <HeartHandshake className="w-5 h-5" />,
-    driveLink: "https://drive.google.com/file/d/136zVAO9RHRpBaL3RDTDR94Ma3a1Zm1KS/view?usp=drive_open",
-    summary: "La interculturalidad es el proceso de comunicación e interacción entre personas o grupos con identidades culturales específicas, donde no se permite que las ideas y acciones de una persona o grupo cultural estén por encima del otro. Es fundamental para construir la paz, ya que promueve la empatía y la integración armónica.",
-    keywords: [
-      { term: "Interculturalidad", definition: "Relación equitativa, de diálogo y respeto mutuo entre diferentes culturas." },
-      { term: "Pluriculturalidad", definition: "Coexistencia de diferentes culturas en un mismo espacio geográfico." },
-      { term: "Empatía", definition: "Capacidad de percibir, compartir y comprender lo que otro ser puede sentir." }
-    ],
-    articles: [
-      { article: "Artículo 2° Constitucional", description: "Reconoce que la Nación Mexicana tiene una composición pluricultural sustentada originalmente en sus pueblos indígenas, garantizando su derecho a la libre determinación." }
-    ]
-  },
-  {
-    id: 3,
-    title: "Normas y Leyes",
-    icon: <Scale className="w-5 h-5" />,
-    driveLink: "https://drive.google.com/file/d/19kWBMUsFiWc2DE4GuZYR0p0y-Wzs4x3o/view?usp=drive_open",
-    summary: "Para vivir en sociedad es necesario establecer acuerdos y reglas. Las normas son pautas de comportamiento que nos ayudan a convivir. Cuando estas normas se formalizan y son respaldadas por el Estado para garantizar el orden y la justicia, se convierten en leyes, las cuales son obligatorias para todos.",
-    keywords: [
-      { term: "Norma", definition: "Regla de conducta dictada o promulgada por un poder legítimo para regular la conducta humana." },
-      { term: "Ley", definition: "Norma jurídica dictada por el legislador, es decir, un precepto establecido por la autoridad competente, en que se manda o prohíbe algo." },
-      { term: "Estado de Derecho", definition: "Principio de gobernanza en el que todas las personas e instituciones están sometidas a leyes que se promulgan públicamente." }
-    ],
-    articles: [
-      { article: "Artículo 1° Constitucional", description: "Establece que en México todas las personas gozarán de los derechos humanos reconocidos en la Constitución y prohíbe todo tipo de discriminación." }
-    ]
-  },
-  {
-    id: 4,
-    title: "Quiénes hacen las leyes",
-    icon: <Gavel className="w-5 h-5" />,
-    driveLink: "https://drive.google.com/file/d/1iJWdZCCxtK9t3zmg7AvAcvFJZd5CUSgg/view?usp=drive_open",
-    summary: "En un sistema democrático como el de México, la creación y modificación de las leyes recae principalmente en el Poder Legislativo. Este poder representa la voluntad del pueblo y está encargado de debatir, redactar y aprobar las normas que rigen al país.",
-    keywords: [
-      { term: "Poder Legislativo", definition: "Poder del Estado encargado de elaborar, modificar y derogar las leyes." },
-      { term: "Congreso de la Unión", definition: "Órgano bicameral depositario del Poder Legislativo a nivel federal en México, integrado por Diputados y Senadores." },
-      { term: "Iniciativa de Ley", definition: "Propuesta formal para crear una nueva ley o modificar una existente." }
-    ],
-    articles: [
-      { article: "Artículo 50° Constitucional", description: "Establece que el Poder Legislativo de los Estados Unidos Mexicanos se deposita en un Congreso General, dividido en dos Cámaras: Diputados y Senadores." },
-      { article: "Artículo 71° Constitucional", description: "Señala quiénes tienen el derecho de iniciar leyes (El Presidente, los Diputados y Senadores, las Legislaturas de los Estados y los ciudadanos en un número equivalente al 0.13% de la lista nominal)." }
-    ]
-  },
-  {
-    id: 5,
-    title: "La desigualdad",
-    icon: <ShieldAlert className="w-5 h-5" />,
-    driveLink: "https://drive.google.com/file/d/1qT1LnAQ0FQQAHMXGlpnIt7Lc7ZDNuV7L/view?usp=drive_open",
-    summary: "La desigualdad es un fenómeno social donde las personas no tienen las mismas oportunidades, derechos o acceso a recursos (económicos, educativos, de salud). Combartir la desigualdad es uno de los mayores retos para alcanzar una sociedad justa y equitativa.",
-    keywords: [
-      { term: "Desigualdad Social", definition: "Situación socioeconómica en la que un grupo o minoría recibe un trato diferente respecto al resto." },
-      { term: "Equidad", definition: "Cualidad que consiste en dar a cada uno lo que se merece en función de sus méritos o condiciones, buscando nivelar desventajas." },
-      { term: "Discriminación", definition: "Trato diferente y perjudicial que se da a una persona por motivos de raza, sexo, ideas políticas, religión, etc." }
-    ],
-    articles: [
-      { article: "Artículo 4° Constitucional", description: "Establece la igualdad ante la ley del hombre y la mujer. Además, garantiza el derecho a la protección de la salud y a un medio ambiente sano, bases para combatir la desigualdad." }
-    ]
-  },
-  {
-    id: 6,
-    title: "Cultura de paz en la vida diaria",
-    icon: <BookOpen className="w-5 h-5" />,
-    driveLink: "https://drive.google.com/file/d/1rS6q_X-G4r_BsbF5VlgkXgZ1dwCX9kwp/view?usp=drive_open",
-    summary: "La cultura de paz consiste en una serie de valores, actitudes y comportamientos que rechazan la violencia y previenen los conflictos. Se aplica en la vida diaria mediante el diálogo, la tolerancia y el respeto, comenzando en el hogar, la escuela y la comunidad.",
-    keywords: [
-      { term: "Cultura de Paz", definition: "Conjunto de valores, actitudes y comportamientos que reflejan el respeto a la vida y la dignidad humana." },
-      { term: "Diálogo", definition: "Conversación entre dos o más personas que exponen sus ideas de forma alternativa para buscar entendimiento." },
-      { term: "Tolerancia", definition: "Respeto hacia las ideas, creencias o prácticas cuando son diferentes o contrarias a las propias." }
-    ],
-    articles: [
-      { article: "Artículo 3° Constitucional", description: "Señala que la educación impartida por el Estado fomentará el amor a la Patria, el respeto a todos los derechos, las libertades y la cultura de la paz." }
-    ]
-  },
-  {
-    id: 7,
-    title: "Mecanismos para resolver conflictos",
-    icon: <Handshake className="w-5 h-5" />,
-    driveLink: "https://drive.google.com/file/d/1YxMKGTV_3HxtioFTTpsM2kF8vz1ufncN/view?usp=drive_open",
-    summary: "El conflicto es natural en las relaciones humanas. Los mecanismos de resolución pacífica son herramientas que permiten solucionar desacuerdos sin recurrir a la violencia o a juicios largos, promoviendo soluciones donde todas las partes ganan (ganar-ganar).",
-    keywords: [
-      { term: "Negociación", definition: "Proceso de comunicación directa entre las partes en conflicto para llegar a un acuerdo aceptable." },
-      { term: "Mediación", definition: "Intervención de un tercero imparcial (mediador) que facilita la comunicación entre las partes para que ellas mismas encuentren la solución." },
-      { term: "Conciliación", definition: "Proceso similar a la mediación, pero donde el tercero (conciliador) puede proponer soluciones al conflicto." }
-    ],
-    articles: [
-      { article: "Artículo 17° Constitucional", description: "Garantiza el derecho de acceso a la justicia y establece que las leyes preverán mecanismos alternativos de solución de controversias (como la mediación y conciliación)." }
-    ]
-  }
-];
-
-export default function App() {
-  const [activeTopic, setActiveTopic] = useState(topicsData[0]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
-      
-      {/* Navbar / Header */}
-      <header className="bg-blue-800 text-white shadow-md sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button 
-              className="md:hidden p-2 hover:bg-blue-700 rounded-lg"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            >
-              {isSidebarOpen ? <X /> : <Menu />}
-            </button>
-            <BookOpen className="w-7 h-7" />
-            <h1 className="text-xl font-bold tracking-tight">Guía de Estudio: Temario 2° Grado</h1>
-          </div>
-        </div>
-      </header>
-
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row relative">
-        
-        {/* Sidebar Overlay for Mobile */}
-        {isSidebarOpen && (
-          <div 
-            className="fixed inset-0 bg-black/50 z-10 md:hidden" 
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
-
-        {/* Sidebar */}
-        <aside className={`
-          fixed md:sticky top-16 left-0 h-[calc(100vh-4rem)] bg-white shadow-xl md:shadow-none md:border-r border-slate-200 
-          w-72 flex-shrink-0 z-10 transition-transform duration-300 ease-in-out overflow-y-auto
-          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        `}>
-          <div className="p-4">
-            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Temas Disponibles</h2>
-            <nav className="space-y-2">
-              {topicsData.map((topic) => (
-                <button
-                  key={topic.id}
-                  onClick={() => {
-                    setActiveTopic(topic);
-                    setIsSidebarOpen(false);
-                  }}
-                  className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-left
-                    ${activeTopic.id === topic.id 
-                      ? 'bg-blue-50 text-blue-700 font-semibold shadow-sm border border-blue-100' 
-                      : 'hover:bg-slate-100 text-slate-600'
-                    }
-                  `}
-                >
-                  <div className={`${activeTopic.id === topic.id ? 'text-blue-600' : 'text-slate-400'}`}>
-                    {topic.icon}
-                  </div>
-                  <span className="flex-1 text-sm">{topic.title}</span>
-                  {activeTopic.id === topic.id && <ChevronRight className="w-4 h-4 text-blue-600" />}
+    <!-- Navbar / Encabezado -->
+    <header class="bg-blue-800 text-white shadow-md sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <button id="menuBtn" class="md:hidden p-2 hover:bg-blue-700 rounded-lg">
+                    <i data-lucide="menu"></i>
                 </button>
-              ))}
-            </nav>
-          </div>
+                <i data-lucide="book-open" class="w-7 h-7"></i>
+                <h1 class="text-xl font-bold tracking-tight">Guía de Estudio: Temario 2° Grado</h1>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row relative">
+        
+        <!-- Capa oscura para versión móvil -->
+        <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/50 z-10 md:hidden"></div>
+
+        <!-- Menú Lateral (Sidebar) -->
+        <aside id="sidebar" class="fixed md:sticky top-16 left-0 h-[calc(100vh-4rem)] bg-white shadow-xl md:shadow-none md:border-r border-slate-200 w-72 flex-shrink-0 z-10 transition-transform duration-300 ease-in-out overflow-y-auto -translate-x-full md:translate-x-0">
+            <div class="p-4">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Temas Disponibles</h2>
+                <nav id="sidebarNav" class="space-y-2">
+                    <!-- Los botones del menú se inyectan aquí con Javascript -->
+                </nav>
+            </div>
         </aside>
 
-        {/* Main Content Area */}
-        <main className="flex-1 p-4 md:p-8 min-h-[calc(100vh-4rem)]">
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
-            
-            {/* Content Header */}
-            <div className="bg-gradient-to-r from-blue-700 to-blue-900 p-8 text-white">
-              <div className="flex items-center gap-3 mb-4 text-blue-200">
-                {activeTopic.icon}
-                <span className="text-sm font-semibold uppercase tracking-wider">Tema {activeTopic.id}</span>
-              </div>
-              <h2 className="text-3xl font-bold mb-4">{activeTopic.title}</h2>
-              
-              <a 
-                href={activeTopic.driveLink} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-white text-blue-800 px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-blue-50 transition-colors shadow-sm"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Abrir Lectura Original
-              </a>
+        <!-- Área de Contenido Principal -->
+        <main class="flex-1 p-4 md:p-8 min-h-[calc(100vh-4rem)]">
+            <div id="mainContent" class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-slide">
+                <!-- El contenido de los temas se inyecta aquí -->
             </div>
-
-            {/* Content Body */}
-            <div className="p-8 space-y-10">
-              
-              {/* Resumen */}
-              <section>
-                <h3 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
-                  📌 Información Principal
-                </h3>
-                <p className="text-slate-600 leading-relaxed text-lg">
-                  {activeTopic.summary}
-                </p>
-              </section>
-
-              {/* Conceptos Clave */}
-              <section>
-                <h3 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
-                  🧠 Conceptos Clave
-                </h3>
-                <div className="grid gap-4 md:grid-cols-2">
-                  {activeTopic.keywords.map((kw, idx) => (
-                    <div key={idx} className="bg-slate-50 border border-slate-100 p-4 rounded-xl hover:shadow-md transition-shadow">
-                      <h4 className="font-bold text-blue-700 mb-2">{kw.term}</h4>
-                      <p className="text-sm text-slate-600">{kw.definition}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Artículos de Ley */}
-              {activeTopic.articles && activeTopic.articles.length > 0 && (
-                <section>
-                  <h3 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
-                    ⚖️ Artículos y Leyes de Referencia
-                  </h3>
-                  <div className="space-y-4">
-                    {activeTopic.articles.map((art, idx) => (
-                      <div key={idx} className="flex gap-4 p-4 bg-blue-50/50 border border-blue-100 rounded-xl">
-                        <div className="flex-shrink-0 mt-1 text-blue-500">
-                          <Scale className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-slate-800 mb-1">{art.article}</h4>
-                          <p className="text-slate-600 text-sm">{art.description}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-            </div>
-          </div>
         </main>
-      </div>
     </div>
-  );
-}
+
+    <!-- Funcionalidad y Lógica de la página -->
+    <script>
+        // Base de datos de los temas
+        const topicsData = [
+            {
+                id: 1,
+                title: "Movimientos Sociales",
+                icon: "users",
+                driveLink: "https://drive.google.com/file/d/1Tj-9gX8DnEAYHj7OYez8o_LmV7HQjDoB/view?usp=drive_open",
+                summary: "Los movimientos sociales son acciones colectivas organizadas por grupos de personas que buscan generar un cambio en la sociedad, defender sus derechos, visibilizar injusticias o proponer nuevas formas de convivencia. Surgen cuando una parte de la población siente que sus necesidades no son atendidas por el Estado.",
+                keywords: [
+                    { term: "Movimiento social", definition: "Grupo de personas organizado y estructurado que busca un cambio sociopolítico específico." },
+                    { term: "Acción colectiva", definition: "Acciones realizadas por un grupo de personas en conjunto para alcanzar un objetivo común." },
+                    { term: "Participación ciudadana", definition: "Involucramiento activo de los ciudadanos en los procesos de toma de decisiones públicas." }
+                ],
+                articles: [
+                    { article: "Artículo 9° Constitucional", description: "Garantiza el derecho a la libre asociación y reunión pacífica con cualquier objeto lícito. Es la base legal que permite la existencia de marchas y movimientos." }
+                ]
+            },
+            {
+                id: 2,
+                title: "Interculturalidad y Paz",
+                icon: "heart-handshake",
+                driveLink: "https://drive.google.com/file/d/136zVAO9RHRpBaL3RDTDR94Ma3a1Zm1KS/view?usp=drive_open",
+                summary: "La interculturalidad es el proceso de comunicación e interacción entre personas o grupos con identidades culturales específicas, donde no se permite que las ideas y acciones de una persona o grupo cultural estén por encima del otro. Es fundamental para construir la paz, ya que promueve la empatía y la integración armónica.",
+                keywords: [
+                    { term: "Interculturalidad", definition: "Relación equitativa, de diálogo y respeto mutuo entre diferentes culturas." },
+                    { term: "Pluriculturalidad", definition: "Coexistencia de diferentes culturas en un mismo espacio geográfico." },
+                    { term: "Empatía", definition: "Capacidad de percibir, compartir y comprender lo que otro ser puede sentir." }
+                ],
+                articles: [
+                    { article: "Artículo 2° Constitucional", description: "Reconoce que la Nación Mexicana tiene una composición pluricultural sustentada originalmente en sus pueblos indígenas, garantizando su derecho a la libre determinación." }
+                ]
+            },
+            {
+                id: 3,
+                title: "Normas y Leyes",
+                icon: "scale",
+                driveLink: "https://drive.google.com/file/d/19kWBMUsFiWc2DE4GuZYR0p0y-Wzs4x3o/view?usp=drive_open",
+                summary: "Para vivir en sociedad es necesario establecer acuerdos y reglas. Las normas son pautas de comportamiento que nos ayudan a convivir. Cuando estas normas se formalizan y son respaldadas por el Estado para garantizar el orden y la justicia, se convierten en leyes, las cuales son obligatorias para todos.",
+                keywords: [
+                    { term: "Norma", definition: "Regla de conducta dictada o promulgada por un poder legítimo para regular la conducta humana." },
+                    { term: "Ley", definition: "Norma jurídica dictada por el legislador, es decir, un precepto establecido por la autoridad competente, en que se manda o prohíbe algo." },
+                    { term: "Estado de Derecho", definition: "Principio de gobernanza en el que todas las personas e instituciones están sometidas a leyes que se promulgan públicamente." }
+                ],
+                articles: [
+                    { article: "Artículo 1° Constitucional", description: "Establece que en México todas las personas gozarán de los derechos humanos reconocidos en la Constitución y prohíbe todo tipo de discriminación." }
+                ]
+            },
+            {
+                id: 4,
+                title: "Quiénes hacen las leyes",
+                icon: "gavel",
+                driveLink: "https://drive.google.com/file/d/1iJWdZCCxtK9t3zmg7AvAcvFJZd5CUSgg/view?usp=drive_open",
+                summary: "En un sistema democrático como el de México, la creación y modificación de las leyes recae principalmente en el Poder Legislativo. Este poder representa la voluntad del pueblo y está encargado de debatir, redactar y aprobar las normas que rigen al país.",
+                keywords: [
+                    { term: "Poder Legislativo", definition: "Poder del Estado encargado de elaborar, modificar y derogar las leyes." },
+                    { term: "Congreso de la Unión", definition: "Órgano bicameral depositario del Poder Legislativo a nivel federal en México, integrado por Diputados y Senadores." },
+                    { term: "Iniciativa de Ley", definition: "Propuesta formal para crear una nueva ley o modificar una existente." }
+                ],
+                articles: [
+                    { article: "Artículo 50° Constitucional", description: "Establece que el Poder Legislativo de los Estados Unidos Mexicanos se deposita en un Congreso General, dividido en dos Cámaras: Diputados y Senadores." },
+                    { article: "Artículo 71° Constitucional", description: "Señala quiénes tienen el derecho de iniciar leyes (El Presidente, los Diputados y Senadores, las Legislaturas de los Estados y los ciudadanos en un número equivalente al 0.13% de la lista nominal)." }
+                ]
+            },
+            {
+                id: 5,
+                title: "La desigualdad",
+                icon: "shield-alert",
+                driveLink: "https://drive.google.com/file/d/1qT1LnAQ0FQQAHMXGlpnIt7Lc7ZDNuV7L/view?usp=drive_open",
+                summary: "La desigualdad es un fenómeno social donde las personas no tienen las mismas oportunidades, derechos o acceso a recursos (económicos, educativos, de salud). Combartir la desigualdad es uno de los mayores retos para alcanzar una sociedad justa y equitativa.",
+                keywords: [
+                    { term: "Desigualdad Social", definition: "Situación socioeconómica en la que un grupo o minoría recibe un trato diferente respecto al resto." },
+                    { term: "Equidad", definition: "Cualidad que consiste en dar a cada uno lo que se merece en función de sus méritos o condiciones, buscando nivelar desventajas." },
+                    { term: "Discriminación", definition: "Trato diferente y perjudicial que se da a una persona por motivos de raza, sexo, ideas políticas, religión, etc." }
+                ],
+                articles: [
+                    { article: "Artículo 4° Constitucional", description: "Establece la igualdad ante la ley del hombre y la mujer. Además, garantiza el derecho a la protección de la salud y a un medio ambiente sano, bases para combatir la desigualdad." }
+                ]
+            },
+            {
+                id: 6,
+                title: "Cultura de paz en la vida diaria",
+                icon: "book-open",
+                driveLink: "https://drive.google.com/file/d/1rS6q_X-G4r_BsbF5VlgkXgZ1dwCX9kwp/view?usp=drive_open",
+                summary: "La cultura de paz consiste en una serie de valores, actitudes y comportamientos que rechazan la violencia y previenen los conflictos. Se aplica en la vida diaria mediante el diálogo, la tolerancia y el respeto, comenzando en el hogar, la escuela y la comunidad.",
+                keywords: [
+                    { term: "Cultura de Paz", definition: "Conjunto de valores, actitudes y comportamientos que reflejan el respeto a la vida y la dignidad humana." },
+                    { term: "Diálogo", definition: "Conversación entre dos o más personas que exponen sus ideas de forma alternativa para buscar entendimiento." },
+                    { term: "Tolerancia", definition: "Respeto hacia las ideas, creencias o prácticas cuando son diferentes o contrarias a las propias." }
+                ],
+                articles: [
+                    { article: "Artículo 3° Constitucional", description: "Señala que la educación impartida por el Estado fomentará el amor a la Patria, el respeto a todos los derechos, las libertades y la cultura de la paz." }
+                ]
+            },
+            {
+                id: 7,
+                title: "Mecanismos para resolver conflictos",
+                icon: "handshake",
+                driveLink: "https://drive.google.com/file/d/1YxMKGTV_3HxtioFTTpsM2kF8vz1ufncN/view?usp=drive_open",
+                summary: "El conflicto es natural en las relaciones humanas. Los mecanismos de resolución pacífica son herramientas que permiten solucionar desacuerdos sin recurrir a la violencia o a juicios largos, promoviendo soluciones donde todas las partes ganan (ganar-ganar).",
+                keywords: [
+                    { term: "Negociación", definition: "Proceso de comunicación directa entre las partes en conflicto para llegar a un acuerdo aceptable." },
+                    { term: "Mediación", definition: "Intervención de un tercero imparcial (mediador) que facilita la comunicación entre las partes para que ellas mismas encuentren la solución." },
+                    { term: "Conciliación", definition: "Proceso similar a la mediación, pero donde el tercero (conciliador) puede proponer soluciones al conflicto." }
+                ],
+                articles: [
+                    { article: "Artículo 17° Constitucional", description: "Garantiza el derecho de acceso a la justicia y establece que las leyes preverán mecanismos alternativos de solución de controversias (como la mediación y conciliación)." }
+                ]
+            }
+        ];
+
+        let activeTopicId = 1;
+        let isSidebarOpen = false;
+
+        // Inicialización
+        function init() {
+            renderSidebar();
+            renderContent(activeTopicId);
+
+            document.getElementById('menuBtn').addEventListener('click', toggleSidebar);
+            document.getElementById('sidebarOverlay').addEventListener('click', () => {
+                if(isSidebarOpen) toggleSidebar();
+            });
+        }
+
+        // Control de menú móvil
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const menuBtnIcon = document.getElementById('menuBtn');
+
+            if(isSidebarOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                menuBtnIcon.innerHTML = '<i data-lucide="x"></i>';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                menuBtnIcon.innerHTML = '<i data-lucide="menu"></i>';
+            }
+            lucide.createIcons();
+        }
+
+        // Renderiza la lista del menú lateral
+        function renderSidebar() {
+            const nav = document.getElementById('sidebarNav');
+            nav.innerHTML = topicsData.map(topic => `
+                <button onclick="selectTopic(${topic.id})" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-left ${activeTopicId === topic.id ? 'bg-blue-50 text-blue-700 font-semibold shadow-sm border border-blue-100' : 'hover:bg-slate-100 text-slate-600'}">
+                    <div class="${activeTopicId === topic.id ? 'text-blue-600' : 'text-slate-400'}">
+                        <i data-lucide="${topic.icon}" class="w-5 h-5"></i>
+                    </div>
+                    <span class="flex-1 text-sm">${topic.title}</span>
+                    ${activeTopicId === topic.id ? '<i data-lucide="chevron-right" class="w-4 h-4 text-blue-600"></i>' : ''}
+                </button>
+            `).join('');
+            
+            lucide.createIcons(); // Renderiza los iconos de la lista
+        }
+
+        // Selecciona un nuevo tema y actualiza pantalla
+        function selectTopic(id) {
+            activeTopicId = id;
+            renderSidebar();
+            renderContent(id);
+            if(window.innerWidth < 768 && isSidebarOpen) {
+                toggleSidebar(); // Cierra el menú en móviles después de seleccionar
+            }
+        }
+
+        // Renderiza la información del tema seleccionado
+        function renderContent(id) {
+            const topic = topicsData.find(t => t.id === id);
+            const main = document.getElementById('mainContent');
+
+            // Pequeño truco para reiniciar la animación CSS
+            main.classList.remove('animate-fade-slide');
+            void main.offsetWidth; 
+            main.classList.add('animate-fade-slide');
+
+            // HTML de Palabras clave
+            let keywordsHtml = topic.keywords.map(kw => `
+                <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl hover:shadow-md transition-shadow">
+                    <h4 class="font-bold text-blue-700 mb-2">${kw.term}</h4>
+                    <p class="text-sm text-slate-600">${kw.definition}</p>
+                </div>
+            `).join('');
+
+            // HTML de Artículos (si existen)
+            let articlesHtml = '';
+            if(topic.articles && topic.articles.length > 0) {
+                articlesHtml = `
+                    <section>
+                      <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                        ⚖️ Artículos y Leyes de Referencia
+                      </h3>
+                      <div class="space-y-4">
+                        ${topic.articles.map(art => `
+                            <div class="flex gap-4 p-4 bg-blue-50/50 border border-blue-100 rounded-xl">
+                                <div class="flex-shrink-0 mt-1 text-blue-500">
+                                    <i data-lucide="scale" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-1">${art.article}</h4>
+                                    <p class="text-slate-600 text-sm">${art.description}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                      </div>
+                    </section>
+                `;
+            }
+
+            // Unir y renderizar el panel principal
+            main.innerHTML = `
+                <div class="bg-gradient-to-r from-blue-700 to-blue-900 p-8 text-white">
+                  <div class="flex items-center gap-3 mb-4 text-blue-200">
+                    <i data-lucide="${topic.icon}" class="w-5 h-5"></i>
+                    <span class="text-sm font-semibold uppercase tracking-wider">Tema ${topic.id}</span>
+                  </div>
+                  <h2 class="text-3xl font-bold mb-4">${topic.title}</h2>
+                  <a href="${topic.driveLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-blue-800 px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-blue-50 transition-colors shadow-sm">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    Abrir Lectura Original
+                  </a>
+                </div>
+
+                <div class="p-8 space-y-10">
+                  <section>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                      📌 Información Principal
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed text-lg">${topic.summary}</p>
+                  </section>
+                  <section>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                      🧠 Conceptos Clave
+                    </h3>
+                    <div class="grid gap-4 md:grid-cols-2">
+                      ${keywordsHtml}
+                    </div>
+                  </section>
+                  ${articlesHtml}
+                </div>
+            `;
+            
+            lucide.createIcons(); // Renderiza los iconos del panel principal
+        }
+
+        // Ejecutar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
