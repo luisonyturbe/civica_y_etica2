@@ -16,11 +16,17 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #334155; }
         h1, h2, h3, h4, .font-poppins { font-family: 'Poppins', sans-serif; }
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Estilos personalizados para las tablas de estudio */
+        .study-table { w-full border-collapse border border-slate-200 rounded-lg overflow-hidden my-4 }
+        .study-table th { background-color: #f1f5f9; padding: 12px; text-align: left; font-weight: 600; color: #1e293b; border: 1px solid #e2e8f0; }
+        .study-table td { padding: 12px; border: 1px solid #e2e8f0; vertical-align: top; }
+        .study-table tr:nth-child(even) { background-color: #f8fafc; }
     </style>
 </head>
 <body>
@@ -37,6 +43,7 @@
         const IconHome = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
         const IconCheck = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
         const IconX = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+        const IconBook = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>;
 
         // --- Datos de Estudio y Quizzes ---
         const studyData = [
@@ -47,56 +54,176 @@
             icon: <IconUser />,
             color: 'blue',
             content: {
-              summary: [
-                "La identidad personal es el conjunto de rasgos que nos diferencian. Según Martin Buber, es relativamente estable pero se construye en un entorno social y se reafirma mediante la convivencia (alteridad).",
-                "Nuestra identidad se ve influenciada por nuestro género (construcción sociocultural) y los roles asociados. Además, los grupos de pertenencia (familia, amigos, tribus urbanas) y las tradiciones heredadas forjan nuestro sentido de pertenencia."
-              ],
-              keywords: [
-                { term: "Identidad personal", def: "Conjunto de características que nos hacen únicos. Se reafirma en la convivencia." },
-                { term: "Género vs Sexo", def: "Sexo es biológico; género es una construcción sociocultural que asocia roles a lo masculino/femenino." },
-                { term: "Tradiciones y Costumbres", def: "Tradiciones se heredan (generan sincretismo). Costumbres son hábitos que regulan la comunidad; incumplirlas genera censura moral." },
-                { term: "Símbolos", def: "Expresiones, objetos o imágenes que evocan valores de un pueblo o grupo, brindando identidad compartida." }
+              sections: [
+                {
+                  subtitle: "¿Quién Soy? La Identidad Personal",
+                  body: (
+                    <div className="space-y-3">
+                      <p>La <strong>identidad personal</strong> es un conjunto de rasgos o características que nos conforman como individuos y nos hacen únicos. Se constituye principalmente durante la infancia, adolescencia y juventud.</p>
+                      <p>Según <strong>Martin Buber</strong>, la identidad personal tiene al menos cuatro características:</p>
+                      <ul className="list-disc pl-6 space-y-1 text-slate-600">
+                        <li>Es relativamente <strong>estable</strong> (permanece a lo largo de la vida, aun con ligeros cambios).</li>
+                        <li>Se construye dentro de un <strong>entorno social</strong>.</li>
+                        <li>Se reafirma en la <strong>convivencia con los demás</strong> (a partir de gustos, deseos y afinidades compartidas).</li>
+                        <li>Los <strong>grupos sociales y medios de comunicación</strong> influyen en cada persona.</li>
+                      </ul>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "Género y Estereotipos (Análisis de Imagen)",
+                  body: (
+                    <div className="space-y-4">
+                      <p>El <strong>género</strong> es una construcción social, cultural y psicológica asociada a lo masculino y femenino, mientras que el <strong>sexo</strong> se refiere a diferencias biológicas.</p>
+                      <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <h4 className="font-bold text-blue-800 mb-2">Visión de la DSI (Doctrina Social)</h4>
+                        <p className="text-sm">Ve el género como una realidad integral ligada a la realidad biológica del ser humano. Las diferencias entre hombres y mujeres se consideran un don (complementariedad), promoviendo que florezcan sin verse como opuestos o en competencia.</p>
+                      </div>
+                      <p>A través del tiempo, los <strong>roles de género</strong> han asignado a las mujeres al hogar y a los hombres como proveedores, limitando potencialidades, aunque hoy en día estos roles se están modificando o invirtiendo.</p>
+                      
+                      <h4 className="font-bold text-slate-800 mt-4 border-b pb-1">Jerarquía de Estereotipos de Género</h4>
+                      <p>La sociedad clasifica lo Femenino y lo Masculino en dos grandes ramas:</p>
+                      <ul className="list-disc pl-6 space-y-1 text-slate-600">
+                        <li><strong>Hegemónica:</strong> El estereotipo "ideal" de lo que debería ser una mujer o un hombre. Sin embargo, <em>seguir estos modelos rígidos puede poner en riesgo la identidad y la salud física/emocional de los adolescentes.</em></li>
+                        <li><strong>Subalterna:</strong> Formas de género que no cumplen con el ideal y a menudo derivan en una categoría <strong>Marginada</strong>.</li>
+                      </ul>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "Grupos de Pertenencia, Tradiciones y Símbolos",
+                  body: (
+                    <div className="space-y-3">
+                      <p>Buscamos identificación y aceptación en grupos. Algunos no los elegimos (familia) y otros sí (amigos, colectivos).</p>
+                      <p>Existen grupos <strong>contraculturales o tribus urbanas</strong> (góticos, punks, gamers, feministas, anarquistas, etc.). Algunos expresan rebeldía y desafían gustos convencionales, lo que a veces genera que los adultos los toleren poco o discriminen.</p>
+                      
+                      <table className="w-full text-left border-collapse border border-slate-200 mt-4 bg-white text-sm">
+                        <thead>
+                          <tr className="bg-slate-100">
+                            <th className="p-3 border">Concepto</th>
+                            <th className="p-3 border">Definición y Características</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="p-3 border font-semibold text-slate-800">Tradiciones</td>
+                            <td className="p-3 border text-slate-600">Prácticas heredadas de generación en generación. Pueden transformarse al mezclarse con otras culturas, fenómeno llamado <strong>sincretismo</strong> (ej. antiguas deidades mexicanas + religión católica).</td>
+                          </tr>
+                          <tr>
+                            <td className="p-3 border font-semibold text-slate-800">Costumbres</td>
+                            <td className="p-3 border text-slate-600">Prácticas que por repetición se vuelven hábitos. Regulan la vida comunitaria. Incumplirlas no tiene castigo legal, pero genera <strong>repercusiones morales (censura, exclusión, discriminación)</strong>.</td>
+                          </tr>
+                          <tr>
+                            <td className="p-3 border font-semibold text-slate-800">Símbolos</td>
+                            <td className="p-3 border text-slate-600">Imágenes, objetos o rituales (banderas, himnos, cruces, playeras) que evocan los valores y creencias de un pueblo, estableciendo un vínculo social.</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  )
+                }
               ]
             },
             quiz: [
               { q: "Según Martin Buber, ¿cuál de estas características NO pertenece a la identidad personal?", options: ["Se construye en un entorno social.", "Es relativamente estable a lo largo de la vida.", "Es inmutable y se define genéticamente al nacer.", "Se reafirma en la convivencia con los demás."], correct: 2 },
               { q: "¿Cuál es la diferencia fundamental entre sexo y género según el texto?", options: ["El género es biológico y el sexo cultural.", "El sexo es una construcción social, el género es psicológico.", "Ambos términos significan exactamente lo mismo.", "El sexo son diferencias biológicas, el género es una construcción social y cultural."], correct: 3 },
-              { q: "Al estereotipo ideal de mujer u hombre que sirve como guía social en una época se le denomina:", options: ["Estereotipo marginal", "Estereotipo subalterno", "Estereotipo hegemónico", "Estereotipo transicional"], correct: 2 },
+              { q: "Al estereotipo ideal de mujer u hombre que sirve como guía social, pero que puede poner en riesgo la salud por su exigencia, se le denomina:", options: ["Estereotipo marginal", "Estereotipo subalterno", "Estereotipo hegemónico", "Estereotipo transicional"], correct: 2 },
               { q: "¿Qué nombre reciben las agrupaciones juveniles que expresan rebeldía y cuyos valores desafían los gustos convencionales?", options: ["Cofradías", "Contraculturales o tribus urbanas", "Grupos hegemónicos", "Sindicatos juveniles"], correct: 1 },
               { q: "La combinación de antiguas tradiciones prehispánicas con creencias de la religión católica es un ejemplo de:", options: ["Dogmatismo", "Etnocentrismo", "Segregación", "Sincretismo"], correct: 3 },
               { q: "A diferencia de una ley, cuando se incumple una costumbre arraigada, la consecuencia suele ser:", options: ["Multa económica", "Prisión preventiva", "Repercusiones morales y sociales como censura", "Exilio legal del país"], correct: 2 },
               { q: "¿Qué elemento cultural evoca valores, sentimientos y creencias mediante objetos, imágenes o rituales?", options: ["Costumbres", "Símbolos", "Leyes", "Normas"], correct: 1 },
               { q: "¿Qué provocó que las mujeres ingresaran a espacios que antes se consideraban exclusivos para hombres?", options: ["La biología evolutiva.", "Mayor participación en la vida social, política y económica, y necesidades sociales.", "Prohibiciones legales hacia los hombres.", "El declive de las tribus urbanas."], correct: 1 },
               { q: "En la DSI (Doctrina Social), la visión sobre el género sostiene que:", options: ["Debe separarse totalmente de la biología.", "Es una realidad integral arraigada en lo biológico, promoviendo la complementariedad.", "Hombres y mujeres son competidores naturales.", "Los roles deben ser estrictamente rígidos y no modificables."], correct: 1 },
-              { q: "¿Qué característica define a los grupos de pertenencia que elegimos (como amigos o tribus urbanas)?", options: ["Están definidos desde el nacimiento.", "Comparten genéticas similares.", "Comparten gustos, estilos de vida, valores o creencias.", "Son impuestos por el Estado."], correct: 2 }
+              { q: "¿Qué categoría se encuentra por debajo de la rama 'Subalterna' en el diagrama de estereotipos de género?", options: ["Hegemónica", "Femenina pura", "Marginada", "Inclusiva"], correct: 2 }
             ]
           },
           {
             id: 'salud',
             title: 'Derecho a la salud',
-            desc: 'Autoestima, asertividad, autorregulación y prevención de adicciones.',
+            desc: 'Autoestima, asertividad, autorregulación y clasificación de drogas.',
             icon: <IconHeart />,
             color: 'rose',
             content: {
-              summary: [
-                "El Estado tiene la obligación constitucional (Art. 4) de garantizar la salud integral. Sin embargo, el primer anillo de seguridad es individual: el autocuidado, que es la manifestación directa de la autoestima.",
-                "Las adicciones son dependencias psicofísicas crónicas. La asertividad (saber decir no con respeto) y la autorregulación (evitar acciones riesgosas aunque se deseen) son habilidades críticas para resistir la presión de pares en la adolescencia."
-              ],
-              keywords: [
-                { term: "Salud integral (OMS)", def: "Bienestar físico, mental y social. No solo la ausencia de afecciones o enfermedades." },
-                { term: "Autocuidado", def: "Manifestación práctica de la autoestima. Significa valorarse lo suficiente como para protegerse." },
-                { term: "Autorregulación", def: "Capacidad de frenar impulsos y evitar acciones que desemboquen en problemas irreversibles." },
-                { term: "Adicción", def: "Dependencia constante y crónica (psicofísica) hacia sustancias o conductas. Consumo ocasional NO es adicción." }
+              sections: [
+                {
+                  subtitle: "Obligaciones del Estado y Prevención",
+                  body: (
+                    <div className="space-y-3">
+                      <p>Según la OMS, la <strong>Salud Integral</strong> es el bienestar físico, mental y social, no solo la ausencia de enfermedad.</p>
+                      <p>El Estado está obligado a garantizar este derecho mediante varios instrumentos:</p>
+                      <ul className="list-disc pl-6 space-y-1 text-slate-600">
+                        <li><strong>Art. 25</strong> de la Declaración Universal de Derechos Humanos.</li>
+                        <li><strong>Art. 4°</strong> de la Constitución Política de los EUM.</li>
+                        <li><strong>Art. 50</strong> de la Ley General de los Derechos de NNA (obligando a establecer medidas de prevención, combate y rehabilitación de adicciones).</li>
+                      </ul>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "El Ciclo del Autocuidado y la Autoestima",
+                  body: (
+                    <div className="space-y-4">
+                      <p>La autoestima se gesta en la familia. El autocuidado es la manifestación directa de estimarnos. Según el esquema oficial, el ciclo virtuoso del autocuidado sigue este flujo continuo:</p>
+                      
+                      <div className="bg-rose-50 p-5 rounded-xl border border-rose-200">
+                        <ol className="list-decimal pl-5 space-y-2 text-rose-900 font-medium">
+                          <li>Aceptar tus errores</li>
+                          <li>Enfrentar los problemas</li>
+                          <li>Defender tus opiniones ante los demás</li>
+                          <li>Valorar tus capacidades y las de tus amigos/compañeros</li>
+                          <li>Impedir que te traten mal o que abusen de otras personas</li>
+                          <li>Cuidar tu cuerpo</li>
+                          <li>Valorar tu salud</li>
+                          <li>Reforzar tus aciertos</li>
+                          <li>Conocer tus cualidades y defectos</li>
+                          <li>Reconocer tus sentimientos <em>(y vuelve al inicio)</em></li>
+                        </ol>
+                      </div>
+                      
+                      <p>Para resistir la presión de pertenecer a un grupo destructivo se requieren dos habilidades: <strong>Asertividad</strong> (expresar honestamente sin agresión) y <strong>Autorregulación</strong> (identificar riesgos y evitar acciones aunque se desee hacerlas).</p>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "Las Adicciones y Tipos de Drogas (Esquema Oficial)",
+                  body: (
+                    <div className="space-y-4">
+                      <p>La adicción es una dependencia física, psicológica y emocional. Un <em>consumidor ocasional NO es un adicto</em>. El adicto tiene un consumo crónico y presenta <strong>dependencia psicofísica</strong> (tendencia a subir la dosis).</p>
+                      
+                      <div className="bg-white border border-slate-300 rounded-lg overflow-hidden shadow-sm">
+                        <div className="bg-slate-800 text-white text-center font-bold py-2 uppercase tracking-wide">Clasificación de Tipos de Drogas</div>
+                        <div className="grid grid-cols-2 divide-x divide-slate-300">
+                          <div className="p-4 bg-slate-50">
+                            <h4 className="font-bold text-center text-slate-700 border-b pb-2 mb-3">DURAS</h4>
+                            <ul className="list-disc pl-5 text-slate-600 space-y-1">
+                              <li>Mariguana</li>
+                              <li>Hongos</li>
+                            </ul>
+                          </div>
+                          <div className="p-4 bg-slate-50">
+                            <h4 className="font-bold text-center text-slate-700 border-b pb-2 mb-3">BLANDAS</h4>
+                            <ul className="list-disc pl-5 text-slate-600 space-y-1">
+                              <li>Cocaína</li>
+                              <li>Morfina</li>
+                              <li>Heroína</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500 italic mt-2">* Nota: Esta clasificación se basa de manera estricta en el esquema de la lectura proporcionada en el temario.</p>
+                    </div>
+                  )
+                }
               ]
             },
             quiz: [
-              { q: "Según la OMS, la salud integral se define como:", options: ["Únicamente la ausencia de dolor físico.", "El bienestar físico, mental y social.", "Tener acceso a hospitales de alta especialidad.", "Poseer un alto rendimiento deportivo."], correct: 1 },
               { q: "¿Qué ley en México, en su artículo 50, obliga a prevenir, atender y rehabilitar problemas por adicciones?", options: ["Constitución Política", "Ley General de Educación", "Ley General de los Derechos de Niñas, Niños y Adolescentes", "Ley General de Salud Pública"], correct: 2 },
-              { q: "¿Qué habilidad social te permite exponer tus verdaderos deseos, decir 'no' y defender tus derechos sin ser agresivo?", options: ["Autoestima", "Autorregulación", "Asertividad", "Simpatía"], correct: 2 },
-              { q: "El autocuidado es considerado una manifestación directa de:", options: ["El Estado", "La asertividad", "La autorregulación", "La autoestima"], correct: 3 },
+              { q: "Dentro del esquema circular del cuidado corporal, ¿qué paso sigue inmediatamente después de 'Defender tus opiniones ante los demás'?", options: ["Reconocer tus sentimientos", "Cuidar tu cuerpo", "Aceptar tus errores", "Valorar tus capacidades y las de tus amigos/compañeros"], correct: 3 },
+              { q: "En el ciclo de autocuidado, 'Reforzar tus aciertos' es un paso que conecta directamente hacia:", options: ["Enfrentar los problemas", "Conocer tus cualidades y defectos", "Valorar tu salud", "Impedir que te traten mal"], correct: 1 },
+              { q: "Según el diagrama de Tipos de Drogas de la lectura oficial, ¿cuáles se clasifican como drogas DURAS?", options: ["Cocaína y Heroína", "Mariguana y Hongos", "Tabaco y Alcohol", "Morfina y Cocaína"], correct: 1 },
+              { q: "Según la lectura oficial, la Cocaína, la Morfina y la Heroína están clasificadas bajo el tipo de drogas:", options: ["Duras", "Legales", "Blandas", "Conductuales"], correct: 2 },
               { q: "Médicamente y según el texto, ¿qué diferencia a un consumidor ocasional de un adicto?", options: ["El adicto consume drogas legales, el ocasional ilegales.", "El adicto presenta dependencia psicofísica constante y crónica.", "No hay diferencia, probar una vez te hace adicto.", "El consumidor ocasional tiene peor salud mental."], correct: 1 },
-              { q: "En la clasificación del texto, ¿qué par de drogas son consideradas 'Blandas'?", options: ["Mariguana y Hongos", "Cocaína y Morfina", "Fentanilo y Crack", "Alcohol y Tabaco"], correct: 1 },
-              { q: "Según la Encodat, ¿cuál es la causa principal por la que los adolescentes inician el consumo de sustancias?", options: ["Problemas genéticos", "Deseo de pertenecer a un grupo y ser aceptados", "Desconocimiento absoluto de sus efectos", "Falta de recursos económicos"], correct: 1 },
+              { q: "¿Qué habilidad social te permite exponer tus verdaderos deseos, decir 'no' y defender tus derechos sin ser agresivo?", options: ["Autoestima", "Autorregulación", "Asertividad", "Simpatía"], correct: 2 },
               { q: "Identifica un ejemplo de adicción conductual o emocional:", options: ["Heroína", "Tabaquismo", "Relaciones de codependencia destructivas", "Inhalantes"], correct: 2 },
               { q: "La capacidad para identificar obstáculos y evitar acciones que ponen en riesgo tu integridad, aunque sientas gran deseo de realizarlas, se llama:", options: ["Catarsis", "Abstinencia", "Asertividad", "Autorregulación"], correct: 3 },
               { q: "¿Qué efecto a largo plazo suele provocar el uso de drogas como 'vía de escape' para el estrés?", options: ["Inmunidad a la ansiedad", "Aumento de la inteligencia cognitiva", "Exacerbación de problemas y provocación de depresión/trastornos mentales", "Mejora de la asertividad"], correct: 2 }
@@ -109,59 +236,218 @@
             icon: <IconGlobe />,
             color: 'emerald',
             content: {
-              summary: [
-                "La dignidad humana es el pilar de los derechos humanos (Art. 1 DUDH). Implica Igualdad, Autonomía, Integridad y Trato Digno para todo ser humano sin importar su origen.",
-                "La marginación ocurre por factores estructurales (discriminación, falta de servicios, desigualdad) que vulneran a ciertos grupos. La vulnerabilidad infantil, por ejemplo, nace de la falta de autonomía y dependencia de los adultos."
-              ],
-              keywords: [
-                { term: "Dignidad Humana", def: "Valor inherente e inalienable. Todos merecen trato justo e igualitario." },
-                { term: "Marginación", def: "Exclusión a un estatus inferior. Impide acceso a educación, salud y oportunidades." },
-                { term: "Barreras Estructurales", def: "Fallas institucionales (como segregación de vivienda o servicios) que perpetúan la pobreza." },
-                { term: "Vulnerabilidad Infantil", def: "Riesgo originado por la dependencia de adultos y falta de capacidad para defender derechos propios." }
+              sections: [
+                {
+                  subtitle: "Dignidad Humana y Derechos Humanos",
+                  body: (
+                    <div className="space-y-3">
+                      <p>La <strong>Dignidad Humana</strong> es un valor inherente e inalienable. El Art. 1 de la DUDH sostiene que "Todos los seres humanos nacen libres e iguales en dignidad y derechos". Sus aspectos clave son:</p>
+                      <ul className="list-disc pl-6 space-y-1 text-slate-600">
+                        <li><strong>Igualdad:</strong> Mismo valor intrínseco.</li>
+                        <li><strong>Autonomía:</strong> Capacidad de tomar decisiones libres.</li>
+                        <li><strong>Integridad:</strong> Respeto físico/psicológico (prohíbe la tortura).</li>
+                        <li><strong>Trato digno:</strong> Respeto y justicia institucional.</li>
+                      </ul>
+                      <p>Aunque los DDHH exigen igualdad, las <strong>estructuras económico-sociales</strong> producen marginación.</p>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "Grupos Vulnerados",
+                  body: (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                      <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                        <h4 className="font-bold text-emerald-800">Vulnerabilidad Infantil</h4>
+                        <p className="text-sm mt-1">Niños y adolescentes. Dependen de adultos y tienen poca capacidad de autonomía para defender sus derechos.</p>
+                      </div>
+                      <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                        <h4 className="font-bold text-emerald-800">Vulnerabilidad de Género</h4>
+                        <p className="text-sm mt-1">Mujeres y personas de género diverso. Enfrentan desigualdades que las exponen a violencia o discriminación.</p>
+                      </div>
+                      <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                        <h4 className="font-bold text-emerald-800">Vulnerabilidad Económica</h4>
+                        <p className="text-sm mt-1">Personas en pobreza. Falta de acceso a educación, vivienda y salud de calidad.</p>
+                      </div>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "Factores que Contribuyen a la Marginación (Tabla 3.1)",
+                  body: (
+                    <div className="space-y-3">
+                      <p>La marginación es la relegación a un estatus social, económico o político inferior. Ocurre por 5 factores críticos:</p>
+                      
+                      <table className="study-table text-sm">
+                        <tbody>
+                          <tr>
+                            <td className="w-1/3 bg-slate-100 font-semibold text-slate-800">Discriminación</td>
+                            <td>Basada en etnia, género, religión, discapacidad u orientación. <strong>Origina la negación de oportunidades</strong> (ej. no permitir que mujeres realicen algunas labores).</td>
+                          </tr>
+                          <tr>
+                            <td className="bg-slate-100 font-semibold text-slate-800">Desigualdad Económica</td>
+                            <td>La mala distribución de riqueza provoca <strong>menos acceso a empleo, educación, salud y vivienda</strong> para las poblaciones marginadas.</td>
+                          </tr>
+                          <tr>
+                            <td className="bg-slate-100 font-semibold text-slate-800">Barreras Estructurales</td>
+                            <td>Barreras institucionales (segregación en vivienda, empleo, falta de poder político). <strong>Ejemplo:</strong> Poblaciones en zonas limítrofes sin agua potable, luz o internet.</td>
+                          </tr>
+                          <tr>
+                            <td className="bg-slate-100 font-semibold text-slate-800">Estigmatización Social</td>
+                            <td>Los prejuicios <strong>aíslan a personas percibidas como "diferentes"</strong> o desfavorecidos (ej. personas con orientación sexual distinta).</td>
+                          </tr>
+                          <tr>
+                            <td className="bg-slate-100 font-semibold text-slate-800">Falta de Acceso a Servicios Básicos</td>
+                            <td>Falta de atención médica, educación y vivienda que <strong>mantiene a las personas en marginación</strong>, como quienes viven en zonas rurales e indígenas.</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  )
+                }
               ]
             },
             quiz: [
               { q: "¿Qué concepto afirma que cada individuo posee un valor inherente e inalienable que exige trato justo?", options: ["Empatía social", "Dignidad humana", "Soberanía estatal", "Tolerancia cultural"], correct: 1 },
-              { q: "Según el texto, ¿qué provoca directamente la desigualdad en la distribución de la riqueza en ciertas comunidades?", options: ["Menos acceso al empleo, educación y atención médica (Marginación).", "Aumento de la autonomía infantil.", "Erradicación de la estigmatización.", "Mejora de la integridad psicológica."], correct: 0 },
+              { q: "En la Tabla 3.1, el hecho de que poblaciones en zonas limítrofes no tengan agua potable ni internet se clasifica como:", options: ["Discriminación explícita", "Vulnerabilidad de género", "Estigmatización social", "Barreras estructurales"], correct: 3 },
               { q: "El Artículo 1° de la Declaración Universal de los Derechos Humanos menciona que todos los seres humanos nacen:", options: ["Libres y diferentes en derechos.", "Sujetos a las barreras estructurales de su país.", "Libres e iguales en dignidad y derechos.", "Con vulnerabilidad económica inherente."], correct: 2 },
               { q: "¿Por qué los niños, niñas y adolescentes son un grupo especialmente vulnerable?", options: ["Por falta de educación.", "Debido a su dependencia de los adultos y poca capacidad de autonomía.", "Porque no tienen derechos humanos asignados aún.", "Por barreras estructurales exclusivas de las escuelas."], correct: 1 },
               { q: "La prohibición de la tortura y los tratos inhumanos es una exigencia del aspecto de la dignidad conocido como:", options: ["Integridad", "Autonomía", "Igualdad", "Libertad de expresión"], correct: 0 },
-              { q: "La falta de servicios básicos como agua potable o internet en zonas limítrofes es un ejemplo de:", options: ["Discriminación explícita", "Vulnerabilidad de género", "Estigmatización social", "Barreras institucionales/estructurales"], correct: 3 },
+              { q: "Según la tabla oficial, aislar a personas o grupos al percibirlos como 'diferentes' (ej. orientación sexual distinta) contribuye a la marginación mediante:", options: ["Estigmatización social", "Vulnerabilidad económica", "Barreras institucionales", "Desigualdad de riqueza"], correct: 0 },
               { q: "¿Qué componente de la dignidad exige que cada persona tenga capacidad de tomar decisiones libres sobre su propia vida?", options: ["Trato digno", "Autonomía", "Integridad", "Asertividad"], correct: 1 },
-              { q: "¿Qué implica socialmente erradicar la marginación social?", options: ["Eliminar fronteras nacionales.", "Establecer políticas antidiscriminación e igualdad de oportunidades.", "Privatizar la atención médica.", "Forzar la asimilación cultural de etnias."], correct: 1 },
-              { q: "Aislar a personas o grupos al percibirlos como 'diferentes' (ej. orientación sexual distinta) contribuye a la marginación mediante:", options: ["Estigmatización social", "Vulnerabilidad económica", "Barrera estructural", "Desigualdad de riqueza"], correct: 0 },
+              { q: "Según la tabla, la negación de tratos justos y oportunidades basada en características como etnia, género o discapacidad se denomina:", options: ["Barrera estructural", "Estigmatización", "Desigualdad económica", "Discriminación"], correct: 3 },
+              { q: "Según la tabla, la falta de atención médica, educación de calidad y vivienda asequible, que afecta sobre todo a zonas rurales e indígenas, se clasifica como:", options: ["Estigmatización social", "Falta de acceso a servicios básicos", "Discriminación religiosa", "Autonomía reducida"], correct: 1 },
               { q: "La vulnerabilidad de género expone principalmente a las mujeres y personas de género diverso a:", options: ["Alta carga tributaria.", "Violencia y otras formas de discriminación.", "Pérdida de nacionalidad.", "Sobreprotección estatal."], correct: 1 }
             ]
           },
           {
             id: 'movimientos',
             title: 'Movimientos sociales',
-            desc: 'Derechos humanos, formas de violación y participación sociopolítica.',
+            desc: 'Formas de violación de DDHH, generaciones de derechos y activismo.',
             icon: <IconFlag />,
             color: 'violet',
             content: {
-              summary: [
-                "Los derechos humanos son inherentes e imprescriptibles. Constitucionalmente, solo pueden ser violados por agentes del Estado mediante tres vías: Acción, Omisión o Aquiescencia.",
-                "Frente a abusos de poder y regímenes autoritarios o totalitarios, las sociedades crean movimientos sociales (para reivindicar derechos y exigir justicia civil) o movimientos políticos (que buscan alcanzar el poder político)."
-              ],
-              keywords: [
-                { term: "Violación por Omisión", def: "El Estado muestra indiferencia ante situaciones que vulneran la dignidad humana." },
-                { term: "Violación por Aquiescencia", def: "El Estado o autoridades dan el consentimiento/permiso tácito para que terceros cometan agresiones." },
-                { term: "Gobierno Autoritario vs Totalitario", def: "Autoritario reprime opositores. Totalitario busca eliminar pensamiento opuesto adoctrinando a la población." },
-                { term: "Generaciones de DDHH", def: "1ra: Civiles/Políticos. 2da: Económicos/Sociales (Salud, Trabajo). 3ra: Solidaridad (Paz, Ambiente)." }
+              sections: [
+                {
+                  subtitle: "Los Derechos Humanos y Formas de Violación",
+                  body: (
+                    <div className="space-y-3">
+                      <p>Los DDHH son inherentes, imprescriptibles, universales, indivisibles e inalienables. Solo los agentes del Estado pueden violarlos (Art. 1°). Existen 3 formas documentadas de violencia institucional:</p>
+                      
+                      <div className="flex flex-col md:flex-row gap-4 mt-2">
+                        <div className="flex-1 bg-red-50 p-4 rounded-lg border border-red-200">
+                          <h4 className="font-bold text-red-800">Por Acción</h4>
+                          <p className="text-sm mt-1">Ataque directo a la dignidad humana (detenciones arbitrarias, desapariciones forzadas, ejecuciones, tortura).</p>
+                        </div>
+                        <div className="flex-1 bg-orange-50 p-4 rounded-lg border border-orange-200">
+                          <h4 className="font-bold text-orange-800">Por Omisión</h4>
+                          <p className="text-sm mt-1">Los poderes de gobierno muestran <strong>indiferencia</strong> ante situaciones que vulneran la dignidad y derechos.</p>
+                        </div>
+                        <div className="flex-1 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                          <h4 className="font-bold text-yellow-800">Por Aquiescencia</h4>
+                          <p className="text-sm mt-1">El Estado o autoridades dan el <strong>consentimiento directo</strong> para permitir secuestros o agresiones por parte de terceros (guardias o grupos paramilitares).</p>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                },
+                {
+                  subtitle: "Generaciones de Derechos Humanos (Tabla 4.1)",
+                  body: (
+                    <table className="study-table text-xs md:text-sm">
+                      <thead>
+                        <tr>
+                          <th>Primera Generación<br/><span className="font-normal">Derechos Civiles y Políticos</span></th>
+                          <th>Segunda Generación<br/><span className="font-normal">Económicos, Sociales y Culturales</span></th>
+                          <th>Tercera Generación<br/><span className="font-normal">Derechos de Solidaridad</span></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <ul className="list-disc pl-4 space-y-1">
+                              <li>Derecho a la vida y a la igualdad</li>
+                              <li>Libertad, nacionalidad y privacidad</li>
+                              <li>Libertad de expresión y religiosa</li>
+                              <li>Juicio justo y sufragio</li>
+                            </ul>
+                          </td>
+                          <td>
+                            <ul className="list-disc pl-4 space-y-1">
+                              <li>Trabajo, libre elección y condiciones equitativas</li>
+                              <li>Libertad sindical y huelga</li>
+                              <li>Vivienda digna, salud y educación</li>
+                              <li>Ciencia, tecnología y vida cultural</li>
+                            </ul>
+                          </td>
+                          <td>
+                            <ul className="list-disc pl-4 space-y-1">
+                              <li>Autodeterminación y paz</li>
+                              <li>Independencia económica y política</li>
+                              <li>Identidad nacional, coexistencia pacífica</li>
+                              <li>Patrimonio de la humanidad y ambiente</li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  )
+                },
+                {
+                  subtitle: "Tipos de Gobierno y Movimientos",
+                  body: (
+                    <div className="space-y-4">
+                      <p><strong>Diferencia clave:</strong> Los Movimientos Sociales buscan visibilizar injusticias y mejorar la sociedad. Los Movimientos Políticos buscan directamente alcanzar el poder político para gobernar.</p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="border border-slate-200 p-3 rounded bg-white shadow-sm">
+                          <h4 className="font-bold text-blue-700">Democráticos</h4>
+                          <p className="text-sm">La ciudadanía participa en decisiones y ejerce libertades.</p>
+                        </div>
+                        <div className="border border-slate-200 p-3 rounded bg-white shadow-sm">
+                          <h4 className="font-bold text-slate-700">Autoritarios</h4>
+                          <p className="text-sm">Reprimen y sancionan opositores, evitan expresión pública.</p>
+                        </div>
+                        <div className="border border-slate-200 p-3 rounded bg-white shadow-sm">
+                          <h4 className="font-bold text-red-700">Totalitarios</h4>
+                          <p className="text-sm">Buscan <em>eliminar</em> formas de pensamiento opuestas con adoctrinamiento y propaganda.</p>
+                        </div>
+                      </div>
+
+                      <h4 className="font-bold text-slate-800 border-b pb-1 mt-6">Movimientos Históricos en México (Tabla 4.3)</h4>
+                      <table className="study-table text-xs md:text-sm">
+                        <thead>
+                          <tr><th>Movimiento</th><th>Tipo</th><th>Periodo</th><th>Demanda Principal</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Ejército Cristero</td><td>Social</td><td>1926-1929</td><td>Respeto a profesión religiosa.</td></tr>
+                          <tr><td>Médicos y enfermeras</td><td>Social</td><td>1964-1965</td><td>Mejores condiciones laborales.</td></tr>
+                          <tr><td>Huelga de ferrocarrileros</td><td>Social</td><td>1959</td><td>Mejores condiciones laborales.</td></tr>
+                          <tr><td>Estudiantil de 1968</td><td>Social</td><td>1968</td><td>Democratización del país.</td></tr>
+                          <tr><td>Partido de los Pobres</td><td>Político</td><td>1967-1974</td><td>Contra asesinatos de campesinos en Guerrero.</td></tr>
+                          <tr><td>Liga Comunista 23 de Sept.</td><td>Político</td><td>1973-1983</td><td>Construcción de gobierno socialista.</td></tr>
+                          <tr><td>Mov. Acción Revolucionaria</td><td>Político</td><td>1969-1979</td><td>Democratización del país.</td></tr>
+                          <tr><td>EZLN</td><td>Político</td><td>1994</td><td>Derechos de pueblos indígenas.</td></tr>
+                          <tr><td>Consejo General de Huelga (UNAM)</td><td>Social</td><td>1999-2000</td><td>Defensa de educación pública y gratuita.</td></tr>
+                          <tr><td>#YoSoy132</td><td>Social</td><td>2012</td><td>Contra violaciones de derechos humanos.</td></tr>
+                        </tbody>
+                      </table>
+                      <p className="text-sm mt-2 text-slate-600">Durante varias de estas décadas (50s-70s), el gobierno mexicano quebrantó derechos sistemáticamente, torturando y desapareciendo disidentes en lo que hoy se conoce como la <strong>Guerra Sucia</strong>.</p>
+                    </div>
+                  )
+                }
               ]
             },
             quiz: [
-              { q: "Según la ACNUDH, ¿quiénes son los únicos que pueden violentar los derechos humanos de forma oficial?", options: ["Los delincuentes comunes.", "Los agentes del Estado (autoridades, militares, policías).", "Los grupos opositores políticos.", "Cualquier ciudadano en propiedad privada."], correct: 1 },
-              { q: "Si el gobierno muestra indiferencia y no interviene ante una situación que vulnera la dignidad ciudadana, comete una violación por:", options: ["Acción", "Corrupción", "Omisión", "Aquiescencia"], correct: 2 },
-              { q: "Si las autoridades dan consentimiento directo a un grupo paramilitar para secuestrar, es una violación de derechos por:", options: ["Acción", "Omisión", "Inmunidad", "Aquiescencia"], correct: 3 },
-              { q: "¿A qué generación de Derechos Humanos pertenece el 'Derecho a la salud y a la educación'?", options: ["Primera generación", "Segunda generación", "Tercera generación", "Cuarta generación"], correct: 1 },
-              { q: "¿Qué derecho es representativo de la Primera Generación (Derechos civiles y políticos)?", options: ["Derecho al medio ambiente", "Libertad de expresión y derecho a la vida", "Derecho a la vivienda digna", "Derecho al patrimonio de la humanidad"], correct: 1 },
-              { q: "¿Cuál es el fin primordial de un 'Movimiento Político' a diferencia de uno social?", options: ["Evidenciar injusticias ecológicas.", "Visibilizar derechos de minorías.", "Alcanzar el poder político y gobernar.", "Crear arte urbano contracultural."], correct: 2 },
-              { q: "Un gobierno que no solo reprime, sino que busca eliminar formas de pensamiento opuestas mediante adoctrinamiento y propaganda es un gobierno:", options: ["Democrático", "Autoritario", "Totalitario", "Hegemónico"], correct: 2 },
-              { q: "Según el informe Freedom House 2022, México está clasificado políticamente como un país:", options: ["Totalmente libre", "Parcialmente libre", "No libre", "Autoritario"], correct: 1 },
-              { q: "En México, la etapa de represión brutal, desapariciones y torturas entre los años 50s y 70s se conoce como:", options: ["Guerra Cristera", "Revolución de Ayutla", "Guerra Sucia", "El Maximato"], correct: 2 },
-              { q: "Los Derechos Humanos se consideran 'imprescriptibles' porque:", options: ["No se pueden vender ni transferir.", "Se reconocen por el hecho de existir.", "No se pueden dividir ni jerarquizar.", "No pierden vigencia ni caducan con el paso del tiempo."], correct: 3 }
+              { q: "Si el gobierno muestra total indiferencia y no interviene ante una situación documentada que vulnera la dignidad, comete una violación por:", options: ["Acción", "Corrupción", "Omisión", "Aquiescencia"], correct: 2 },
+              { q: "Si las autoridades dan consentimiento directo o facilitan que un grupo paramilitar agreda civiles, es una violación de derechos por:", options: ["Acción", "Omisión", "Inmunidad", "Aquiescencia"], correct: 3 },
+              { q: "De acuerdo a la Tabla 4.1, ¿a qué generación de Derechos Humanos pertenece el 'Derecho a la educación' y 'la salud'?", options: ["Primera generación", "Segunda generación (Económicos y sociales)", "Tercera generación (Solidaridad)", "Cuarta generación"], correct: 1 },
+              { q: "Según la tabla oficial de movimientos en México (Tabla 4.3), ¿qué tipo de movimiento fue el Ejército Zapatista de Liberación Nacional (EZLN) en 1994?", options: ["Movimiento Político", "Movimiento Social", "Sindicato Obrero", "Tribu Urbana"], correct: 0 },
+              { q: "Según la tabla de movimientos, ¿cuál fue la demanda principal del Consejo General de Huelga (UNAM) en 1999-2000?", options: ["Gobierno socialista", "Derechos de pueblos indígenas", "Defensa de la educación pública y gratuita", "Respeto a la profesión religiosa"], correct: 2 },
+              { q: "¿Cuál es el fin primordial de un 'Movimiento Político' a diferencia de uno social?", options: ["Evidenciar injusticias ecológicas.", "Visibilizar derechos de minorías.", "Alcanzar el poder político para gobernar.", "Crear arte urbano contracultural."], correct: 2 },
+              { q: "Según la clasificación gráfica, un gobierno que no solo reprime, sino que busca ELIMINAR por completo el pensamiento opuesto mediante adoctrinamiento y propaganda es:", options: ["Democrático", "Autoritario", "Totalitario", "Hegemónico"], correct: 2 },
+              { q: "En México, la etapa de represión brutal, desapariciones y torturas sistemáticas por parte del Estado (ejército y policía) entre los años 50s y 70s se conoce como:", options: ["Guerra Cristera", "Revolución de Ayutla", "Guerra Sucia", "El Maximato"], correct: 2 },
+              { q: "Los Derechos Humanos se consideran 'imprescriptibles' porque:", options: ["No se pueden vender ni transferir.", "Se reconocen por el hecho de existir.", "No se pueden dividir ni jerarquizar.", "No pierden vigencia ni caducan con el paso del tiempo."], correct: 3 },
+              { q: "En la primera generación de Derechos Humanos se incluye principalmente el derecho a:", options: ["La vivienda y el trabajo", "La paz y el ambiente", "La vida, la libertad y el sufragio", "El patrimonio de la humanidad"], correct: 2 }
             ]
           }
         ];
@@ -174,7 +460,7 @@
                 Formación Cívica y Ética <span className="text-blue-600">2° Grado</span>
               </h1>
               <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-                Plataforma interactiva para dominar los temas clave. Repasa la teoría y ponte a prueba con nuestro simulador de examen de alta dificultad.
+                Guía de Estudio Avanzada. Selecciona un tema para estudiar la teoría completa (con diagramas) y ponte a prueba con el simulador de examen.
               </p>
             </div>
 
@@ -238,12 +524,12 @@
             return (
               <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 fade-in">
                 <div className="text-center mb-8">
-                  <h3 className="text-3xl font-bold text-slate-800 mb-2 font-poppins">Resultados del Test</h3>
+                  <h3 className="text-3xl font-bold text-slate-800 mb-2 font-poppins">Resultados del Examen</h3>
                   <div className={`inline-block px-6 py-3 rounded-full text-2xl font-bold mb-4 ${passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                     {score} / 10
                   </div>
                   <p className="text-slate-600 font-medium">
-                    {passed ? '¡Excelente trabajo! Tienes un dominio avanzado del tema.' : 'Te sugerimos repasar la sección teórica para reforzar los conceptos.'}
+                    {passed ? '¡Excelente trabajo! Tienes un dominio analítico del tema.' : 'Se recomienda repasar los diagramas y tablas en la sección teórica.'}
                   </p>
                 </div>
                 
@@ -276,13 +562,13 @@
 
           const q = questions[currentQ];
           return (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 fade-in">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 fade-in max-w-4xl mx-auto">
               <div className="flex justify-between items-center mb-6">
                 <span className={`text-${color}-600 font-bold uppercase tracking-wider text-sm`}>Pregunta {currentQ + 1} de 10</span>
-                <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold">Nivel Avanzado</span>
+                <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold border border-slate-200">Alta Dificultad</span>
               </div>
               
-              <h3 className="text-xl md:text-2xl font-semibold text-slate-800 mb-8">{q.q}</h3>
+              <h3 className="text-xl md:text-2xl font-semibold text-slate-800 mb-8 leading-relaxed">{q.q}</h3>
               
               <div className="space-y-3 mb-8">
                 {q.options.map((opt, idx) => (
@@ -291,11 +577,11 @@
                     onClick={() => setSelectedOption(idx)}
                     className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center ${
                       selectedOption === idx 
-                        ? `border-${color}-500 bg-${color}-50` 
+                        ? `border-${color}-500 bg-${color}-50 shadow-sm` 
                         : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
                     }`}
                   >
-                    <span className={`inline-flex shrink-0 w-8 h-8 rounded-full items-center justify-center font-bold mr-3 ${
+                    <span className={`inline-flex shrink-0 w-8 h-8 rounded-full items-center justify-center font-bold mr-4 ${
                       selectedOption === idx ? `bg-${color}-500 text-white` : 'bg-slate-200 text-slate-600'
                     }`}>
                       {String.fromCharCode(65 + idx)}
@@ -308,9 +594,9 @@
               <button 
                 onClick={handleAnswer}
                 disabled={selectedOption === null}
-                className={`w-full py-4 rounded-xl text-white font-bold text-lg transition-colors ${
+                className={`w-full py-4 rounded-xl text-white font-bold text-lg transition-all duration-200 ${
                   selectedOption === null 
-                    ? 'bg-slate-300 cursor-not-allowed' 
+                    ? 'bg-slate-300 cursor-not-allowed opacity-70' 
                     : `bg-${color}-600 hover:bg-${color}-700 shadow-md`
                 }`}
               >
@@ -320,7 +606,7 @@
           );
         };
 
-        // --- Componente: Vista de Sección (Teoría + Quiz) ---
+        // --- Componente: Vista de Sección (Teoría Expandida + Quiz) ---
         const SectionView = ({ sectionId, onBack }) => {
           const module = studyData.find(s => s.id === sectionId);
           const [viewMode, setViewMode] = useState('theory');
@@ -328,13 +614,13 @@
           useEffect(() => { window.scrollTo(0, 0); }, [viewMode]);
 
           return (
-            <div className="max-w-5xl mx-auto px-4 py-8 fade-in">
+            <div className="max-w-6xl mx-auto px-4 py-8 fade-in">
               {/* Navegación Superior */}
-              <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium mb-8 transition-colors">
+              <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium mb-8 transition-colors bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 inline-flex">
                 <IconHome /> Volver al Inicio
               </button>
 
-              {/* Cabecera */}
+              {/* Cabecera Temática */}
               <div className={`bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 mb-8 text-white shadow-xl flex items-center gap-6`}>
                 <div className={`p-4 bg-white/10 rounded-2xl hidden md:block text-${module.color}-400`}>
                   {module.icon}
@@ -345,45 +631,35 @@
                 </div>
               </div>
 
-              {/* Pestañas de Navegación */}
-              <div className="flex space-x-2 mb-8 bg-slate-200 p-1 rounded-xl">
+              {/* Pestañas (Tabs) */}
+              <div className="flex space-x-2 mb-8 bg-slate-200 p-1 rounded-xl max-w-md mx-auto">
                 <button 
                   onClick={() => setViewMode('theory')}
-                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'theory' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'theory' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
                 >
-                  Documento de Estudio
+                  <IconBook /> Teoría y Tablas
                 </button>
                 <button 
                   onClick={() => setViewMode('quiz')}
-                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'quiz' ? `bg-${module.color}-600 text-white shadow-sm` : 'text-slate-500 hover:text-slate-700'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold transition-colors ${viewMode === 'quiz' ? `bg-${module.color}-600 text-white shadow-sm` : 'text-slate-500 hover:text-slate-700'}`}
                 >
-                  Evaluar Conocimiento (Quiz)
+                  <IconCheck /> Quiz Evaluativo
                 </button>
               </div>
 
-              {/* Contenido Dinámico */}
+              {/* Contenedor de Contenido */}
               {viewMode === 'theory' ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
-                  <div className="md:col-span-2 space-y-6">
-                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
-                      <h3 className={`text-2xl font-bold text-${module.color}-600 mb-6 border-b border-slate-100 pb-4 font-poppins`}>
-                        Resumen Estratégico
+                <div className="fade-in space-y-8 max-w-4xl mx-auto">
+                  {module.content.sections.map((sec, idx) => (
+                    <div key={idx} className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-slate-200">
+                      <h3 className={`text-2xl font-bold text-${module.color}-700 mb-6 border-b-2 border-slate-100 pb-3 font-poppins`}>
+                        {sec.subtitle}
                       </h3>
-                      <div className="space-y-4 text-slate-700 text-lg leading-relaxed">
-                        {module.content.summary.map((p, i) => <p key={i}>{p}</p>)}
+                      <div className="text-slate-700 text-lg leading-relaxed">
+                        {sec.body}
                       </div>
                     </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <h3 className="font-bold text-slate-800 text-xl mb-4 px-2 font-poppins">Conceptos Clave</h3>
-                    {module.content.keywords.map((kw, i) => (
-                      <div key={i} className={`bg-white p-5 rounded-xl shadow-sm border-l-4 border-${module.color}-500 hover:shadow-md transition-shadow`}>
-                        <h4 className="font-bold text-slate-800 mb-2">{kw.term}</h4>
-                        <p className="text-sm text-slate-600 leading-relaxed">{kw.def}</p>
-                      </div>
-                    ))}
-                  </div>
+                  ))}
                 </div>
               ) : (
                 <QuizSystem questions={module.quiz} color={module.color} />
@@ -392,7 +668,7 @@
           );
         };
 
-        // --- App Main Component ---
+        // --- App Componente Principal ---
         const App = () => {
           const [currentView, setCurrentView] = useState('landing');
           const [activeSection, setActiveSection] = useState(null);
