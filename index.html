@@ -81,6 +81,7 @@
                 title: "Movimientos Sociales",
                 icon: "users",
                 driveLink: "https://drive.google.com/file/d/1Tj-9gX8DnEAYHj7OYez8o_LmV7HQjDoB/view?usp=drive_open",
+                videoUrl: "", // <-- ¡Pega aquí el enlace de tu video de NotebookLM cuando lo tengas!
                 summary: "Los movimientos sociales son acciones colectivas organizadas por grupos de personas que buscan generar un cambio en la sociedad, defender sus derechos, visibilizar injusticias o proponer nuevas formas de convivencia.",
                 examPoints: [
                     "<b>Diferencia clave:</b> Un <i>movimiento social</i> busca cambios en la sociedad o defender derechos (ej. feminista, ambientalista). Un <i>movimiento político</i> busca directamente tomar el poder del gobierno (ej. creación de un partido).",
@@ -91,10 +92,7 @@
                     { term: "Movimiento social", definition: "Grupo de personas organizado y estructurado que busca un cambio sociopolítico específico." },
                     { term: "Acción colectiva", definition: "Acciones realizadas por un grupo de personas en conjunto para alcanzar un objetivo común." }
                 ],
-                articles: [
-                    { article: "Artículo 8°", description: "<b>Derecho de petición:</b> Los funcionarios y empleados públicos respetarán el ejercicio del derecho de petición, siempre que se formule de manera pacífica y respetuosa." },
-                    { article: "Artículo 9°", description: "<b>Libertad de asociación:</b> Garantiza el derecho a reunirse o asociarse pacíficamente con cualquier objeto lícito. Es la base legal que permite las marchas y protestas." }
-                ],
+                articles: [],
                 extraHtml: `
                     <section class="mt-8">
                         <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">📊 Movimientos Sociales y Políticos de México (Siglo XX a XXI)</h3>
@@ -123,13 +121,61 @@
                             </table>
                         </div>
                     </section>
-                `
+                `,
+                quiz: [
+                    {
+                        question: "¿Cuál es la diferencia fundamental entre un movimiento social y uno político según el material estudiado?",
+                        options: [
+                            "Los sociales usan armas, los políticos no.",
+                            "Los sociales buscan defender derechos y visibilizar injusticias, los políticos buscan tomar el poder del gobierno.",
+                            "Los sociales son ilegales, los políticos están reconocidos por el Estado.",
+                            "Ambos son lo mismo, la diferencia radica solo en el año de su surgimiento."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "Un movimiento social no busca gobernar, busca cambios estructurales o derechos. Un movimiento político (ej. creación de un partido o guerrilla política) busca directamente el control del Estado."
+                    },
+                    {
+                        question: "Analizando la tabla de movimientos, ¿qué demanda principal caracterizó a la Liga Comunista 23 de Septiembre (1973-1983)?",
+                        options: [
+                            "Derechos de los pueblos indígenas.",
+                            "Democratización de las instituciones educativas.",
+                            "Construcción de un gobierno socialista.",
+                            "Respeto a los derechos a la profesión religiosa."
+                        ],
+                        correctAnswer: 2,
+                        explanation: "Como su nombre y clasificación (movimiento político) lo indican, la Liga Comunista buscaba un cambio total de régimen para instaurar un gobierno socialista."
+                    },
+                    {
+                        question: "¿Qué artículo constitucional fundamenta y protege legalmente la existencia de marchas y movimientos sociales al garantizar la libre asociación y reunión?",
+                        options: ["Artículo 3°", "Artículo 8°", "Artículo 9°", "Artículo 123°"],
+                        correctAnswer: 2,
+                        explanation: "El Artículo 9° garantiza el derecho a reunirse o asociarse pacíficamente, siendo la base legal fundamental para la protesta social."
+                    },
+                    {
+                        question: "De acuerdo al temario, ¿cuál de las siguientes situaciones NO representa una causa principal para el surgimiento de un movimiento social?",
+                        options: [
+                            "Cuando el Estado ignora sistemáticamente las demandas de la población.",
+                            "La existencia de altos niveles de desigualdad e injusticia.",
+                            "La falta de libertades y represión gubernamental.",
+                            "El funcionamiento transparente y perfecto de los mecanismos democráticos."
+                        ],
+                        correctAnswer: 3,
+                        explanation: "Si los mecanismos democráticos funcionan perfectamente y atienden las necesidades de todos, no existe la motivación de rezago o injusticia que detona los movimientos sociales."
+                    },
+                    {
+                        question: "El movimiento #YoSoy132 surgido en 2012 se clasifica dentro del temario como un movimiento:",
+                        options: ["Social", "Político", "Armado", "Obrero"],
+                        correctAnswer: 0,
+                        explanation: "Se clasifica como un movimiento Social, ya que su demanda principal era contra las violaciones de derechos humanos y a favor de la democratización de medios, sin buscar instituirse como gobierno."
+                    }
+                ]
             },
             {
                 id: 2,
                 title: "Interculturalidad y Paz",
                 icon: "heart-handshake",
                 driveLink: "https://drive.google.com/file/d/136zVAO9RHRpBaL3RDTDR94Ma3a1Zm1KS/view?usp=drive_open",
+                videoUrl: "",
                 summary: "La interculturalidad es el proceso de comunicación e interacción entre personas o grupos con identidades culturales específicas, respetando siempre la diversidad para promover la paz.",
                 examPoints: [
                     "<b>Multiculturalidad vs Interculturalidad:</b> La <i>multiculturalidad</i> es solo la presencia de varias culturas en un lugar (pueden no hablarse o estar segregadas). La <i>interculturalidad</i> exige diálogo, interacción horizontal y enriquecimiento mutuo.",
@@ -139,17 +185,52 @@
                     { term: "Interculturalidad", definition: "Relación equitativa, de diálogo y respeto mutuo entre diferentes culturas." },
                     { term: "Pluriculturalidad", definition: "Coexistencia de diferentes culturas en un mismo espacio geográfico." }
                 ],
-                articles: [
-                    { article: "Artículo 1°", description: "<b>Prohibición de la Discriminación:</b> Queda prohibida toda discriminación motivada por origen étnico o nacional, el género, la edad, las discapacidades, la condición social o la religión." },
-                    { article: "Artículo 2°", description: "<b>Nación Pluricultural:</b> Reconoce que la Nación Mexicana tiene una composición pluricultural sustentada originalmente en sus pueblos indígenas." }
-                ],
-                extraHtml: ""
+                articles: [],
+                extraHtml: "",
+                quiz: [
+                    {
+                        question: "Si en una ciudad conviven personas de 10 nacionalidades diferentes, pero viven en barrios cerrados y jamás interactúan ni dialogan entre sí, este es un claro ejemplo de:",
+                        options: ["Interculturalidad", "Multiculturalidad / Pluriculturalidad", "Integración asimilacionista", "Equidad social horizontal"],
+                        correctAnswer: 1,
+                        explanation: "La pluriculturalidad/multiculturalidad solo implica coexistencia (estar en el mismo lugar). Si no hay interacción ni diálogo, NO es interculturalidad."
+                    },
+                    {
+                        question: "¿Cuál de los siguientes elementos NO es compatible con la construcción de la paz intercultural según el material?",
+                        options: ["Empatía", "Tolerancia", "Erradicación de estereotipos", "Asimilación cultural forzada"],
+                        correctAnswer: 3,
+                        explanation: "La asimilación forzada destruye la diversidad al obligar a un grupo a adoptar la cultura de otro, lo que es opuesto al respeto mutuo que dicta la interculturalidad."
+                    },
+                    {
+                        question: "¿Cuál es el núcleo que define la 'interculturalidad' frente a otros conceptos de diversidad?",
+                        options: [
+                            "Que no se permite que las ideas y acciones de una cultura estén por encima del otro (relación horizontal).",
+                            "Que todas las culturas se fusionen para crear una sola cultura uniforme.",
+                            "Que los grupos minoritarios deben adaptarse y obedecer las costumbres de la mayoría.",
+                            "Que las culturas deben mantenerse puras y sin mezclarse en ningún momento."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "El núcleo de la interculturalidad es la relación horizontal y equitativa: ninguna cultura es superior a otra."
+                    },
+                    {
+                        question: "Un alumno ve a otro compañero sufrir por discriminación. Si es capaz de percibir, compartir y comprender ese sentimiento de dolor, está aplicando el concepto de:",
+                        options: ["Tolerancia pasiva", "Simpatía", "Empatía", "Coexistencia"],
+                        correctAnswer: 2,
+                        explanation: "La empatía se define explícitamente en los conceptos clave como la capacidad de percibir, compartir y comprender lo que otro ser puede sentir."
+                    },
+                    {
+                        question: "La 'Nación Mexicana tiene una composición pluricultural sustentada originalmente en sus pueblos indígenas'. ¿A qué artículo de la Constitución hace referencia este concepto esencial?",
+                        options: ["Artículo 1°", "Artículo 2°", "Artículo 3°", "Artículo 4°"],
+                        correctAnswer: 1,
+                        explanation: "El Artículo 2° Constitucional es el pilar que reconoce jurídicamente la composición pluricultural y los derechos de los pueblos indígenas en México."
+                    }
+                ]
             },
             {
                 id: 3,
                 title: "Normas y Leyes",
                 icon: "scale",
                 driveLink: "https://drive.google.com/file/d/19kWBMUsFiWc2DE4GuZYR0p0y-Wzs4x3o/view?usp=drive_open",
+                videoUrl: "",
                 summary: "Las normas son pautas de comportamiento para convivir. Cuando estas normas son respaldadas por el Estado para garantizar justicia, se convierten en leyes obligatorias.",
                 examPoints: [
                     "<b>Jerarquía de las leyes:</b> En México, ninguna ley puede estar por encima de la <i>Constitución Política de los Estados Unidos Mexicanos</i> ni de los Tratados Internacionales de Derechos Humanos.",
@@ -163,9 +244,7 @@
                 articles: [
                     { article: "Artículo 1º", description: "<b>Derechos Humanos Universales:</b> Todas las personas gozarán de los derechos humanos reconocidos en la Constitución y tratados internacionales." },
                     { article: "Artículo 4º", description: "<b>Igualdad Jurídica:</b> La mujer y el hombre son iguales ante la ley." },
-                    { article: "Artículo 13", description: "<b>No a leyes privativas:</b> Nadie puede ser juzgado por leyes exclusivas para una persona ni por tribunales especiales." },
-                    { article: "Artículo 14", description: "<b>Principio de Irretroactividad:</b> A ninguna ley se dará efecto retroactivo en perjuicio de persona alguna." },
-                    { article: "Artículo 16", description: "<b>Principio de Legalidad:</b> Nadie puede ser molestado en su persona, familia o domicilio sin un mandamiento escrito de la autoridad competente." }
+                    { article: "Artículo 13", description: "<b>No a leyes privativas:</b> Nadie puede ser juzgado por leyes exclusivas para una persona ni por tribunales especiales." }
                 ],
                 extraHtml: `
                     <!-- Diagrama de Normas -->
@@ -292,13 +371,56 @@
                             </div>
                         </div>
                     </section>
-                `
+                `,
+                quiz: [
+                    {
+                        question: "En el diagrama de Estado de Derecho, ¿qué característica diferencial tiene el Gobierno frente a los Individuos en su relación con la ley?",
+                        options: [
+                            "El gobierno goza de derechos y libertades absolutos.",
+                            "El gobierno se rige estrictamente por límites y obligaciones, no ejerce 'derechos humanos'.",
+                            "El gobierno es el único que crea normas morales y religiosas.",
+                            "Ambos, individuos y gobierno, tienen exactamente las mismas obligaciones sin límites de poder."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "En el Estado de Derecho, los individuos tienen derechos y libertades; pero el Gobierno tiene 'Límites', es decir, solo puede hacer estrictamente aquello para lo que está facultado por la ley."
+                    },
+                    {
+                        question: "El director de una prisión descubre que custodios están maltratando a reclusos, pero decide ignorarlo y dejar que continúe. Esta es una violación a los derechos humanos por:",
+                        options: ["Acción", "Omisión", "Aquiescencia", "Obstrucción de justicia"],
+                        correctAnswer: 2,
+                        explanation: "Es por 'Aquiescencia', ya que la autoridad (el director) está dando el consentimiento directo/tácito al permitir que agresiones ocurran a manos de terceros (sus guardias)."
+                    },
+                    {
+                        question: "¿Cuál de las siguientes premisas viola directamente el 'Principio de Legalidad' en la creación de una norma jurídica?",
+                        options: [
+                            "Una ley que se aplica a toda la población mayor de 18 años.",
+                            "Una ley escrita con la intención específica de perjudicar al dueño de una empresa en particular.",
+                            "Una ley que protege los derechos colectivos de una comunidad indígena.",
+                            "Una ley que establece el mismo trato para hombres y mujeres."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "El Principio de Legalidad prohíbe las leyes 'privativas'. Las leyes no pueden ser escritas con intención de afectar positiva o negativamente a una persona específica, deben ser generales."
+                    },
+                    {
+                        question: "Según el cuadro de Generaciones de Derechos Humanos, el 'derecho al medio ambiente sano' pertenece a:",
+                        options: ["La primera generación", "La primera y segunda generación", "La segunda y tercera generación", "Únicamente la tercera generación"],
+                        correctAnswer: 2,
+                        explanation: "El 'Derecho al ambiente' aparece clasificado tanto en los derechos económicos/sociales (Segunda) como en los derechos de solidaridad (Tercera) según la tabla proporcionada."
+                    },
+                    {
+                        question: "¿Qué norma se encarga de establecer mandatos dictados por una deidad o institución eclesial?",
+                        options: ["Norma Moral", "Norma Social", "Norma Religiosa", "Norma Jurídica"],
+                        correctAnswer: 2,
+                        explanation: "Las normas religiosas son aquellas fundamentadas explícitamente en principios de una deidad o institución religiosa, a diferencia de las sociales o jurídicas."
+                    }
+                ]
             },
             {
                 id: 4,
                 title: "Quiénes hacen las leyes",
                 icon: "gavel",
                 driveLink: "https://drive.google.com/file/d/1iJWdZCCxtK9t3zmg7AvAcvFJZd5CUSgg/view?usp=drive_open",
+                videoUrl: "",
                 summary: "La creación de leyes recae en el Poder Legislativo. Este poder representa la voluntad del pueblo y debate, redacta y aprueba normas.",
                 examPoints: [
                     "<b>El Congreso de la Unión:</b> Es Bicameral, se divide en la <i>Cámara de Diputados</i> (representan a la población) y <i>Cámara de Senadores</i> (representan a los Estados).",
@@ -308,11 +430,7 @@
                 keywords: [
                     { term: "Poder Legislativo", definition: "Poder del Estado encargado de elaborar, modificar y derogar las leyes." }
                 ],
-                articles: [
-                    { article: "Artículo 50°", description: "<b>Congreso General:</b> Establece que el Poder Legislativo se deposita en un Congreso General dividido en dos Cámaras: Diputados y Senadores." },
-                    { article: "Artículo 71°", description: "<b>Iniciativa de Ley:</b> Establece quiénes pueden proponer leyes (El Presidente, Diputados, Senadores, Legislaturas Estatales y los Ciudadanos en un 0.13% del padrón electoral)." },
-                    { article: "Artículo 72°", description: "<b>Proceso Legislativo:</b> Todo proyecto de ley o decreto, cuya resolución no sea exclusiva de alguna de las Cámaras, se discutirá sucesivamente en ambas." }
-                ],
+                articles: [],
                 extraHtml: `
                     <!-- Tipos de Gobierno Diagrama -->
                     <section class="mt-8">
@@ -348,13 +466,56 @@
                             </div>
                         </div>
                     </section>
-                `
+                `,
+                quiz: [
+                    {
+                        question: "De acuerdo con las etapas del Proceso Legislativo, ¿qué sucede inmediatamente después de que el Congreso 'Aprueba' una ley?",
+                        options: [
+                            "Se publica en el Diario Oficial de la Federación.",
+                            "Inicia su vigencia inmediatamente.",
+                            "Pasa a la 'Sanción', donde el Presidente da el visto bueno o ejerce su derecho de veto.",
+                            "Vuelve a ser discutida en la Cámara de Senadores."
+                        ],
+                        correctAnswer: 2,
+                        explanation: "El orden estricto es: Iniciativa -> Discusión -> Aprobación -> Sanción (Presidente). Por lo tanto, después de la aprobación por las cámaras, pasa al Presidente."
+                    },
+                    {
+                        question: "¿Cuál es la diferencia fundamental entre un gobierno Autoritario y uno Totalitario según el diagrama?",
+                        options: [
+                            "El autoritario fomenta la democracia; el totalitario no.",
+                            "El autoritario reprime opositores; el totalitario busca cambiar activamente la forma de pensar mediante adoctrinamiento y propaganda.",
+                            "Son exactamente lo mismo, solo es una diferencia histórica.",
+                            "El autoritario permite elecciones libres; el totalitario está gobernado por militares."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "La distinción clave del temario es que el Autoritarismo reprime la expresión en público, pero el Totalitarismo va más allá: usa la propaganda para 'eliminar formas de pensamiento opuestas y adoctrinar'."
+                    },
+                    {
+                        question: "El derecho de los ciudadanos a presentar una Iniciativa de Ley está condicionado a reunir firmas equivalentes a qué porcentaje del padrón electoral:",
+                        options: ["1.00%", "3.00%", "0.13%", "No existe límite mínimo para los ciudadanos."],
+                        correctAnswer: 2,
+                        explanation: "Según el Artículo 71, los ciudadanos tienen derecho de iniciar leyes en un número equivalente al 0.13% de la lista nominal."
+                    },
+                    {
+                        question: "En México, el Congreso de la Unión es bicameral. ¿A quién representa la Cámara de Senadores en la estructura del Estado?",
+                        options: ["Directamente a la población por densidad demográfica.", "A los Estados (Entidades Federativas).", "Al Presidente de la República.", "A la Suprema Corte de Justicia."],
+                        correctAnswer: 1,
+                        explanation: "Los Diputados representan a la población proporcionalmente, mientras que los Senadores son los representantes de las Entidades Federativas (Estados) para asegurar equilibrio."
+                    },
+                    {
+                        question: "El acto mediante el cual el Presidente rechaza una ley que ya fue aprobada por diputados y senadores se conoce formalmente como:",
+                        options: ["Sanción negativa", "Abolición legislativa", "Derecho de Veto", "Irretroactividad presidencial"],
+                        correctAnswer: 2,
+                        explanation: "El Derecho de Veto es la facultad exclusiva del Poder Ejecutivo (Presidente) para observar, detener o rechazar una ley aprobada por el legislativo."
+                    }
+                ]
             },
             {
                 id: 5,
                 title: "La desigualdad",
                 icon: "shield-alert",
                 driveLink: "https://drive.google.com/file/d/1qT1LnAQ0FQQAHMXGlpnIt7Lc7ZDNuV7L/view?usp=drive_open",
+                videoUrl: "",
                 summary: "La desigualdad social ocurre cuando las personas no tienen las mismas oportunidades, derechos o acceso a recursos.",
                 examPoints: [
                     "<b>Tipos de desigualdad:</b> Económica (distribución de riqueza), Social (trato discriminatorio), de Género (hombres/mujeres) y Educativa (acceso al aprendizaje).",
@@ -365,11 +526,7 @@
                     { term: "Desigualdad Social", definition: "Situación socioeconómica donde un grupo recibe un trato diferente." },
                     { term: "Equidad", definition: "Dar a cada uno lo que merece buscando nivelar desventajas." }
                 ],
-                articles: [
-                    { article: "Artículo 3°", description: "<b>Educación Inclusiva:</b> El Estado garantizará una educación gratuita y equitativa, diseñada para reducir las desigualdades sociales." },
-                    { article: "Artículo 4°", description: "<b>Derechos Sociales:</b> Establece el derecho a la protección de la salud, a una vivienda digna, a la alimentación y a un medio ambiente sano; bases para reducir la desigualdad." },
-                    { article: "Artículo 123°", description: "<b>Derecho al Trabajo:</b> Toda persona tiene derecho al trabajo digno y socialmente útil, a salario igual por trabajo igual, sin importar género ni nacionalidad." }
-                ],
+                articles: [],
                 extraHtml: `
                     <!-- Tabla de Desigualdad -->
                     <section class="mt-8">
@@ -394,13 +551,61 @@
                             </table>
                         </div>
                     </section>
-                `
+                `,
+                quiz: [
+                    {
+                        question: "La 'eliminación de subsidios de ayuda económica' que afectan a la población se asocia principalmente en la tabla como consecuencia de qué causa estructural:",
+                        options: [
+                            "La corrupción gubernamental.",
+                            "El acceso desigual al conocimiento.",
+                            "La privatización de servicios públicos.",
+                            "Los sistemas fiscales inequitativos."
+                        ],
+                        correctAnswer: 2,
+                        explanation: "La tabla menciona que vender recursos a sectores privados (Privatización) tiene como consecuencia directa la eliminación de subsidios de ayuda económica."
+                    },
+                    {
+                        question: "Si el gobierno decide otorgarle una beca académica a estudiantes de excelencia, pero también diseña un programa de nivelación intensivo exclusivo para alumnos con rezago, está aplicando el principio de:",
+                        options: ["Igualdad absoluta", "Asimilación educativa", "Equidad", "Discriminación positiva injustificada"],
+                        correctAnswer: 2,
+                        explanation: "La Equidad consiste en dar a cada quien lo que necesita para nivelar desventajas, a diferencia de la igualdad que sería darle exactamente lo mismo a todos sin importar su situación base."
+                    },
+                    {
+                        question: "¿Cuál de los siguientes escenarios es consecuencia de un 'sistema fiscal inequitativo' según el material?",
+                        options: [
+                            "Acaparar recursos útiles en una sola secretaría de gobierno.",
+                            "La exención de pagos de impuestos a quienes más recursos económicos tienen.",
+                            "La pérdida de transparencia en las obras públicas.",
+                            "La limitación de la educación a grupos privilegiados."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "El sistema fiscal inequitativo se ilustra directamente con el hecho de que quienes más tienen riqueza se liberen de pagar impuestos proporcionalmente."
+                    },
+                    {
+                        question: "Según el texto de causas, si las instituciones públicas se manejan con un 'número mínimo de personas', aislando a la ciudadanía de las decisiones, nos referimos a:",
+                        options: [
+                            "Corrupción institucional.",
+                            "Marginación de espacios públicos de incidencia.",
+                            "Distribución injusta del gasto público.",
+                            "Elitización social."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "La 'Marginación de espacios públicos de incidencia' ocurre cuando las instituciones reducen la participación cerrando sus decisiones a un número mínimo de personas."
+                    },
+                    {
+                        question: "No transparentar el manejo y la inversión que el gobierno destina a programas sociales y obras públicas es una consecuencia directa de la causa denominada:",
+                        options: ["Corrupción", "Guerra", "Monopolio público", "Elitización"],
+                        correctAnswer: 0,
+                        explanation: "La opacidad y el no saber en qué se maneja la inversión pública se enlista textualmente como consecuencia de la 'Corrupción'."
+                    }
+                ]
             },
             {
                 id: 6,
                 title: "Cultura de paz en la vida diaria",
                 icon: "book-open",
                 driveLink: "https://drive.google.com/file/d/1rS6q_X-G4r_BsbF5VlgkXgZ1dwCX9kwp/view?usp=drive_open",
+                videoUrl: "",
                 summary: "La cultura de paz consiste en valores, actitudes y comportamientos que rechazan la violencia y previenen conflictos.",
                 examPoints: [
                     "<b>Conflicto vs Violencia:</b> El <i>conflicto</i> es natural e inherente a las relaciones humanas (siempre existirá diferencia de ideas). La <i>violencia</i> es una respuesta aprendida y destructiva frente al conflicto; NO es natural.",
@@ -411,10 +616,7 @@
                     { term: "Cultura de Paz", definition: "Conjunto de valores y actitudes que reflejan el respeto a la vida." },
                     { term: "Diálogo", definition: "Conversación para buscar entendimiento." }
                 ],
-                articles: [
-                    { article: "Artículo 3°", description: "<b>Educación para la Paz:</b> La educación se basará en el respeto irrestricto de la dignidad de las personas, con enfoque de derechos humanos y promoverá la cultura de la paz." },
-                    { article: "Artículo 21°", description: "<b>Seguridad Pública:</b> La seguridad ciudadana y la prevención de los delitos es una función a cargo del Estado para garantizar la paz." }
-                ],
+                articles: [],
                 extraHtml: `
                     <!-- Tabla Conceptos de Paz -->
                     <section class="mt-8">
@@ -455,13 +657,66 @@
                             </table>
                         </div>
                     </section>
-                `
+                `,
+                quiz: [
+                    {
+                        question: "Analizando la diferencia fundamental entre Conflicto y Violencia de acuerdo a los apuntes: ¿cuál de las siguientes aseveraciones es correcta?",
+                        options: [
+                            "Ambas son respuestas aprendidas y no naturales.",
+                            "El conflicto es un instinto dañino que se debe eliminar con violencia.",
+                            "El conflicto es inherente y natural a las relaciones humanas; la violencia es una forma destructiva y aprendida de lidiar con él.",
+                            "Son exactamente sinónimos, por eso la 'Paz Negativa' busca evadir ambos."
+                        ],
+                        correctAnswer: 2,
+                        explanation: "La premisa básica es desmitificar la violencia. El conflicto es normal por diferencia de ideas, la violencia es un error de conducta aprendido."
+                    },
+                    {
+                        question: "Un gobierno suprime una manifestación usando el ejército y prohíbe las huelgas. Tras ello, afirma que 'el país por fin está en paz'. ¿Qué concepto define esta situación según el temario?",
+                        options: [
+                            "Paz Positiva",
+                            "Paz Negativa (Paz impuesta que genera tensión).",
+                            "Mecanismo de mediación asertivo.",
+                            "Estado de Derecho democrático."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "La paz impuesta por la fuerza, donde se cree erróneamente que la paz es solo la ausencia visible del conflicto, es el ejemplo clásico de 'Paz Negativa'."
+                    },
+                    {
+                        question: "La promoción permanente de programas escolares de convivencia basados en los derechos humanos es una característica exclusiva de:",
+                        options: ["La mediación punitiva", "La Paz Negativa", "La tolerancia cero", "La Paz Positiva"],
+                        correctAnswer: 3,
+                        explanation: "A diferencia de la paz negativa (que reacciona evitando conflictos), la Paz Positiva requiere de acciones *permanentes e institucionales* como programas escolares para generar convivencia."
+                    },
+                    {
+                        question: "Bajo la óptica de la Paz Positiva, ¿cómo se debe tratar al 'conflicto'?",
+                        options: [
+                            "Debe evadirse a toda costa mediante el silencio.",
+                            "Debe resolverse usando la fuerza del Estado para asustar a los involucrados.",
+                            "Debe afrontarse mediante mecanismos democráticos y alternativos (diálogo).",
+                            "Debe delegarse a los tribunales penales en el 100% de los casos."
+                        ],
+                        correctAnswer: 2,
+                        explanation: "La Paz Positiva establece que se deben 'promover mecanismos democráticos y alternativos para solucionar los conflictos'."
+                    },
+                    {
+                        question: "¿Cuál es la premisa equivocada que caracteriza a los defensoores de la Paz Negativa?",
+                        options: [
+                            "Creer que la paz es exactamente lo mismo que la ausencia de conflictos.",
+                            "Creer en el respeto irrestricto a los Derechos Humanos.",
+                            "Fomentar la mediación escolar.",
+                            "Construir justicia social desde la raíz de la pobreza."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "La falla de la paz negativa es 'creer que la paz es la ausencia del conflicto' y ejecutar acciones solo para esconder los conflictos en lugar de resolver sus causas."
+                    }
+                ]
             },
             {
                 id: 7,
                 title: "Mecanismos para resolver conflictos",
                 icon: "handshake",
                 driveLink: "https://drive.google.com/file/d/1YxMKGTV_3HxtioFTTpsM2kF8vz1ufncN/view?usp=drive_open",
+                videoUrl: "",
                 summary: "Los mecanismos pacíficos permiten solucionar desacuerdos sin violencia, buscando el beneficio de ambas partes.",
                 examPoints: [
                     "<b>Diferencia de los Mecanismos (MASC):</b>",
@@ -474,15 +729,64 @@
                     { term: "Mediación", definition: "Intervención de un tercero imparcial que facilita la comunicación." },
                     { term: "Conciliación", definition: "Proceso donde el tercero conciliador puede proponer soluciones." }
                 ],
-                articles: [
-                    { article: "Artículo 17°", description: "<b>Justicia Pronta y MASC:</b> Establece que las leyes preverán <i>mecanismos alternativos de solución de controversias</i> (MASC) para asegurar la reparación del daño sin llegar necesariamente a juicios largos." }
-                ],
-                extraHtml: ""
+                articles: [],
+                extraHtml: "",
+                quiz: [
+                    {
+                        question: "En un conflicto entre vecinos, deciden llamar a un profesor respetado. El profesor escucha a ambos y les dice: 'Considero que lo más justo es que ambos paguen la mitad del muro'. Este es un ejemplo de:",
+                        options: ["Negociación", "Mediación", "Conciliación", "Juicio Arbitral"],
+                        correctAnswer: 2,
+                        explanation: "Es Conciliación porque el tercero (profesor) *propuso activamente una solución* (pagar mitad y mitad). Si hubiera sido Mediación, el profesor solo les habría ayudado a hablar, pero ellos habrían ideado la solución solos."
+                    },
+                    {
+                        question: "¿Qué característica principal separa a la 'Negociación' del resto de los Mecanismos Alternativos (MASC)?",
+                        options: [
+                            "Requiere obligatoriamente un abogado.",
+                            "No intervienen terceras personas externas; es comunicación directa entre las partes.",
+                            "Se debe registrar ante un juez civil.",
+                            "Una de las partes siempre resulta perdedora."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "La negociación es el mecanismo más directo porque sucede de manera independiente y exclusiva entre los involucrados en el conflicto."
+                    },
+                    {
+                        question: "El rol principal de un 'Mediador' durante un conflicto escolar es:",
+                        options: [
+                            "Decidir quién es el culpable y aplicar un reporte disciplinario.",
+                            "Fungir como abogado defensor de la víctima.",
+                            "Facilitar la comunicación para que las partes involucradas encuentren su propia solución.",
+                            "Imponer una alternativa de solución que le parezca más justa."
+                        ],
+                        correctAnswer: 2,
+                        explanation: "Un mediador es neutral, no juzga, no castiga y, muy importante, NO propone la solución. Solo reestablece el puente de comunicación."
+                    },
+                    {
+                        question: "A diferencia de un juicio tradicional largo donde hay un 'ganador y un perdedor', los MASC (Mecanismos Alternativos) promueven un modelo de solución del tipo:",
+                        options: ["Ganar-Ganar", "Suma cero", "Perder-Perder", "Veto mutuo"],
+                        correctAnswer: 0,
+                        explanation: "La naturaleza de los mecanismos pacíficos busca acuerdos mutuamente beneficiosos, donde ambas partes sientan que se resolvieron sus necesidades (Ganar-Ganar)."
+                    },
+                    {
+                        question: "Un conciliador NO tiene la capacidad de obligar a las partes a cumplir su solución, sino que solo:",
+                        options: [
+                            "Las demanda judicialmente.",
+                            "Dicta sentencia como un juez cívico.",
+                            "Les propone la alternativa y deja que las partes decidan voluntariamente si la aceptan.",
+                            "Sanciona económicamente a quien no le haga caso."
+                        ],
+                        correctAnswer: 2,
+                        explanation: "La conciliación sigue siendo un mecanismo alternativo voluntario. El conciliador propone, pero la decisión de aceptar recae 100% en las partes involucradas."
+                    }
+                ]
             }
         ];
 
         let activeTopicId = 1;
         let isSidebarOpen = false;
+        
+        // Variables de estado para el Quiz
+        let currentQuizAnswers = {};
+        let isQuizSubmitted = false;
 
         // Inicialización
         function init() {
@@ -533,6 +837,9 @@
         // Cambia de tema
         function selectTopic(id) {
             activeTopicId = id;
+            currentQuizAnswers = {};
+            isQuizSubmitted = false;
+            
             renderSidebar();
             renderContent(id);
             // Hacer scroll hacia arriba al cambiar de tema
@@ -541,6 +848,144 @@
             if(window.innerWidth < 768 && isSidebarOpen) {
                 toggleSidebar();
             }
+        }
+
+        // Control de respuesta del Quiz
+        window.handleQuizChange = function(questionIndex, optionIndex) {
+            currentQuizAnswers[questionIndex] = optionIndex;
+            renderQuizBlock();
+        }
+
+        // Calificar Quiz
+        window.submitQuiz = function() {
+            const topic = topicsData.find(t => t.id === activeTopicId);
+            const totalQuestions = topic.quiz.length;
+            
+            // Verificar si contestó todas (opcional, por ahora calificamos lo que haya)
+            if(Object.keys(currentQuizAnswers).length < totalQuestions) {
+                if(!confirm("No has respondido todas las preguntas. ¿Seguro que deseas calificar ahora?")) return;
+            }
+            
+            isQuizSubmitted = true;
+            renderQuizBlock();
+        }
+
+        // Reintentar Quiz
+        window.resetQuiz = function() {
+            currentQuizAnswers = {};
+            isQuizSubmitted = false;
+            renderQuizBlock();
+        }
+
+        // Renderiza SOLO el bloque del Quiz (Para no afectar el resto de la página al dar clic)
+        function renderQuizBlock() {
+            const container = document.getElementById('quizContainer');
+            if(!container) return;
+            
+            const topic = topicsData.find(t => t.id === activeTopicId);
+            if(!topic.quiz || topic.quiz.length === 0) return;
+
+            let quizHtml = `
+                <section class="mt-12 bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-md">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2 border-b pb-4">
+                        <i data-lucide="brain-circuit" class="w-6 h-6 text-blue-600"></i>
+                        Quiz de Autoevaluación
+                    </h3>
+                    <div class="space-y-8">
+            `;
+            
+            topic.quiz.forEach((q, qIndex) => {
+                quizHtml += `<div class="space-y-4">
+                    <p class="font-bold text-slate-800 text-lg leading-snug"><span class="text-blue-600 mr-1">${qIndex + 1}.</span> ${q.question}</p>
+                    <div class="space-y-2">`;
+                
+                q.options.forEach((opt, optIndex) => {
+                    const isSelected = currentQuizAnswers[qIndex] === optIndex;
+                    const isCorrect = q.correctAnswer === optIndex;
+                    
+                    let optionClasses = "p-3 rounded-xl border transition-all flex items-start gap-3 w-full text-left ";
+                    let iconHtml = `<div class="w-5 h-5 rounded-full border border-slate-400 flex-shrink-0 mt-0.5"></div>`;
+                    
+                    let onChangeEvent = '';
+                    if (!isQuizSubmitted) {
+                        optionClasses += "cursor-pointer hover:border-blue-400 hover:bg-slate-50 ";
+                        optionClasses += isSelected ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500" : "border-slate-200";
+                        if (isSelected) iconHtml = `<div class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white ring-2 ring-blue-600 flex-shrink-0 mt-0.5"></div>`;
+                        onChangeEvent = 'onchange="handleQuizChange(' + qIndex + ', ' + optIndex + ')"';
+                    } else {
+                        optionClasses += "cursor-default ";
+                        if (isCorrect) {
+                            optionClasses += "border-green-500 bg-green-50 text-green-900 font-medium";
+                            iconHtml = `<i data-lucide="check-circle-2" class="w-6 h-6 text-green-600 flex-shrink-0"></i>`;
+                        } else if (isSelected && !isCorrect) {
+                            optionClasses += "border-red-500 bg-red-50 text-red-900";
+                            iconHtml = `<i data-lucide="x-circle" class="w-6 h-6 text-red-600 flex-shrink-0"></i>`;
+                        } else {
+                            optionClasses += "border-slate-200 opacity-50";
+                            iconHtml = `<div class="w-5 h-5 rounded-full border border-slate-300 flex-shrink-0 mt-0.5"></div>`;
+                        }
+                    }
+
+                    quizHtml += `
+                        <label class="${optionClasses}">
+                            <input type="radio" name="q-${qIndex}" value="${optIndex}" class="hidden" 
+                                ${onChangeEvent}
+                                ${isQuizSubmitted ? 'disabled' : ''}
+                                ${isSelected ? 'checked' : ''}
+                            >
+                            ${iconHtml}
+                            <span class="text-sm md:text-base leading-snug">${opt}</span>
+                        </label>
+                    `;
+                });
+                
+                // Explicación de la respuesta (Visible solo si se envió el quiz)
+                if (isQuizSubmitted) {
+                    quizHtml += `
+                        <div class="mt-3 text-sm md:text-base p-4 rounded-xl bg-blue-50 border border-blue-100 text-blue-900 flex gap-3 animate-fade-slide">
+                            <i data-lucide="info" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <b>Explicación:</b> ${q.explanation}
+                            </div>
+                        </div>`;
+                }
+
+                quizHtml += `</div></div>`;
+            });
+            
+            if (!isQuizSubmitted) {
+                quizHtml += `
+                    <div class="pt-6 border-t mt-8">
+                        <button onclick="submitQuiz()" class="w-full md:w-auto bg-blue-700 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-800 transition-colors shadow-lg flex items-center justify-center gap-2">
+                            <i data-lucide="check-square" class="w-5 h-5"></i>
+                            Calificar mis respuestas
+                        </button>
+                    </div>`;
+            } else {
+                // Calcular score final
+                let correctCount = 0;
+                topic.quiz.forEach((q, idx) => {
+                    if (currentQuizAnswers[idx] === q.correctAnswer) correctCount++;
+                });
+                const scorePercent = Math.round((correctCount / topic.quiz.length) * 100);
+                
+                let resultColor = scorePercent >= 80 ? 'text-green-600' : scorePercent >= 60 ? 'text-amber-600' : 'text-red-600';
+                
+                quizHtml += `
+                    <div class="mt-10 p-8 bg-slate-50 border-2 border-slate-200 rounded-2xl text-center shadow-inner animate-fade-slide">
+                        <h4 class="text-3xl font-black text-slate-800 mb-3">Tu Resultado: <span class="${resultColor}">${correctCount} / ${topic.quiz.length}</span></h4>
+                        <p class="text-slate-600 text-lg mb-8 font-medium">Obtuviste un ${scorePercent}% de aciertos.</p>
+                        <button onclick="resetQuiz()" class="bg-slate-200 text-slate-800 font-bold py-3 px-8 rounded-xl hover:bg-slate-300 transition-colors shadow-sm flex items-center justify-center gap-2 mx-auto">
+                            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                            Volver a intentar
+                        </button>
+                    </div>
+                `;
+            }
+            
+            quizHtml += `</div></section>`;
+            container.innerHTML = quizHtml;
+            lucide.createIcons();
         }
 
         // Renderiza el contenido completo del tema seleccionado
@@ -552,6 +997,27 @@
             main.classList.remove('animate-fade-slide');
             void main.offsetWidth; 
             main.classList.add('animate-fade-slide');
+
+            // Preparando de forma segura el contenido interno del video para evitar problemas de parsing con JS
+            let videoInnerHtml = "";
+            if (topic.videoUrl) {
+                videoInnerHtml = '<iframe src="' + topic.videoUrl + '" class="w-full h-full absolute inset-0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            } else {
+                videoInnerHtml = '<div class="text-center p-6 text-slate-500"><i data-lucide="play-circle" class="w-16 h-16 mx-auto mb-3 text-slate-400 group-hover:text-blue-500 transition-colors"></i><p class="font-bold text-lg text-slate-600">Video en preparación</p><p class="text-sm mt-2 max-w-sm mx-auto">Pronto se añadirá aquí el video resumen generado con NotebookLM.<br>(Edita la propiedad <code>videoUrl</code> en el código para agregarlo).</p></div>';
+            }
+
+            // HTML del Video Resumen
+            let videoHtml = `
+                <section class="mt-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                        <i data-lucide="video" class="w-6 h-6 text-red-600"></i>
+                        Video Resumen (NotebookLM)
+                    </h3>
+                    <div class="aspect-video bg-slate-100 rounded-xl overflow-hidden border-2 border-dashed border-slate-300 shadow-sm flex items-center justify-center relative group transition-all hover:border-blue-400">
+                        ${videoInnerHtml}
+                    </div>
+                </section>
+            `;
 
             // HTML de Apuntes Clave para el Examen
             let examPointsHtml = '';
@@ -624,6 +1090,8 @@
                     <p class="text-slate-600 leading-relaxed text-lg">${topic.summary}</p>
                   </section>
                   
+                  ${videoHtml}
+                  
                   ${examPointsHtml}
                   
                   <section>
@@ -637,12 +1105,16 @@
                   
                   ${articlesHtml}
                   
-                  <!-- HTML Extra (Tablas y Diagramas inyectados aquí) -->
+                  <!-- HTML Extra (Tablas y Diagramas) -->
                   ${topic.extraHtml}
+                  
+                  <!-- Contenedor Dinámico para el Quiz -->
+                  <div id="quizContainer"></div>
                 </div>
             `;
             
-            lucide.createIcons();
+            // Inyectar el Quiz después de crear el HTML principal
+            renderQuizBlock();
         }
 
         // Correr inicialización al cargar la página
